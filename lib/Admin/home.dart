@@ -1,6 +1,7 @@
 import 'package:election/widget/info_card.dart';
 import 'package:flutter/material.dart';
 import '../widget/info_card.dart';
+import '../widget/navbar.dart';
 
 //data for the admin dashboard
 
@@ -10,13 +11,17 @@ const position= 'Project supervision';
 const faculty= 'IT';
 const name= 'Ashish Sapkota';
 
-class HomePage extends StatelessWidget {
-  // const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  // const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 36, 152, 160),
+      backgroundColor: Color.fromARGB(255, 10, 65, 138),
       body: SafeArea( 
         minimum: const EdgeInsets.only(top:50),  
         //only giving styling in top 
@@ -24,7 +29,7 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             const CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assests/images/person.png'),
+                backgroundImage: AssetImage('assests/images/ashish.JPG'),
             ),
             const Text(name,
             // get from db

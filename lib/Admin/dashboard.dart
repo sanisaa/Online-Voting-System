@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './home.dart';
+import '../widget/navbar.dart';
 
 class AdminDashboard extends StatefulWidget {
   // const AdminDashboard({Key? key}) : super(key: key);
@@ -12,9 +13,17 @@ class AdminDashboard extends StatefulWidget {
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // removes debug banner
-      home: HomePage(),
-    );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Make Change'),
+        backgroundColor: Colors.purple,
+      ),
+      drawer:NavBar(),
+
+      body:MaterialApp(
+         debugShowCheckedModeBanner: false,// removes debug banner
+        home: HomePage(),
+    ),
+  );
   }
 }
