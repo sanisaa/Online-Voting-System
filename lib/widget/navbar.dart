@@ -7,6 +7,12 @@ class NavBar extends StatelessWidget {
   // const NavBar({Key? key}) : super(key: key);
     // VoidCallback Onpressed;
 
+  // NavBar({
+  //     required this.text, 
+  //     required this.icon,
+  //     required this.onPressed
+  // });
+
   @override
   Widget build(BuildContext context) {
    return Drawer(
