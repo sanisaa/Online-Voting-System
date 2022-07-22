@@ -21,7 +21,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
       drawer:NavBar(),
 
       body:MaterialApp(
-         debugShowCheckedModeBanner: false,// removes debug banner
+         debugShowCheckedModeBanner: false,// removes debug banner not working rn
         home: HomePage(),
     ),
   );
