@@ -1,17 +1,46 @@
 
+import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/home.dart';
+import 'package:election/voters.dart';
+import 'package:election/votes.dart';
 import 'package:flutter/material.dart';
-import '../Admin/home.dart';
+import '../candiateslist.dart';
 
 class NavBar extends StatelessWidget {
   // const NavBar({Key? key}) : super(key: key);
-    // VoidCallback Onpressed;
 
-  // NavBar({
-  //     required this.text, 
-  //     required this.icon,
-  //     required this.onPressed
-  // });
+void selectedItem(BuildContext context, int index){
+  Navigator.of(context).pop(); 
+  //doesnot show side bar when pressed back button from pages
+
+  switch(index){
+    case 0:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> AdminDashboard(),
+        ),);
+        break;
+    case 1:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> Candidates(),
+        ),);
+        break;
+    case 2:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> VotersList(),
+        ),);
+        break;
+    case 3:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> Votes(),
+        ),);
+        break;
+    case 4:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> AdminDashboard(),
+        ),);
+        break;
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +72,32 @@ class NavBar extends StatelessWidget {
         ListTile(
           leading:const Icon(Icons.account_box),
           title: const Text('profile'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,0),
         ),
         ListTile(
           leading: const Icon(Icons.person_add_alt_1_rounded),
           title: const Text('Candidates'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,1),
         ),
                 ListTile(
           leading:const Icon(Icons.person_add),
           title: const Text('Voters'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,2),
         ),
         ListTile(
           leading:const Icon(Icons.pages),
           title: const Text('Votes'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,3),
         ),
         ListTile(
           leading:const Icon(Icons.description),
           title: const Text('Complaints'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,3),
         ),
         ListTile(
           leading:const Icon(Icons.exit_to_app),
           title: const Text('Exit'),
-          onTap: ()=> {Navigator.of(context).pop()},
+          onTap: ()=> selectedItem(context ,4),
         ),
       ],
     ),
