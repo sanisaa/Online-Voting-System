@@ -4,7 +4,7 @@ import '../widget/navbar.dart';
 
 class AdminDashboard extends StatefulWidget {
   // const AdminDashboard({Key? key}) : super(key: key);
-  static const routeName= '/Admin-dashboard';
+  static const routeName = '/Admin-dashboard';
 
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
@@ -18,12 +18,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
         title: const Text('Make Change'),
         backgroundColor: Colors.purple,
       ),
-      drawer:NavBar(),
-
-      body:MaterialApp(
-         debugShowCheckedModeBanner: false,// removes debug banner
+      drawer: NavBar(),
+      body: MaterialApp(
+        debugShowCheckedModeBanner: false, // removes debug banner
         home: HomePage(),
-    ),
-  );
+      ),
+    );
   }
 }
