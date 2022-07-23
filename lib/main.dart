@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './login.dart';
 import 'Admin/dashboard.dart';
 
-void main()=> runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // const MyApp({Key? key}) : super(key: key);
@@ -10,11 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'OnlineVoting',
       initialRoute: '/',
       routes: {
         // '/': (ctx) =>Login(),
-        '/':(context) => AdminDashboard(),
+        '/': (context) => AdminDashboard(),
       },
     );
   }
