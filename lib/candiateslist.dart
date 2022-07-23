@@ -7,7 +7,7 @@ class Candidates extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Candidates'),
+        title: const Text('Candidates'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
