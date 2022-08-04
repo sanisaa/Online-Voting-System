@@ -1,9 +1,10 @@
+import 'package:election/addvoter.dart';
 import 'package:flutter/material.dart';
 
 class VotersList extends StatelessWidget {
-  const VotersList({Key? key}) : super(key: key);
+  // const VotersList({Key? key}) : super(key: key);
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -11,6 +12,16 @@ class VotersList extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context,
+           MaterialPageRoute(
+            builder: (context)=> addNewVoter(),
+            ),
+          );
+        },
+        ),
     );
   }
 }

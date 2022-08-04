@@ -1,7 +1,7 @@
 import 'package:election/widget/info_card.dart';
 import 'package:flutter/material.dart';
 import '../widget/info_card.dart';
-import '../widget/navbar.dart';
+// import '../widget/navbar.dart';
 
 //data for the admin dashboard
 
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 10, 65, 138),
+      backgroundColor: const Color.fromARGB(255, 10, 65, 138),
       body: SafeArea( 
         minimum: const EdgeInsets.only(top:50),  
         //only giving styling in top 
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             const CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assests/images/ashish.JPG'),
+                backgroundImage: AssetImage('assests/images/ashish.jpg'),
             ),
             const Text(name,
             // get from db
