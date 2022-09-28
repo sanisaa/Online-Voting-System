@@ -54,7 +54,7 @@ void selectedItem(BuildContext context, int index){
          accountEmail:  const Text('aryanashish223@gmail.com'),
          currentAccountPicture: CircleAvatar(
           child: ClipOval(
-            child: Image.asset('assests/images/ashish.jpg',
+            child: Image.asset('assets/images/ashish.jpg',
             fit: BoxFit.cover,
             width: 90,
             height: 90,
@@ -65,7 +65,7 @@ void selectedItem(BuildContext context, int index){
             color:Colors.blue,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assests/images/background.jpg'),
+              image: AssetImage('assets/images/background.jpg'),
               ),
           ),
          ),

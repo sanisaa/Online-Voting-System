@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             const CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assests/images/ashish.jpg'),
+                backgroundImage: AssetImage('assets/images/ashish.jpg'),
             ),
             const Text(name,
             // get from db

@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,13 +15,20 @@ class addNewVoter extends StatefulWidget {
 }
 
 class _addNewVoterState extends State<addNewVoter> {
-  
+  String dropdownvalue= 'Admin';
+  var roles= [
+    'Admin',
+    'Voter',
+    'Candidate',
+  ];
+
   TextEditingController name = TextEditingController();
+  TextEditingController sid = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController password= TextEditingController();
   TextEditingController phone= TextEditingController();
   TextEditingController faculty= TextEditingController();
   TextEditingController gender= TextEditingController();
+  TextEditingController role = TextEditingController();
 
 
 File? pickedImage;
@@ -83,39 +91,51 @@ File? pickedImage;
       }
 
    pickImage(ImageSource imageType) async {
-    try {
+  
       final photo = await ImagePicker().pickImage(source: imageType);
-      if (photo == null) return;
+      var uri="http://192.168.1.67/flutter/login.php/";
+      var request=http.MultipartRequest('POST',Uri.parse(uri)); // multipart for sending image to server
+      if(photo!=null){
+        var pic= await http.MultipartFile.fromPath("images",photo.path);
+        request.files.add(pic);
+       insertrecord();
+      }
+
+      else  return;
       final tempImage = File(photo.path);
       setState(() {
         pickedImage = tempImage;
       });
 
       Get.back();
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
+  //   } catch (error) {
+  //     debugPrint(error.toString());
+  //   }
+   }
 
-  // Future<void>insertrecord() async{
+  Future<void>insertrecord() async{
+        var url="http://192.168.1.67/flutter/login.php/"; 
+         final response=await http.post(Uri.parse(url),
+          body: {  
+          'name': name.text,
+          'email': email.text,
+          'phone':phone.text,
+          'faculty':faculty.text,
+          'gender':gender.text,
+          'sid':sid.text,
+          'image':pickedImage,
+          
+        }
+        );
 
-  //       String url="http://172.16.7.205/flutter/login.php/"; 
-  //       var response=await http.post(Uri.parse(url),
-
-  //       body: {  
-  //         "name": name.text,
-  //         "email": email.text,
-  //         "password": password.text,
-  //       });
-
-  //       var data=json.decode(json.encode(response.body));
-  //       if(data == "Error"){
-  //         print("Error");
+        var data=json.decode(json.encode(response.body));
+        if(data!= "data insertion Success"){
+          print(data);
     
-  //       }else{
-  //         print("Success");
-  //       }
-  //     }
+        }else{
+          print("Success");
+        }
+      }
 
   @override
   Widget build(BuildContext context) {
@@ -211,16 +231,6 @@ File? pickedImage;
                         border: OutlineInputBorder(), label: Text('Enter the Email')), 
                       ),
                   ),
-        
-                    Container(
-                    margin: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: password,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the student password')), 
-                      ),
-                    ),
-        
                     Container(
                     margin: EdgeInsets.all(10),
                     child: TextFormField(
@@ -247,11 +257,47 @@ File? pickedImage;
                         border: OutlineInputBorder(), label: Text('Enter the faculty')), 
                       ),
                     ),
-        
+                    Container(
+                    margin: const EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: sid,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(), label: Text('Enter the Student id'),
+                      ), 
+                    ),
+                  ),
+                    
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Column( 
+                          
+                      children: [
+                        DropdownButton(
+                          value: dropdownvalue,
+                          icon: const Icon(Icons.keyboard_arrow_down), 
+
+                            // Array list of items
+                          items: roles.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(items),
+                            );
+                          }).toList(),
+                            // After selecting the desired option,it will
+                            // change button value to selected value
+                          onChanged: (String? newValue) {
+                            setState(() {
+                           dropdownvalue = newValue!;
+                          });
+                          },
+                      ),
+                      ],
+                      ),
+                    ),
                     Container(
                       margin:const  EdgeInsets.all(10),
                       child: ElevatedButton(onPressed: (){
-                        // insertrecord();
+                        insertrecord();
                       },
                       child: const Text('Insert',),
                       ),
