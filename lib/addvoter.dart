@@ -1,10 +1,10 @@
 import 'dart:convert';
-// import 'dart:html';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:async';
 
 
 class addNewVoter extends StatefulWidget {
@@ -15,23 +15,17 @@ class addNewVoter extends StatefulWidget {
 }
 
 class _addNewVoterState extends State<addNewVoter> {
-  String dropdownvalue= 'Admin';
-  var roles= [
-    'Admin',
-    'Voter',
-    'Candidate',
-  ];
 
   TextEditingController name = TextEditingController();
-  TextEditingController sid = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phone= TextEditingController();
   TextEditingController faculty= TextEditingController();
   TextEditingController gender= TextEditingController();
-  TextEditingController role = TextEditingController();
+
 
 
 File? pickedImage;
+String imagePath="";
     void imagePickerOption() {
         Get.bottomSheet(
           SingleChildScrollView(
@@ -90,21 +84,11 @@ File? pickedImage;
         );
       }
 
-   pickImage(ImageSource imageType) async {
+   Future<void> pickImage(ImageSource gallery) async {
   
-      final photo = await ImagePicker().pickImage(source: imageType);
-      var uri="http://192.168.1.67/flutter/login.php/";
-      var request=http.MultipartRequest('POST',Uri.parse(uri)); // multipart for sending image to server
-      if(photo!=null){
-        var pic= await http.MultipartFile.fromPath("images",photo.path);
-        request.files.add(pic);
-       insertrecord();
-      }
-
-      else  return;
-      final tempImage = File(photo.path);
+      var photo = await ImagePicker().pickImage(source: gallery);
       setState(() {
-        pickedImage = tempImage;
+        pickedImage = File(photo!.path);
       });
 
       Get.back();
@@ -114,7 +98,11 @@ File? pickedImage;
    }
 
   Future<void>insertrecord() async{
-        var url="http://192.168.1.67/flutter/login.php/"; 
+
+List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
+      String baseimage = base64Encode(imageBytes);
+
+        var url="http://192.168.1.67/prac/create.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'name': name.text,
@@ -122,9 +110,7 @@ File? pickedImage;
           'phone':phone.text,
           'faculty':faculty.text,
           'gender':gender.text,
-          'sid':sid.text,
-          'image':pickedImage,
-          
+          'image':baseimage          
         }
         );
 
@@ -256,44 +242,7 @@ File? pickedImage;
                       decoration: InputDecoration(
                         border: OutlineInputBorder(), label: Text('Enter the faculty')), 
                       ),
-                    ),
-                    Container(
-                    margin: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: sid,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the Student id'),
-                      ), 
-                    ),
-                  ),
-                    
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: Column( 
-                          
-                      children: [
-                        DropdownButton(
-                          value: dropdownvalue,
-                          icon: const Icon(Icons.keyboard_arrow_down), 
-
-                            // Array list of items
-                          items: roles.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(items),
-                            );
-                          }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                          onChanged: (String? newValue) {
-                            setState(() {
-                           dropdownvalue = newValue!;
-                          });
-                          },
-                      ),
-                      ],
-                      ),
-                    ),
+                    ), 
                     Container(
                       margin:const  EdgeInsets.all(10),
                       child: ElevatedButton(onPressed: (){
