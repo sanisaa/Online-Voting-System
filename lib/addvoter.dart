@@ -85,16 +85,16 @@ String imagePath="";
       }
 
    Future<void> pickImage(ImageSource gallery) async {
-  
+  try{
       var photo = await ImagePicker().pickImage(source: gallery);
       setState(() {
         pickedImage = File(photo!.path);
       });
 
       Get.back();
-  //   } catch (error) {
-  //     debugPrint(error.toString());
-  //   }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
    }
 
   Future<void>insertrecord() async{
