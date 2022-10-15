@@ -5,7 +5,7 @@
     $connection = new mysqli("localhost","root","","election");
    
 
-    $sql = "select * from user";
+    $sql = "select * from user where rid=2";
     $result = mysqli_query($connection,$sql);
     $arr = [];
 

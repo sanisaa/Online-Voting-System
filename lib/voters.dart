@@ -14,7 +14,7 @@ class VotersList extends StatefulWidget {
 class _VotersListState extends State<VotersList>{
   List userdata=[];
   Future<void> getrecord() async{
-    String uri = "http://192.168.1.69/voting/php/list.php/"; 
+    String uri = "http://192.168.1.69/voting/php/display_user.php/"; 
     try{
       var response= await http.get(Uri.parse(uri));
       setState((){
