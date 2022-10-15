@@ -7,20 +7,21 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
 
-class addNewVoter extends StatefulWidget {
+class addNewCandidate extends StatefulWidget {
   // const addNewVoter({Key? key}) : super(key: key);
 
   @override
-  State<addNewVoter> createState() => _addNewVoterState();
+  State<addNewCandidate> createState() => _addNewCandidateState();
 }
 
-class _addNewVoterState extends State<addNewVoter> {
+class _addNewCandidateState extends State<addNewCandidate> {
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController phone= TextEditingController();
   TextEditingController faculty= TextEditingController();
   TextEditingController gender= TextEditingController();
+  TextEditingController agenda= TextEditingController();
 
 
 
@@ -102,7 +103,7 @@ String imagePath="";
 List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
       String baseimage = base64Encode(imageBytes);
 
-        var url="http://192.168.1.67/prac/php/regiisterVoter.php/"; 
+        var url="http://192.168.1.67/prac/php/registerCandidate.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'name': name.text,
@@ -110,6 +111,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
           'phone':phone.text,
           'faculty':faculty.text,
           'gender':gender.text,
+          'agenda':agenda.text,
           'image':baseimage          
         }
         );
@@ -241,6 +243,14 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       controller: faculty,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(), label: Text('Enter the faculty')), 
+                      ),
+                    ),
+                    Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: agenda,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(), label: Text('Enter the Agenda')), 
                       ),
                     ), 
                     Container(
