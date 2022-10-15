@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+//void main() => runApp(VotersList());
 
 class VotersList extends StatefulWidget {
   VotersList({Key? key}) : super(key: key);
@@ -46,7 +46,6 @@ class _VotersListState extends State<VotersList>{
             
               title: Text(userdata[index]["name"]),
               subtitle: Text(userdata[index]["email"]),
-          
             ),
             );
         }
