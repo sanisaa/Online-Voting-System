@@ -11,7 +11,7 @@
     $phone_no=$_POST['phone'];
     $gender=$_POST['gender'];
     $faculty=$_POST['faculty'];
-    $imagefile = "./images/$phone_no.jpg" ;
+    $imagefile = "./../images/$phone_no.jpg" ;
     $filehandler = fopen($imagefile, 'wb' );
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);

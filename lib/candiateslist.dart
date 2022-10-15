@@ -1,3 +1,4 @@
+import 'package:election/addcandidate.dart';
 import 'package:flutter/material.dart';
 
 class Candidates extends StatelessWidget {
@@ -11,6 +12,16 @@ class Candidates extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
+       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context,
+           MaterialPageRoute(
+            builder: (context)=> addNewCandidate(),
+            ),
+          );
+        },
+        ),
     );
   }
 }
