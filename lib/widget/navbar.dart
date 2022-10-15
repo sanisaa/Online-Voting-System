@@ -65,7 +65,7 @@ void selectedItem(BuildContext context, int index){
             color:Colors.blue,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/images/background.jpg'),
+              image: AssetImage('assets/images/background.JPG'),
               ),
           ),
          ),

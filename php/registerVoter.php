@@ -11,12 +11,13 @@
     $phone_no=$_POST['phone'];
     $gender=$_POST['gender'];
     $faculty=$_POST['faculty'];
-    $imagefile = "./../images/$phone_no.jpg" ;
+    $imagefile = "../images/$phone_no.jpg" ;
+    $imagePath="images/$phone_no.jpg";
     $filehandler = fopen($imagefile, 'wb' );
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);
 
-    $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagefile','')";
+    $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagePath','')";
     if (mysqli_query($connection, $sql))
 {
 echo "feedback sucessufully submitted";

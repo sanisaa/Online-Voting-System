@@ -14,7 +14,7 @@ class VotersList extends StatefulWidget {
 class _VotersListState extends State<VotersList>{
   List userdata=[];
   Future<void> getrecord() async{
-    String uri = "http://192.168.1.69/voting/php/list.php/"; 
+    String uri = "http://192.168.1.67/prac/php/voterlist.php/"; 
     try{
       var response= await http.get(Uri.parse(uri));
       setState((){
@@ -40,10 +40,26 @@ class _VotersListState extends State<VotersList>{
       body: ListView.builder(
         itemCount: userdata.length,
         itemBuilder: (context,index){
+          String image= userdata[index]['image'];
+          // print(image);
           return Card(
+            elevation: 10,
             margin: EdgeInsets.all(10),
             child: ListTile(
-            
+              leading: CircleAvatar(
+                minRadius: 10,
+                maxRadius: 50,
+                // radius: 20,
+                child: ClipOval(
+                  child: Image.network(
+                   'http://192.168.1.67/prac/$image',
+                   width: 60,
+                   height: 55,
+                   fit: BoxFit.cover,
+                  ),
+                ),
+                
+              ),
               title: Text(userdata[index]["name"]),
               subtitle: Text(userdata[index]["email"]),
           
