@@ -6,7 +6,6 @@
    
 
     $sql = "select * from user where rid=2";
-
     $result = mysqli_query($connection,$sql);
     $arr = [];
 

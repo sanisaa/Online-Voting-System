@@ -21,7 +21,7 @@ void selectedItem(BuildContext context, int index){
         break;
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> Candidates(),
+        builder: (context)=> CandidateList(),
         ),);
         break;
     case 2:
