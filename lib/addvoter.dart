@@ -85,16 +85,16 @@ String imagePath="";
       }
 
    Future<void> pickImage(ImageSource gallery) async {
-  
+  try{
       var photo = await ImagePicker().pickImage(source: gallery);
       setState(() {
         pickedImage = File(photo!.path);
       });
 
       Get.back();
-  //   } catch (error) {
-  //     debugPrint(error.toString());
-  //   }
+    } catch (error) {
+      debugPrint(error.toString());
+    }
    }
 
   Future<void>insertrecord() async{
@@ -102,7 +102,7 @@ String imagePath="";
 List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
       String baseimage = base64Encode(imageBytes);
 
-        var url="http://192.168.1.67/prac/create.php/"; 
+        var url="http://192.168.1.67/election/php/create.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'name': name.text,
