@@ -62,7 +62,7 @@ class _VotersListState extends State<VotersList>{
                      
                     ),
                   ),
-                  
+                  //
                 ),
                 title: Text(userdata[index]["name"]),
                 subtitle: Text(userdata[index]["email"]),
