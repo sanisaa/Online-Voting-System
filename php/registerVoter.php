@@ -19,6 +19,7 @@
 
     $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagePath','')";
     if (mysqli_query($connection, $sql))
+<<<<<<< HEAD
     {
     echo "feedback sucessufully submitted";
     }
@@ -26,6 +27,15 @@
     {
     echo "Error: " . $sql . "<br>" . mysqli_error($connection);
     }
+=======
+{
+echo "feedback sucessufully submitted";
+}
+else
+{
+echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+}
+>>>>>>> b8a47cdbbf4643584adf9dc3f4c8f4cddb59d950
     // $result = mysqli_query($connection, "insert into user set rid='$sid', name='$name', email='$email', phone_no='$phone_no', gender='$gender', faculty='$faculty', image='$imagePath'");
    
     // if($result){

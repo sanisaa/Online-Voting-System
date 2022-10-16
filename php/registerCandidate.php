@@ -19,7 +19,11 @@
     fclose($filehandler);
 
     $sql = "insert into user values('','3','$name','$email','$phone_no','$gender','$faculty','$imagePath','$agenda')";
+<<<<<<< HEAD
 if (mysqli_query($connection, $sql))
+=======
+    if (mysqli_query($connection, $sql))
+>>>>>>> b8a47cdbbf4643584adf9dc3f4c8f4cddb59d950
 {
 echo "feedback sucessufully submitted";
 }
