@@ -58,7 +58,6 @@ class _CandidateListState extends State<CandidateList>{
                    fit: BoxFit.cover,
                   ),
                 ),
-                
               ),
               title: Text(userdata[index]["name"]),
               subtitle: Text(userdata[index]["email"]),
