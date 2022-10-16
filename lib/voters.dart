@@ -59,6 +59,7 @@ class _VotersListState extends State<VotersList>{
                      width: 60,
                      height: 55,
                      fit: BoxFit.cover,
+                     
                     ),
                   ),
                   
