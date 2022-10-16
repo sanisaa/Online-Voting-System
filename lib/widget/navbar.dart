@@ -4,7 +4,7 @@ import 'package:election/Admin/home.dart';
 import 'package:election/voters.dart';
 import 'package:election/votes.dart';
 import 'package:flutter/material.dart';
-import '../candiateslist.dart';
+import '../candiates.dart';
 
 class NavBar extends StatelessWidget {
   // const NavBar({Key? key}) : super(key: key);

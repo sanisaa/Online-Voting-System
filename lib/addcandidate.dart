@@ -103,7 +103,7 @@ String imagePath="";
 List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
       String baseimage = base64Encode(imageBytes);
 
-        var url="http://192.168.1.67/prac/php/registerCandidate.php/"; 
+        var url="http://192.168.1.67/voting/php/registerCandidate.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'name': name.text,

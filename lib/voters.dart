@@ -14,7 +14,7 @@ class VotersList extends StatefulWidget {
 class _VotersListState extends State<VotersList>{
   List userdata=[];
   Future<void> getrecord() async{
-    String uri = "http://192.168.1.67/prac/php/voterlist.php/"; 
+    String uri = "http://192.168.1.67/voting/php/voterlist.php/"; 
     try{
       var response= await http.get(Uri.parse(uri));
       setState((){
@@ -52,7 +52,7 @@ class _VotersListState extends State<VotersList>{
                 // radius: 20,
                 child: ClipOval(
                   child: Image.network(
-                   'http://192.168.1.67/prac/$image',
+                   'http://192.168.1.67/voting/$image',
                    width: 60,
                    height: 55,
                    fit: BoxFit.cover,
