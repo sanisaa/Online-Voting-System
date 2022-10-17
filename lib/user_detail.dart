@@ -1,3 +1,6 @@
+// ignore_for_file: unnecessary_new
+
+import 'package:election/voters.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -7,40 +10,57 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
-class DetailView extends StatefulWidget {
-  DetailView({Key? key}) : super(key: key);
+import 'editdata.dart';
 
+class DetailView extends StatefulWidget {
+  List list;
+  int index;
+  DetailView({required this.index,required this.list});
   @override
-  State<DetailView> createState() => _DetailViewState();
+  _DetailViewState createState() =>  _DetailViewState();
+
 } 
 
 class _DetailViewState extends State<DetailView> {
 
- List userdata=[];
-  Future<void> getrecord() async{
-    String uri = "http://192.168.1.69/voting/php/user_detail.php/"; 
-    try{
-      var response= await http.get(Uri.parse(uri));
-      setState((){
-      userdata = jsonDecode(response.body);
-      });
-    }catch(e){print(e);}
-  }
-     @override
-  void initState(){
-    getrecord();
-    super.initState();
-  }
-  
+ void deleteData(){
+  var url="http://192.168.1.69/voting/php/delete.php";
+  http.post(Uri.parse(url), body: {
+    'uid': widget.list[widget.index]['uid']
+  });
+}
+void confirm (){
+  AlertDialog alertDialog = new AlertDialog(
+    content: new Text("Are You sure want to delete '${widget.list[widget.index]['name']}'"),
+    actions: <Widget>[
+      new RaisedButton(
+        child: new Text("OK DELETE!",style: new TextStyle(color: Colors.black),),
+        color: Colors.red,
+        onPressed: (){
+          deleteData();
+          Navigator.of(context).push(
+            new MaterialPageRoute(
+              builder: (BuildContext context)=> new VotersList(),
+            )
+          );
+        },
+      ),
+      new RaisedButton(
+        child: new Text("CANCEL",style: new TextStyle(color: Colors.black)),
+        color: Colors.green,
+        onPressed: ()=> Navigator.pop(context),
+      ),
+    ],
+  );
+
+  //showDialog(context: context, child: alertDialog);
+  showDialog(builder: (context) => alertDialog, context: context);
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: 
-          AppBar(
-              title: const Text('Detail'),
-                centerTitle: true,
-                backgroundColor: Colors.purple,
-          ),
+        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}")),
+               
         body: Container(
             child: Column( 
               children: [
@@ -77,46 +97,47 @@ class _DetailViewState extends State<DetailView> {
             ],
           ),
                     Container(
-                      margin: const EdgeInsets.all(10),
-                      child: Text( 'Name:', textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 20.0, 
-                      fontWeight: FontWeight.bold,)),
-                    ),
-                  
-                    Container(
-                      margin: EdgeInsets.all(10),
-                       child: Text('Email:',
-                        style: TextStyle(fontSize: 20.0,
-                        fontWeight: FontWeight.bold)),
-                    ),
-                      Container(
-                      margin: EdgeInsets.all(10),
-                      child:  Text('Phone number:',
-                       style: TextStyle(fontSize: 20.0,
-                       fontWeight: FontWeight.bold)),
+                       height: 270.0, 
+        padding: const EdgeInsets.all(20.0),
+        child: new Card(
+          child: new Center(
+            child: new Column(
+              children: <Widget>[
+
+                new Padding(padding: const EdgeInsets.only(top: 30.0),),
+                new Text(widget.list[widget.index]['name'], style: new TextStyle(fontSize: 20.0),),
+                new Text("Email : ${widget.list[widget.index]['email']}", style: new TextStyle(fontSize: 18.0),),
+                new Text("Phone : ${widget.list[widget.index]['phone']}", style: new TextStyle(fontSize: 18.0),),
+                new Text("Gender : ${widget.list[widget.index]['gender']}", style: new TextStyle(fontSize: 18.0),),
+                new Text("Faculty : ${widget.list[widget.index]['faculty']}", style: new TextStyle(fontSize: 18.0),),
+                new Padding(padding: const EdgeInsets.only(top: 30.0),),
+                 new Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    new RaisedButton(
+                      child: new Text("EDIT"),
+                      color: Colors.green,
+                      onPressed: ()=>Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (BuildContext context)=>new EditData(list: widget.list, index: widget.index,),
+                        )
                       ),
-                  
-                      Container(
-                      margin: EdgeInsets.all(10),
-                       child: Text('Gender:',
-                        style: TextStyle(fontSize: 20.0,
-                        fontWeight: FontWeight.bold)),
-                      ),
-                  
-                      Container(
-                      margin: EdgeInsets.all(10),
-                       child: Text('Faculty:',
-                       style: TextStyle(fontSize: 20.0,
-                       fontWeight: FontWeight.bold)),
-                      ), 
-                      Container(
-                      margin: EdgeInsets.all(10),
-                       child: Text('Agenda:',
-                        style: TextStyle(fontSize: 20.0,
-                        fontWeight: FontWeight.bold)),
-                      ), 
-                     ]),
                     ),
-    );
+                    new RaisedButton(
+                      child: new Text("DELETE"),
+                      color: Colors.red,
+                      onPressed: ()=>confirm(),
+                    ),
+                  ],
+                )
+
+              
+              ],
+            ),
+          ),
+        ),
+                    ),
+              ])));
+                      
   }
 }

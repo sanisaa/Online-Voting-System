@@ -3,12 +3,16 @@
 <?php 
      $connection = new mysqli("localhost","root","","election");
  
-     $uid=$_GET["uid"];
+    // $uid=$_GET["uid"];
+    $uid=(int) $_POST['uid'];
+
           
-     $selectquery = "select * from post where id='$uid' ";
+   // $selectquery = "select * from user where uid='$uid' ";
+    $selectquery = "select * from user where uid=? ";
     
      $query = mysqli_query($conn, $selectquery);
-     $result = mysqli_fetch_array($query);
+     $result = mysqli_fetch_assoc($query);
+     //$result = mysqli_fetch_array($query);
  
        $image = $result['image']; 
        $name = $result['name'];
@@ -17,7 +21,7 @@
        $gender=$result['gender'];
        $faculty=$result['faculty'];
        $agenda=$result['agenda'];
-     
+     echo json_encode(['result'=>$result]);
 
     //    print(json_encode($image));
     //    print(json_encode($name));
