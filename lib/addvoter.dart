@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:election/voters.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -247,6 +248,12 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       margin:const  EdgeInsets.all(10),
                       child: ElevatedButton(onPressed: (){
                         insertrecord();
+                         Navigator.of(context).push(
+            new MaterialPageRoute(
+              builder: (BuildContext context)=> new VotersList(),
+            )
+          );
+                     //   Navigator.pop(context);
                       },
                       child: const Text('Insert',),
                       ),

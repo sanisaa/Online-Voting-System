@@ -1,4 +1,5 @@
 import 'package:election/addcandidate.dart';
+import 'package:election/user_detail.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -9,11 +10,11 @@ class CandidateList extends StatefulWidget {
   CandidateList({Key? key}) : super(key: key);
 
  @override
- State<CandidateList> createState() => _CandidateListState();
+ State<CandidateList> createState() => _CandidateListState(userdata: []);
 }
 class _CandidateListState extends State<CandidateList>{
   List userdata=[];
-  Future<void> getrecord() async{
+  Future<List> getrecord() async{
     String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     try{
       var response= await http.get(Uri.parse(uri));
@@ -21,6 +22,7 @@ class _CandidateListState extends State<CandidateList>{
       userdata = jsonDecode(response.body);
       });
     }catch(e){print(e);}
+      return userdata;
   }
 
   @override
@@ -28,6 +30,8 @@ class _CandidateListState extends State<CandidateList>{
     getrecord();
     super.initState();
   }
+  //late final List list;
+  _CandidateListState({required this.userdata});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,8 @@ class _CandidateListState extends State<CandidateList>{
         backgroundColor: Colors.purple,
       ),
       body: ListView.builder(
-        itemCount: userdata.length,
+       // itemCount: userdata.length,
+        itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
           // print(image);
@@ -61,8 +66,13 @@ class _CandidateListState extends State<CandidateList>{
               ),
               title: Text(userdata[index]["name"]),
               subtitle: Text(userdata[index]["email"]),
-          
+          onTap: ()=>Navigator.of(context).push(
+            new MaterialPageRoute(
+              builder: (BuildContext context)=> new DetailView(
+                list:userdata, index: index)
+                )),
             ),
+          
             );
         }
       ),

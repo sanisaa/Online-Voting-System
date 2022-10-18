@@ -9,10 +9,10 @@ import 'package:http/http.dart' as http;
 
 
 class VotersList extends StatefulWidget {
-  VotersList({Key? key}) : super(key: key);
+   VotersList({Key? key}) : super(key: key);
 
  @override
- State<VotersList> createState() => _VotersListState();
+ State<VotersList> createState() => _VotersListState(userdata: []);
 }
 class _VotersListState extends State<VotersList>{
   List userdata=[];
@@ -32,6 +32,7 @@ class _VotersListState extends State<VotersList>{
     getrecord();
     super.initState();
   }
+ _VotersListState({required this.userdata});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,42 @@ class _VotersListState extends State<VotersList>{
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
-       floatingActionButton: FloatingActionButton(
+       body: ListView.builder(
+       // itemCount: userdata.length,
+        itemCount: userdata == null ? 0 : userdata.length,
+        itemBuilder: (context,index){
+          String image= userdata[index]['image'];
+          // print(image);
+          return Card(
+            elevation: 10,
+            margin: EdgeInsets.all(10),
+            child: ListTile(
+              leading: CircleAvatar(
+                minRadius: 10,
+                maxRadius: 50,
+                // radius: 20,
+                child: ClipOval(
+                  child: Image.network(
+                   'http://192.168.1.69/voting/$image',
+                   width: 60,
+                   height: 55,
+                   fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              title: Text(userdata[index]["name"]),
+              subtitle: Text(userdata[index]["email"]),
+          onTap: ()=>Navigator.of(context).push(
+            new MaterialPageRoute(
+              builder: (BuildContext context)=> new DetailView(
+                list:userdata, index: index)
+                )),
+            ),
+          
+            );
+        }
+      ),
+      floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.push(context,
@@ -51,69 +87,8 @@ class _VotersListState extends State<VotersList>{
           );
         },
         ),
-        // ignore: unnecessary_new
-      body: new FutureBuilder<List>(
-        future: getrecord(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
 
-          return snapshot.hasData
-              // ignore: unnecessary_new
-              ? new ItemList(
-                  list: snapshot.data!,
-                )
-              : new Center(
-                  child: new CircularProgressIndicator(),
-                );
-        },
-      ),
+
     );
   }
 }
-class ItemList extends StatelessWidget {
-  final List list;
-  
-  ItemList({required this.list});
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: list == null ? 0 : list.length,
-      itemBuilder: (context, i) {
-        return new Container(
-          padding: const EdgeInsets.all(10.0),
-          child: new GestureDetector(
-            onTap: ()=>Navigator.of(context).push(
-              new MaterialPageRoute(
-                builder: (BuildContext context)=> new DetailView(list:list , index: i,)
-              )
-            ),
-            child: new Card(
-
-              child: new ListTile(
-                title: new Text(list[i]['name']),
-                leading: CircleAvatar(
-                  minRadius: 10,
-                  maxRadius: 50,
-                  // radius: 20,
-                  child: ClipOval(
-                    child: Image.network(
-                       'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
-                    //'http://192.168.1.69/voting/$image',
-                     width: 60,
-                     height: 55,
-                     fit: BoxFit.cover,
-                     
-                    ),
-                  ),
-                ),
-                subtitle: new Text("Email : ${list[i]['email']}"),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
