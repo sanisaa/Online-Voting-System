@@ -17,7 +17,7 @@ $connection = new mysqli("localhost","root","","election");
     fclose($filehandler);
 
 	
-	$connection->query("UPDATE user SET rid='2', name='".$name."', email='".$email."', phone='".$phone."', gender='".$gender."',faculty='".$faculty."', image='".$image."', agenda='' WHERE uid=". $uid);
+	$connection->query("UPDATE user SET name='".$name."', email='".$email."', phone='".$phone."', gender='".$gender."',faculty='".$faculty."', image='".$imagePath."', agenda='' WHERE uid=". $uid);
     if (mysqli_query($connection, $sql)){
         echo "Edit Successful";
         }

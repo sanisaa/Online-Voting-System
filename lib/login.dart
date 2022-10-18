@@ -22,7 +22,7 @@ class Login extends StatelessWidget {
             Container(
               height: 200,
               child: const Image(
-                image:AssetImage('assests/images/logo.png',),
+                image:AssetImage('assests/images/logo.png'),
                 // fit: BoxFit.cover,
                 width: double.infinity,
               ),

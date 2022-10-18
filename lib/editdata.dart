@@ -105,6 +105,7 @@ String imagePath="";
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
      String baseimage = base64Encode(imageBytes);
     var url="http://192.168.1.67/voting/php/edit.php/";
+    // var url="http://192.168.1.69/voting/php/edit.php/";
    final response = await http.post(Uri.parse(url),
    body: {
       "uid": widget.list[widget.index]['uid'],
@@ -176,6 +177,8 @@ String imagePath="";
                           
                            :Image.network(
                              'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                            //  'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                             
                                 //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                 width: 170,
                                 height: 170,
@@ -211,12 +214,12 @@ String imagePath="";
                 new TextField(
                   controller: controllerName,
                   decoration: new InputDecoration(
-                      hintText: "Name", labelText: "Name"),
+                  hintText: "Name", labelText: "Name"),
                 ),
                 new TextField(
                   controller: controllerEmail,
                   decoration: new InputDecoration(
-                      hintText: "Email", labelText: "Email"),
+                  hintText: "Email", labelText: "Email"),
                 ),
                 new TextField(
                   controller: controllerPhone,

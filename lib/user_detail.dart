@@ -25,6 +25,7 @@ class _DetailViewState extends State<DetailView> {
 
  void deleteData(){
   var url="http://192.168.1.67/voting/php/delete.php";
+  // var url="http://192.168.1.67/voting/php/delete.php";
   http.post(Uri.parse(url), body: {
     'uid': widget.list[widget.index]['uid']
   });
@@ -86,6 +87,7 @@ void confirm (){
                             child :Image.network(
                              
                              'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                            //  'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
                                //  'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                   width: 170,
                                   height: 170,
