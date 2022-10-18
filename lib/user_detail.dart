@@ -1,4 +1,3 @@
-
 // ignore_for_file: unnecessary_new
 
 import 'package:election/voters.dart';

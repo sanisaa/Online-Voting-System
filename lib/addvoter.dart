@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
-
 class addNewVoter extends StatefulWidget {
   // const addNewVoter({Key? key}) : super(key: key);
 
