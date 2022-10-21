@@ -36,7 +36,11 @@
 
     //button ma flutter section ma yesto code halnu parxa
     
+<<<<<<< HEAD
     //<button class="view">    <a href="p.php?id=<?php echo $id; ?>"> View More</a> </button>
+=======
+    
+>>>>>>> ded0344c638017a3f0dbcf6117230749a2d503e6
  ?>
 
 
