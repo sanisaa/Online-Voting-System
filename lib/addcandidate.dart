@@ -130,7 +130,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
     return Scaffold(
         appBar: 
           AppBar(
-              title: const Text('Insert Voter'),
+              title: const Text('Insert Candidate'),
                 centerTitle: true,
                 backgroundColor: Colors.purple,
           ),
@@ -217,6 +217,17 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       controller: email,
                       decoration:const InputDecoration(
                         border: OutlineInputBorder(), label: Text('Enter the Email')), 
+                        keyboardType: TextInputType.emailAddress,
+                         validator: (email) {
+                          if (email!.isEmpty) {
+                            return 'Please a Enter';
+                          }
+                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            .hasMatch(email)) {
+                              return 'Please a valid Email';
+                          }
+                    return null;
+                  },
                       ),
                   ),
                     Container(
@@ -225,6 +236,15 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       controller: phone,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(), label: Text('Enter the Phone number')), 
+                      validator: (phone) {
+                    if (phone!.isEmpty) {
+                      return 'Please enter phone no ';
+                    }
+                    if (!RegExp("?[9][0-9]\d{8}").hasMatch(phone)) {
+                      return 'Enter the valid Phone number';
+                    }
+                    return null;
+                  },
                       ),
                     ),
                 

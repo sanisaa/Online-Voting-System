@@ -17,11 +17,16 @@
     $filehandler = fopen($imagefile, 'wb' );
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);
-
     $sql = "insert into user values('','3','$name','$email','$phone_no','$gender','$faculty','$imagePath','$agenda')";
+
     if (mysqli_query($connection, $sql))
 {
 echo "feedback sucessufully submitted";
+$selectquery = "select * from user where phone=".$phone_no;
+$query = mysqli_query($connection, $selectquery);
+$result = mysqli_fetch_assoc($query);
+  $uid = $result['uid']; 
+  $table=mysqli_query($connection,"insert into result values('','$uid','$name','0')");
 }
 else
 {

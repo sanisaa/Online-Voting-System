@@ -1,18 +1,15 @@
-import 'package:election/addcandidate.dart';
-import 'package:election/candidate_detail.dart';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 
-class CandidateList extends StatefulWidget {
-  CandidateList({Key? key}) : super(key: key);
+class Ballot extends StatefulWidget {
+  // Ballot({Key? key}) : super(key: key);
 
  @override
- State<CandidateList> createState() => _CandidateListState(userdata: []);
+ State<Ballot> createState() => _BallotState();
 }
-class _CandidateListState extends State<CandidateList>{
+class _BallotState extends State<Ballot>{
   List userdata=[];
   Future<List> getrecord() async{
     String uri = "http://192.168.1.67/voting/php/candidatelist.php/";
@@ -31,14 +28,53 @@ class _CandidateListState extends State<CandidateList>{
     getrecord();
     super.initState();
   }
-  //late final List list;
-  _CandidateListState({required this.userdata});
+  Future castVote(uid,name) async {
+    try{
 
+        String url = "http://192.168.1.67/voting/php/vote.php/";
+    //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/";
+          var response= await http.post(Uri.parse(url), body: {
+                'uid': uid,
+                'name':name,
+              });
+              var data=json.decode(json.encode(response.body));
+        if(data!= "data insertion Success"){
+          print(data);
+    
+        }else{
+          print("Success");
+        }
+            
+    }catch(e){
+      print(e);
+    }    
+        
+  }
+void confirm (uid,name){
+  AlertDialog alertDialog = new AlertDialog(
+    content: new Text("Are You sure want to vote s"),
+    actions: <Widget>[
+      new RaisedButton(
+        child: new Text("Yes! vote",style: new TextStyle(color: Colors.black),),
+        color: Colors.red,
+        onPressed: (){
+          castVote(uid,name);
+           AlertDialog alertDialog = new AlertDialog(
+            content: new Text("voted successfully")
+            );
+        },
+      ),
+    ],
+  );
+
+  //showDialog(context: context, child: alertDialog);
+  showDialog(builder: (context) => alertDialog, context: context);
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: Text('Candidates'),
+        title: Text('Cast your vote'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -47,7 +83,8 @@ class _CandidateListState extends State<CandidateList>{
         itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
-          // print(image);
+           var uid=userdata[index]['uid'];
+           var name=userdata[index]['name'];
           return Card(
             elevation: 10,
             margin: EdgeInsets.all(10),
@@ -66,28 +103,21 @@ class _CandidateListState extends State<CandidateList>{
                   ),
                 ),
               ),
+              trailing: RaisedButton(
+                child: new Text("Vote"),
+                color: Colors.green,
+                onPressed: (){
+                    confirm(uid,name);
+                }                      
+              ),
               title: Text(userdata[index]["name"]),
               subtitle: Text(userdata[index]["email"]),
-          onTap: ()=>Navigator.of(context).push(
-            new MaterialPageRoute(
-              builder: (BuildContext context)=> new DetailView(
-                list:userdata, index: index)
-                )),
             ),
           
             );
         }
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: (){
-          Navigator.push(context,
-           MaterialPageRoute(
-            builder: (context)=> addNewCandidate(),
-            ),
-          );
-        },
-        ),
     );
   }
 }
+

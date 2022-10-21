@@ -1,6 +1,7 @@
 
 import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/home.dart';
+import 'package:election/ballot.dart';
 import 'package:election/voters.dart';
 import 'package:election/votes.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ void selectedItem(BuildContext context, int index){
         break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> Votes(),
+        builder: (context)=> Ballot(),
         ),);
         break;
     case 4:
@@ -91,7 +92,7 @@ void selectedItem(BuildContext context, int index){
         ),
         ListTile(
           leading:const Icon(Icons.description),
-          title: const Text('Complaints'),
+          title: const Text('Ballot'),
           onTap: ()=> selectedItem(context ,3),
         ),
         ListTile(

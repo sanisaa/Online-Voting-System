@@ -104,7 +104,7 @@ String imagePath="";
   Future<void> editData() async {
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
      String baseimage = base64Encode(imageBytes);
-    var url="http://192.168.1.67/voting/php/edit.php/";
+    var url="http://192.168.1.67/voting/php/editvoter.php/";
     // var url="http://192.168.1.69/voting/php/edit.php/";
    final response = await http.post(Uri.parse(url),
    body: {

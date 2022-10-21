@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:election/addvoter.dart';
-import 'package:election/user_detail.dart';
+import 'package:election/voter_detail.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

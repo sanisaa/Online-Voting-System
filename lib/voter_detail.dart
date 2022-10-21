@@ -9,8 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
-
-import 'editdata.dart';
+import 'editvoterdata.dart';
 
 class DetailView extends StatefulWidget {
   List list;
@@ -66,7 +65,7 @@ void confirm (){
         body: Container(
             child: Column( 
               children: [
-                          Column(
+                  Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(
@@ -100,9 +99,9 @@ void confirm (){
               ),
             ],
           ),
-                    Container(
-                       height: 270.0, 
-        padding: const EdgeInsets.all(20.0),
+          Container(
+          height: 270.0, 
+          padding: const EdgeInsets.all(20.0),
         child: new Card(
           child: new Center(
             child: new Column(
@@ -134,14 +133,12 @@ void confirm (){
                     ),
                   ],
                 )
-
-              
               ],
             ),
           ),
         ),
-                    ),
-              ])));
+      ),
+    ])));
                       
   }
 }
