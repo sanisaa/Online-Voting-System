@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -52,16 +54,18 @@ class _BallotState extends State<Ballot>{
   }
 void confirm (uid,name){
   AlertDialog alertDialog = new AlertDialog(
-    content: new Text("Are You sure want to vote s"),
+    // ignore: prefer_interpolation_to_compose_strings
+    content: new Text("Are You sure want to vote " +name),
     actions: <Widget>[
       new RaisedButton(
         child: new Text("Yes! vote",style: new TextStyle(color: Colors.black),),
-        color: Colors.red,
+        color: Colors.green,
         onPressed: (){
-          castVote(uid,name);
-           AlertDialog alertDialog = new AlertDialog(
+            AlertDialog alertDialog = new AlertDialog(
             content: new Text("voted successfully")
             );
+          castVote(uid,name);
+
         },
       ),
     ],
