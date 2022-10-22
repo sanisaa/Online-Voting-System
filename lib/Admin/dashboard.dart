@@ -1,28 +1,94 @@
 import 'package:flutter/material.dart';
 import './home.dart';
 import '../widget/navbar.dart';
+import 'package:election/widget/info_card.dart';
+import 'package:flutter/material.dart';
+import '../widget/info_card.dart';
 
+import 'package:http/http.dart' as http;
 class AdminDashboard extends StatefulWidget {
-  // const AdminDashboard({Key? key}) : super(key: key);
-  static const routeName = '/Admin-dashboard';
-
+    var email;
+  AdminDashboard(@required this.email);
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+
+  // const HomePage({Key? key}) : super(key: key);
+     Future<void> getrecord() async{
+    String uri = "http://192.168.1.67/voting/php/admindata.php/";
+    final response=await http.post(Uri.parse(uri),
+          body: { 
+          'email': email,
+          }
+    );
+   }
+  @override
+  void initState(){
+    getrecord();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: const Text('Make Change'),
+    //     backgroundColor: Colors.purple,
+    //   ),
+    //   drawer: NavBar(),
+    //   body: MaterialApp(
+    //     debugShowCheckedModeBanner: false, // removes debug banner
+    //     // home: HomePage(),
+    //   ),
+    // );
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Make Change'),
-        backgroundColor: Colors.purple,
-      ),
-      drawer: NavBar(),
-      body: MaterialApp(
-        debugShowCheckedModeBanner: false, // removes debug banner
-        home: HomePage(),
-      ),
+      backgroundColor: const Color.fromARGB(255, 10, 65, 138),
+      body: SafeArea( 
+        minimum: const EdgeInsets.only(top:50),  
+        //only giving styling in top 
+        child:Column(
+          children: <Widget>[
+            const CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/images/ashish.jpg'),
+            ),
+    //         // const Text(name,
+    //         // // get from db
+    //         // style: TextStyle(
+    //         //   fontSize: 40.0,
+    //         //   color: Colors.white,
+    //         //   fontWeight: FontWeight.bold,
+    //         // ),
+    //         // ),
+    //         // const Text(
+    //         //   position, //get data from db
+    //         //   style: TextStyle(
+    //         //     fontSize: 30,
+    //         //     color: Colors.amberAccent,
+    //         //     letterSpacing: 2.5,
+    //         //     fontWeight: FontWeight.bold,
+
+    //         //   ),
+    //         // ),
+
+            const SizedBox(
+              height: 50,
+              width: 250,
+              child: Divider(
+                color: Colors.white,
+                thickness: 3,
+                ),
+            ),
+
+    //         // InfoCard(text: faculty, icon: Icons.book, onPressed: () {}),
+    //         // InfoCard(text: position, icon: Icons.admin_panel_settings_rounded, onPressed: () {}),
+    //         // InfoCard(text: phone, icon: Icons.phone, onPressed: () {}),
+            InfoCard(text: email, icon: Icons.email, onPressed: () {}),
+            
+          ],
+        ), 
+        ),
     );
   }
 }

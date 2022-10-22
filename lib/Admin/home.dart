@@ -1,6 +1,7 @@
 import 'package:election/widget/info_card.dart';
 import 'package:flutter/material.dart';
 import '../widget/info_card.dart';
+import 'package:http/http.dart' as http;
 // import '../widget/navbar.dart';
 
 //data for the admin dashboard
@@ -12,12 +13,28 @@ const faculty= 'IT';
 const name= 'Ashish Sapkota';
 
 class HomePage extends StatefulWidget {
+    var email;
+  HomePage(@required this.email);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
   // const HomePage({Key? key}) : super(key: key);
+     Future<void> getrecord() async{
+    String uri = "http://192.168.1.67/voting/php/admindata.php/";
+    final response=await http.post(Uri.parse(uri),
+          body: { 
+          'email': email,
+          }
+    );
+   }
+  @override
+  void initState(){
+    getrecord();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

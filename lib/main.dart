@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'OnlineVoting',
       initialRoute: '/',
       routes: {
-        // '/': (ctx) =>Login(),
-        '/': (context) => AdminDashboard(),
+        '/': (ctx) =>Login(),
+        // '/': (context) => AdminDashboard(),
       },
     );
   }

@@ -6,6 +6,8 @@ import 'package:election/voters.dart';
 import 'package:election/votes.dart';
 import 'package:flutter/material.dart';
 import '../candiates.dart';
+// import '../startend (2).dart';
+// import '../startend.dart';
 
 class NavBar extends StatelessWidget {
   // const NavBar({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ void selectedItem(BuildContext context, int index){
   switch(index){
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(),
+        builder: (context)=> AdminDashboard(email),
         ),);
         break;
     case 1:
@@ -37,9 +39,14 @@ void selectedItem(BuildContext context, int index){
         break;
     case 4:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(),
+        builder: (context)=> AdminDashboard(email),
         ),);
         break;
+      //       case 5:
+      // Navigator.of(context).push(MaterialPageRoute(
+      //   builder: (context)=> StartEnd(),
+      //   ),);
+      //   break;
   }
 }
 
@@ -99,6 +106,11 @@ void selectedItem(BuildContext context, int index){
           leading:const Icon(Icons.exit_to_app),
           title: const Text('Exit'),
           onTap: ()=> selectedItem(context ,4),
+        ),
+                ListTile(
+          leading:const Icon(Icons.description),
+          title: const Text('start'),
+          onTap: ()=> selectedItem(context ,5),
         ),
       ],
     ),

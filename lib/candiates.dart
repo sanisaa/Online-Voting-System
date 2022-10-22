@@ -73,8 +73,7 @@ class _CandidateListState extends State<CandidateList>{
               builder: (BuildContext context)=> new DetailView(
                 list:userdata, index: index)
                 )),
-            ),
-          
+            ), 
             );
         }
       ),
