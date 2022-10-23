@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
   // const InfoCard({Key? key}) : super(key: key);
-
   final String text;
   final IconData icon;
   VoidCallback onPressed;

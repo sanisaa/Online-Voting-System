@@ -49,60 +49,72 @@ class _HomePageState extends State<HomePage> {
         itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
-        return Container(
-          color: Colors.white,
-              height: 600,
-              child: Column( 
-                children: [
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.indigo, width: 5),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(100),
-                                ),
-                              ),
-                              child: ClipOval(
-                              child :Image.network(              
-                               'http://192.168.1.67/voting/${userdata[index]['image']}',
-                                    width: 170,
-                                    height: 170,
-                                    fit: BoxFit.cover,
-                                  ),
-                          ),
-                        ),
-                          const SizedBox(
-                              height: 50,
-                              width: 250,
-                              child: Divider(
-                              color: Colors.white,
-                              thickness: 3,
-                              ),
-                          ),
+        return SingleChildScrollView(
+       
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                   Align(
+                    alignment: Alignment.center,
+                    child: Stack(
+                      children: [
                         Container(
-                          child:InfoCard(text: userdata[index]["name"], icon: Icons.phone, onPressed: () {}),
-                          padding:const EdgeInsets.all(150) ,
-                        ),
-                        Container(
-                          child:InfoCard(text: userdata[index]["phone"], icon: Icons.phone, onPressed: () {}),
-                          padding :const EdgeInsets.all(200),
-                        )
-                    ],
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.indigo, width: 5),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+            child: ClipOval(
+                  child: Image.network(
+                   'http://192.168.1.67/voting/$image',
+                  //  'http://192.168.1.69/voting/$image',
+                   width: 200,
+                   height: 200,
+                   fit: BoxFit.cover,
                   ),
                 ),
+            ),
+            ]
+            ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: <Widget>[
+                  Container(
+                          child:InfoCard(text: userdata[index]["name"], icon: Icons.account_circle, onPressed: () {}),
+                        ),
+                         Container(
+                          child:InfoCard(text: userdata[index]["email"], icon: Icons.mail, onPressed: () {}),
+                        ),
+                         Container(
+                          
+                          child:InfoCard(text: userdata[index]["phone"], icon: Icons.phone, onPressed: () {}),
+                        ),
+                         Container(
+                          child:InfoCard(text: userdata[index]["gender"], icon: Icons.boy, onPressed: () {}),
+                        ),
+                         Container(
+                          child:InfoCard(text: userdata[index]["uid"], icon: Icons.add_outlined, onPressed: () {}),
+                        ),
+                        Container(
+                          child:InfoCard(text: "Admin", icon: Icons.admin_panel_settings_outlined, onPressed: () {}),
+                        )
               ],
             ),
-        ],),
-        );
+          ],
+        ),
+          ],
+        
+        )
+      );
         }
       ),
       // SafeArea( 
