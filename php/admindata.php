@@ -2,7 +2,7 @@
 mysqli("localhost","root","","election");
  
     // $uid=$_GET["uid"];
-    $email=$_POST['email'];
+    $email=$_GET['email'];
 
           
    $selectquery = "select * from user where email='$email' ";

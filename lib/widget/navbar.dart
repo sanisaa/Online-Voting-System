@@ -1,4 +1,3 @@
-
 import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/home.dart';
 import 'package:election/ballot.dart';
@@ -10,6 +9,8 @@ import '../candiates.dart';
 // import '../startend.dart';
 
 class NavBar extends StatelessWidget {
+      var email;
+ NavBar(@required this.email);
   // const NavBar({Key? key}) : super(key: key);
 
 void selectedItem(BuildContext context, int index){
