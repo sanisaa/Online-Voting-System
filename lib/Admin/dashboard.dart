@@ -17,19 +17,19 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminDashboard> {
-       Future<void> getrecord() async{
-    String uri = "http://192.168.1.67/voting/php/admindata.php/";
-    final response=await http.post(Uri.parse(uri),
-          body: { 
-          'email': widget.email,
-          }
-    );
-   }
-  @override
-  void initState(){
-    getrecord();
-    super.initState();
-  }
+  //      Future<void> getrecord() async{
+  //   String uri = "http://192.168.1.67/voting/php/admindata.php/";
+  //   final response=await http.post(Uri.parse(uri),
+  //         body: { 
+  //         'email': widget.email,
+  //         }
+  //   );
+  //  }
+  // @override
+  // void initState(){
+  //   getrecord();
+  //   super.initState();
+  // }
   // _AdminPageState({required this.userdata});
   @override
   Widget build(BuildContext context) {

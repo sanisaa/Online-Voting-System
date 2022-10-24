@@ -23,17 +23,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   // const HomePage({Key? key}) : super(key: key);
-  List userdata=[];
-  Future<List> getrecord() async{
-    String uri = "http://192.168.1.67/voting/php/candidatelist.php/";
+  var userdata;
+ Future<void>  getrecord() async{
+    String uri = "http://192.168.1.67/voting/php/admindata.php/";
     //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     try{
-      var response= await http.get(Uri.parse(uri));
+      var response= await http.post(Uri.parse(uri),body: {
+        'email':widget.email,
+      });
       setState((){
-      userdata = jsonDecode(response.body);
+        print(response.body);
+      userdata = json.decode(response.body);
       });
     }catch(e){print(e);}
-      return userdata;
+
+    // String url = "http://192.168.1.67/voting/php/admindata.php/";
+    // //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
+    // try{
+    //   var res= await http.get(Uri.parse(url));
+    //   setState((){
+    //   userdata = jsonDecode(res.body);
+    //   });
+    //   }catch(e){
+    //     print(e);
+    //   }
+      // return userdata;
   }
 
   @override
@@ -49,6 +63,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
+          print(userdata[index]['name']);
         return SingleChildScrollView(
        
         child: Column(
