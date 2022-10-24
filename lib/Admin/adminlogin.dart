@@ -1,27 +1,30 @@
+// ignore_for_file: unnecessary_new
+
 import 'dart:convert';
 import 'dart:io';
+import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/home.dart';
-import 'package:election/voters.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'Admin/dashboard.dart';
+
+import '../user/userlogin.dart';
 //import 'verify_otp.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class ALogin extends StatefulWidget {
+  const ALogin({Key? key}) : super(key: key);
  
   @override
-  State<Login> createState() => _LoginState();
+  State<ALogin> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<ALogin> {
   TextEditingController email= TextEditingController();
   TextEditingController otp= TextEditingController();
 
   Future<void>sendOTP() async{
 
-        var url="http://192.168.1.67/smtpmail/mail.php/"; 
+        var url="http://192.168.1.69/smtpmail/mail.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'email': email.text,
@@ -44,7 +47,7 @@ class _LoginState extends State<Login> {
   }
   Future<void>verify() async{
 
-        var url="http://192.168.1.67/smtpmail/verification.php/"; 
+        var url="http://192.168.1.69/smtpmail/verification.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
             
@@ -67,8 +70,6 @@ class _LoginState extends State<Login> {
          }
 
  }
- Future<void>login() async{
- }
 
 
   @override
@@ -82,9 +83,31 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           ),
           child: Column(
+        
          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Text("Login", 
+            new Row(
+               mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+             new RaisedButton(
+                      child: new Text("User"),
+                      color: Colors.blue,
+                      onPressed: ()=>Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (BuildContext context)=>Login(),),
+                        )
+                      ),
+                  Padding(padding:  EdgeInsets.all(5.0),),
+                    new RaisedButton(
+                      child: new Text("Admin"),
+                      color: Colors.red,
+                      onPressed: ()=> Navigator.of(context).push(
+                        new MaterialPageRoute(
+                          builder: (BuildContext context)=>ALogin()),
+                        )
+                    ),],),
+                             Padding(padding:  EdgeInsets.all(15.0),),
+          Text(" Admin Login", 
           style: Theme.of(context).textTheme.headline5!.copyWith(
             color: Color.fromARGB(255, 6, 92, 161),
             fontWeight:FontWeight.bold,
@@ -105,7 +128,7 @@ class _LoginState extends State<Login> {
                      
                     ),
                         
-                 //  TextButton(onPressed: () {}, child: Text("Send OTP"),),
+              
                   ),
                   Container(
                     margin: EdgeInsets.all(10),
@@ -113,9 +136,7 @@ class _LoginState extends State<Login> {
                       controller: otp,
                       decoration:InputDecoration(
                         border: OutlineInputBorder(), label: Text('Enter the otp'),
-                        //  suffixIcon: IconButton(icon: Icon(Icons.send),
-                        // tooltip: "Verify",
-                        // onPressed: verify), 
+
                         
                         
                       ),

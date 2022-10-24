@@ -1,11 +1,10 @@
 // ignore_for_file: unnecessary_new
-
-import 'package:election/addvoter.dart';
-import 'package:election/voter_detail.dart';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../addform/addvoter.dart';
+import '../detail/candidate_detail.dart';
 
 
 class VotersList extends StatefulWidget {

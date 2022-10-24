@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_new
 
-import 'package:election/voters.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -9,7 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
-import 'editvoterdata.dart';
+import '../editdata/editvoterdata.dart';
+import '../lists/voters.dart';
 
 class DetailView extends StatefulWidget {
   List list;

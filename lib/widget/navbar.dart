@@ -1,8 +1,9 @@
 import 'package:election/Admin/dashboard.dart';
-import 'package:election/ballot.dart';
-import 'package:election/voters.dart';
 import 'package:flutter/material.dart';
-import '../candiates.dart';
+import '../Admin/lists/ballot.dart';
+import '../Admin/lists/candiates.dart';
+import '../Admin/lists/voters.dart';
+
 // import '../startend (2).dart';
 // import '../startend.dart';
 

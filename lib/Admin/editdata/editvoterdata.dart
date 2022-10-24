@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import './voters.dart';
+import '../lists/voters.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditData extends StatefulWidget {

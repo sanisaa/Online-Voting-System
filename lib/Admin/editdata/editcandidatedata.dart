@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import './voters.dart';
+import '../lists/candiates.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditData extends StatefulWidget {
@@ -28,6 +28,7 @@ class _EditDataState extends State<EditData> {
   TextEditingController controllerPhone = new TextEditingController();
   TextEditingController controllerGender = new TextEditingController();
   TextEditingController controllerFaculty = new TextEditingController();
+  TextEditingController controllerAgenda = new TextEditingController();
   //TextEditingController controlleragenda = new TextEditingController();
 File? pickedImage;
 String imagePath="";
@@ -104,15 +105,18 @@ String imagePath="";
   Future<void> editData() async {
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
      String baseimage = base64Encode(imageBytes);
-    var url="http://192.168.1.69/voting/php/edit.php/";
+    var url="http://192.168.1.67/voting/php/editcandidate.php/";
+    // var url="http://192.168.1.69/voting/php/edit.php/";
    final response = await http.post(Uri.parse(url),
    body: {
+      "rid":widget.list[widget.index]['rid'],
       "uid": widget.list[widget.index]['uid'],
       "name": controllerName.text,
       "email": controllerEmail.text,
       "phone": controllerPhone.text,
       "gender": controllerGender.text,
       "faculty": controllerFaculty.text,
+      "agenda": controllerAgenda.text,
        'image':baseimage 
     });
      var data=json.decode(json.encode(response.body));
@@ -175,7 +179,9 @@ String imagePath="";
                             )
                           
                            :Image.network(
-                             'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
+                             'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                            //  'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                             
                                 //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                 width: 170,
                                 height: 170,
@@ -211,12 +217,12 @@ String imagePath="";
                 new TextField(
                   controller: controllerName,
                   decoration: new InputDecoration(
-                      hintText: "Name", labelText: "Name"),
+                  hintText: "Name", labelText: "Name"),
                 ),
                 new TextField(
                   controller: controllerEmail,
                   decoration: new InputDecoration(
-                      hintText: "Email", labelText: "Email"),
+                  hintText: "Email", labelText: "Email"),
                 ),
                 new TextField(
                   controller: controllerPhone,
@@ -243,7 +249,7 @@ String imagePath="";
                     editData();
                     Navigator.of(context).push(
                       new MaterialPageRoute(
-                        builder: (BuildContext context)=>new VotersList()
+                        builder: (BuildContext context)=>new CandidateList()
                       )
                     );
                   },

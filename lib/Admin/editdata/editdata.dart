@@ -1,29 +1,34 @@
+
+// ignore_for_file: unnecessary_new
+
 import 'dart:convert';
 import 'dart:io';
-import 'package:election/voters.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import '../lists/voters.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:async';
 
-class addNewVoter extends StatefulWidget {
-  // const addNewVoter({Key? key}) : super(key: key);
+class EditData extends StatefulWidget {
+  final List list;
+  final int index;
+
+  EditData({required this.list, required this.index});
 
   @override
-  State<addNewVoter> createState() => _addNewVoterState();
+  _EditDataState createState() => new _EditDataState();
 }
 
-class _addNewVoterState extends State<addNewVoter> {
+class _EditDataState extends State<EditData> {
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phone= TextEditingController();
-  TextEditingController faculty= TextEditingController();
-  TextEditingController gender= TextEditingController();
-
-
-
+  
+  TextEditingController controllerName = new TextEditingController();
+  TextEditingController controllerEmail = new TextEditingController();
+  TextEditingController controllerPhone = new TextEditingController();
+  TextEditingController controllerGender = new TextEditingController();
+  TextEditingController controllerFaculty = new TextEditingController();
+  //TextEditingController controlleragenda = new TextEditingController();
 File? pickedImage;
 String imagePath="";
     void imagePickerOption() {
@@ -83,8 +88,7 @@ String imagePath="";
           ),
         );
       }
-
-   Future<void> pickImage(ImageSource gallery) async {
+      Future<void> pickImage(ImageSource gallery) async {
   try{
       var photo = await ImagePicker().pickImage(source: gallery);
       setState(() {
@@ -97,53 +101,58 @@ String imagePath="";
     }
    }
 
-  Future<void>insertrecord() async{
-
-List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
-      String baseimage = base64Encode(imageBytes);
-
-        var url="http://192.168.1.67/voting/php/registerVoter.php/"; 
-        // var url="http://192.168.1.69/voting/php/registerVoter.php/"; 
-         final response=await http.post(Uri.parse(url),
-          body: {  
-          'name': name.text,
-          'email': email.text,
-          'phone':phone.text,
-          'faculty':faculty.text,
-          'gender':gender.text,
-          'image':baseimage          
-        }
-        );
-
-        var data=json.decode(json.encode(response.body));
-        if(data!= "data insertion Success"){
+  Future<void> editData() async {
+    List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
+     String baseimage = base64Encode(imageBytes);
+    var url="http://192.168.1.69/voting/php/edit.php/";
+   final response = await http.post(Uri.parse(url),
+   body: {
+      "uid": widget.list[widget.index]['uid'],
+      "name": controllerName.text,
+      "email": controllerEmail.text,
+      "phone": controllerPhone.text,
+      "gender": controllerGender.text,
+      "faculty": controllerFaculty.text,
+       'image':baseimage 
+    });
+     var data=json.decode(json.encode(response.body));
+        if(data!= "Edit Success"){
           print(data);
     
         }else{
           print("Success");
         }
-      }
+  }
+
+
+  @override
+    void initState() {
+      
+      controllerName= new TextEditingController(text: widget.list[widget.index]['name'] );
+      controllerEmail= new TextEditingController(text: widget.list[widget.index]['email'] );
+      controllerPhone= new TextEditingController(text: widget.list[widget.index]['phone'] );
+      controllerGender= new TextEditingController(text: widget.list[widget.index]['gender'] );
+      controllerFaculty= new TextEditingController(text: widget.list[widget.index]['faculty'] );
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: 
-          AppBar(
-              title: const Text('Insert Voter'),
-                centerTitle: true,
-                backgroundColor: Colors.purple,
-          ),
-        body: SingleChildScrollView(
-          child: Column( 
-            
-            children: [
-                        Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("EDIT DATA"),
+      ),
+      body: SingleChildScrollView(
+       
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
                   const SizedBox(
                     height: 50,
                   ),
-                  Align(
+                   Align(
                     alignment: Alignment.center,
                     child: Stack(
                       children: [
@@ -154,7 +163,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                               Radius.circular(100),
                             ),
                           ),
-                          child: ClipOval(
+            child: ClipOval(
                           child: pickedImage!= null 
                           ?Image.file(
                             pickedImage!,               
@@ -166,14 +175,15 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                             )
                           
                            :Image.network(
-                                'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
+                             'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
+                                //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                 width: 170,
                                 height: 170,
                                 fit: BoxFit.cover,
                               ),
                       ),
-                    ),
-                    Positioned(
+            ),
+            Positioned(
                       bottom: 0,
                       right: 5,
                       child: IconButton(
@@ -185,10 +195,8 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       ),
                     ),
                   )
-                ],
-              ),
-            ),
-            const SizedBox(
+                      ]),),
+                      const SizedBox(
               height: 20,
             ),
             Padding(
@@ -197,70 +205,54 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                   onPressed: imagePickerOption,
                   icon: const Icon(Icons.add_a_photo_sharp),
                   label: const Text('UPLOAD IMAGE')),
-            )
+            )],),
+            new Column(
+              children: <Widget>[
+                new TextField(
+                  controller: controllerName,
+                  decoration: new InputDecoration(
+                      hintText: "Name", labelText: "Name"),
+                ),
+                new TextField(
+                  controller: controllerEmail,
+                  decoration: new InputDecoration(
+                      hintText: "Email", labelText: "Email"),
+                ),
+                new TextField(
+                  controller: controllerPhone,
+                  decoration: new InputDecoration(
+                      hintText: "Phone_number", labelText: "Phone_number"),
+                ),
+                new TextField(
+                  controller: controllerGender,
+                  decoration: new InputDecoration(
+                      hintText: "Gender", labelText: "Gender"),
+                ),
+                 new TextField(
+                  controller: controllerFaculty,
+                  decoration: new InputDecoration(
+                      hintText: "Faculty", labelText: "Faculty"),
+                ),
+                new Padding(
+                  padding: const EdgeInsets.all(10.0),
+                ),
+                new RaisedButton(
+                  child: new Text("EDIT DATA"),
+                  color: Colors.blueAccent,
+                  onPressed: () {
+                    editData();
+                    Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (BuildContext context)=>new VotersList()
+                      )
+                    );
+                  },
+                )
+              ],
+            ),
           ],
-              ),
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: name,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the Name'),
-                      ), 
-                    ),
-                  ),
-        
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: email,
-                      decoration:const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the Email')), 
-                      ),
-                  ),
-                    Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: phone,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the Phone number')), 
-                      ),
-                    ),
-                
-                    Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: gender,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the Gender')), 
-                      ),
-                    ),
-        
-                    Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: faculty,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the faculty')), 
-                      ),
-                    ), 
-                    Container(
-                      margin:const  EdgeInsets.all(10),
-                      child: ElevatedButton(onPressed: (){
-                        insertrecord();
-                         Navigator.of(context).push(
-            new MaterialPageRoute(
-              builder: (BuildContext context)=> new VotersList(),
-            )
-          );
-                     //   Navigator.pop(context);
-                      },
-                      child: const Text('Insert',),
-                      ),
-                    ),
-                    
-                    ]),
         ),
+      ),
     );
   }
 }

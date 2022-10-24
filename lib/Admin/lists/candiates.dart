@@ -1,9 +1,11 @@
-import 'package:election/addcandidate.dart';
-import 'package:election/candidate_detail.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import '../addform/addcandidate.dart';
+import '../detail/candidate_detail.dart';
 
 
 class CandidateList extends StatefulWidget {
