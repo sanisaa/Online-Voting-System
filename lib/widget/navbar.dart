@@ -1,8 +1,6 @@
 import 'package:election/Admin/dashboard.dart';
-import 'package:election/Admin/home.dart';
 import 'package:election/ballot.dart';
 import 'package:election/voters.dart';
-import 'package:election/votes.dart';
 import 'package:flutter/material.dart';
 import '../candiates.dart';
 // import '../startend (2).dart';
@@ -10,7 +8,7 @@ import '../candiates.dart';
 
 class NavBar extends StatelessWidget {
       var email;
- NavBar(@required this.email);
+ NavBar(this.email, {Key? key}) : super(key: key);
   // const NavBar({Key? key}) : super(key: key);
 
 void selectedItem(BuildContext context, int index){
@@ -58,26 +56,26 @@ void selectedItem(BuildContext context, int index){
       //remove padding
       padding: EdgeInsets.zero,
       children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName:  const Text('Ashish Sapkota'),
-         accountEmail:  const Text('aryanashish223@gmail.com'),
-         currentAccountPicture: CircleAvatar(
-          child: ClipOval(
-            child: Image.asset('assets/images/ashish.jpg',
-            fit: BoxFit.cover,
-            width: 90,
-            height: 90,
-            ),
-          ), 
-          ),
-          decoration: const BoxDecoration(
-            color:Colors.blue,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/images/background.JPG'),
-              ),
-          ),
-         ),
+        // UserAccountsDrawerHeader(
+        //   accountName:  const Text('Ashish Sapkota'),
+        //  accountEmail:   Text(email),
+        //  currentAccountPicture: CircleAvatar(
+        //   child: ClipOval(
+        //     child: Image.asset('assets/images/ashish.jpg',
+        //     fit: BoxFit.cover,
+        //     width: 90,
+        //     height: 90,
+        //     ),
+        //   ), 
+        //   ),
+        //   decoration: const BoxDecoration(
+        //     color:Colors.blue,
+        //     image: DecorationImage(
+        //       fit: BoxFit.fill,
+        //       image: AssetImage('assets/images/background.JPG'),
+        //       ),
+        //   ),
+        //  ),
         ListTile(
           leading:const Icon(Icons.account_box),
           title: const Text('profile'),
