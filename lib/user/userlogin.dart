@@ -8,11 +8,12 @@ import 'package:election/Admin/home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+
 //import 'verify_otp.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
- 
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -23,7 +24,7 @@ class _LoginState extends State<Login> {
 
   Future<void>sendOTP() async{
 
-        var url="http://192.168.1.69/smtpmail/mail.php/"; 
+        var url="http://192.168.1.67/smtpmail/mail.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'email': email.text,
@@ -33,7 +34,7 @@ class _LoginState extends State<Login> {
        var data=json.decode(json.encode(response.body));
        
        print(data);
-         if(data.compareTo("NotRegistered")==1){
+         if(data.compareTo("NotRegistered")==-1){
            print("you are not registered");
          // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
          }else if((data.compareTo("Success")==1)){
@@ -46,7 +47,7 @@ class _LoginState extends State<Login> {
   }
   Future<void>verify() async{
 
-        var url="http://192.168.1.69/smtpmail/verification.php/"; 
+        var url="http://192.168.1.67/smtpmail/verification.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
             
