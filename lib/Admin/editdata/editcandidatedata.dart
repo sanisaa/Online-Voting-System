@@ -243,7 +243,7 @@ String imagePath="";
                 ),
                 new ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent),
+                      primary:Colors.blueAccent),
                   child: new Text("EDIT DATA"),
                   onPressed: () {
                     editData();

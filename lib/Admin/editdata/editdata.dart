@@ -238,7 +238,7 @@ String imagePath="";
                 new ElevatedButton(
                   child: new Text("EDIT DATA"),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent),
+                      primary: Colors.blueAccent),
                   onPressed: () {
                     editData();
                     Navigator.of(context).push(new MaterialPageRoute(

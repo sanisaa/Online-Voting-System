@@ -119,9 +119,6 @@ class _HomePageState extends State<HomePage> {
                          Container(
                           child:InfoCard(text: userdata[index]["uid"], icon: Icons.add_outlined, onPressed: () {}),
                         ),
-                        Container(
-                          child:InfoCard(text: "Admin", icon: Icons.admin_panel_settings_outlined, onPressed: () {}),
-                        )
               ],
             ),
           ],

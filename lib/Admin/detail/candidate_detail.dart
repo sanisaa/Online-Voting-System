@@ -32,9 +32,10 @@ void confirm (){
   AlertDialog alertDialog = new AlertDialog(
     content: new Text("Are You sure want to delete '${widget.list[widget.index]['name']}'"),
     actions: <Widget>[
-      new RaisedButton(
+      new ElevatedButton(
         child: new Text("OK DELETE!",style: new TextStyle(color: Colors.black),),
-        color: Colors.red,
+        style:ElevatedButton.styleFrom(
+          primary: Colors.red),
         onPressed: (){
           deleteData();
           Navigator.of(context).push(
@@ -44,9 +45,10 @@ void confirm (){
           );
         },
       ),
-      new RaisedButton(
+      new ElevatedButton(
         child: new Text("CANCEL",style: new TextStyle(color: Colors.black)),
-        color: Colors.green,
+        style:ElevatedButton.styleFrom(
+          primary: Colors.green,),
         onPressed: ()=> Navigator.pop(context),
       ),
     ],
@@ -116,18 +118,23 @@ void confirm (){
                  new Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    new RaisedButton(
+                    new ElevatedButton(
                       child: new Text("EDIT"),
-                      color: Colors.green,
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,),
+                      
                       onPressed: ()=>Navigator.of(context).push(
                         new MaterialPageRoute(
                           builder: (BuildContext context)=>new EditData(list: widget.list, index: widget.index,),
                         )
                       ),
                     ),
-                    new RaisedButton(
+                    new ElevatedButton(
                       child: new Text("DELETE"),
-                      color: Colors.red,
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                      ),
+                      
                       onPressed: ()=>confirm(),
                     ),
                   ],

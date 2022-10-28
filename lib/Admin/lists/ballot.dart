@@ -107,9 +107,11 @@ void confirm (uid,name){
                   ),
                 ),
               ),
-              trailing: RaisedButton(
+              trailing: ElevatedButton(
                 child: new Text("Vote"),
-                color: Colors.green,
+                style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
                 onPressed: (){
                     confirm(uid,name);
                 }                      

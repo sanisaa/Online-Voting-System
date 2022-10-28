@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             new ElevatedButton(
                 child: new Text("User"),
-                // style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                style: ElevatedButton.styleFrom(primary: Colors.blue),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                         builder: (BuildContext context) => Login(),
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
             ),
             new ElevatedButton(
                 child: new Text("Admin"),
-                // style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                style: ElevatedButton.styleFrom(primary: Colors.red),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                           builder: (BuildContext context) => ALogin()),
