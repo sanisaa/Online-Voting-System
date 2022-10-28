@@ -1,4 +1,3 @@
-
 // ignore_for_file: unnecessary_new
 
 import 'dart:convert';
@@ -242,16 +241,15 @@ String imagePath="";
                 new Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
-                new RaisedButton(
+                new ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent),
                   child: new Text("EDIT DATA"),
-                  color: Colors.blueAccent,
                   onPressed: () {
                     editData();
-                    Navigator.of(context).push(
-                      new MaterialPageRoute(
-                        builder: (BuildContext context)=>new CandidateList()
-                      )
-                    );
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new CandidateList()));
                   },
                 )
               ],

@@ -76,85 +76,84 @@ class _LoginState extends State<ALogin> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
-        width: double.infinity,
-        height: size.height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          ),
-          child: Column(
-        
-         mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            new Row(
-               mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-             new RaisedButton(
-                      child: new Text("User"),
-                      color: Colors.blue,
-                      onPressed: ()=>Navigator.of(context).push(
-                        new MaterialPageRoute(
-                          builder: (BuildContext context)=>Login(),),
-                        )
+      width: double.infinity,
+      height: size.height,
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            new ElevatedButton(
+                child: new Text("User"),
+                // style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                onPressed: () => Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) => Login(),
                       ),
-                  Padding(padding:  EdgeInsets.all(5.0),),
-                    new RaisedButton(
-                      child: new Text("Admin"),
-                      color: Colors.red,
-                      onPressed: ()=> Navigator.of(context).push(
-                        new MaterialPageRoute(
-                          builder: (BuildContext context)=>ALogin()),
-                        )
-                    ),],),
-                             Padding(padding:  EdgeInsets.all(15.0),),
-          Text(" Admin Login", 
-          style: Theme.of(context).textTheme.headline5!.copyWith(
-            color: Color.fromARGB(255, 6, 92, 161),
-            fontWeight:FontWeight.bold,
+                    )),
+            Padding(
+              padding: EdgeInsets.all(5.0),
             ),
-          ),
+            new ElevatedButton(
+                child: new Text("Admin"),
+                // style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () => Navigator.of(context).push(
+                      new MaterialPageRoute(
+                          builder: (BuildContext context) => ALogin()),
+                    )),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.all(15.0),
+        ),
+        Text(
+          " Admin Login",
+          style: Theme.of(context).textTheme.headline5!.copyWith(
+                color: Color.fromARGB(255, 6, 92, 161),
+                fontWeight: FontWeight.bold,
+              ),
+        ),
         SingleChildScrollView(
-          child: Column(children: [
-                    Container(
-                 margin: const EdgeInsets.all(10),
-                  child: TextFormField(
-                      controller: email,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the email'),
-                        suffixIcon: IconButton(icon: Icon(Icons.send),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: email,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the email'),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
                         tooltip: "Send OTP",
                         onPressed: sendOTP,
-                        )), 
-                     
+                      )),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: otp,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the otp'),
                     ),
-                        
-              
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: otp,
-                      decoration:InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Enter the otp'),
-
-                        
-                        
-                      ),
                   )),
-      
-                    
-                    Container(
-                      margin:const  EdgeInsets.all(10),
-                      child: ElevatedButton(onPressed: (){
-                        verify();
-                      },
-                      child: const Text('Verify'),
-                      ), 
-                    ),
-               
-                  
-                    
-                    ],),),]),
-            ));
-    
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    verify();
+                  },
+                  child: const Text('Verify'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ]),
+    ));
   }
 }
