@@ -1,9 +1,7 @@
 // ignore_for_file: unnecessary_new
 
 import 'dart:convert';
-import 'dart:io';
 import 'package:election/Admin/dashboard.dart';
-import 'package:election/Admin/home.dart';
 import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -98,7 +96,8 @@ class _LoginState extends State<ALogin> {
             ),
             new ElevatedButton(
                 child: new Text("Admin"),
-                // style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                           builder: (BuildContext context) => ALogin()),

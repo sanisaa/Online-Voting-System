@@ -17,7 +17,7 @@
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);
 
-    $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagePath','')";
+    $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagePath','','0')";
     if (mysqli_query($connection, $sql)){
     echo "feedback sucessufully submitted";
     }

@@ -3,15 +3,7 @@ import 'package:flutter/material.dart';
 import '../widget/info_card.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../widget/navbar.dart';
 
-//data for the admin dashboard
-
-// const phone='9840066162';
-// const email= '...../';
-// const position= 'Project supervision';
-// const faculty= 'IT';
-// const name= 'Ashish Sapkota';
 
 class HomePage extends StatefulWidget {
     var email;
@@ -32,22 +24,9 @@ class _HomePageState extends State<HomePage> {
         'email':widget.email,
       });
       setState((){
-        print(response.body);
       userdata = json.decode(response.body);
       });
     }catch(e){print(e);}
-
-    // String url = "http://192.168.1.67/voting/php/admindata.php/";
-    // //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
-    // try{
-    //   var res= await http.get(Uri.parse(url));
-    //   setState((){
-    //   userdata = jsonDecode(res.body);
-    //   });
-    //   }catch(e){
-    //     print(e);
-    //   }
-      // return userdata;
   }
 
   @override
@@ -63,9 +42,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
-          print(userdata[index]['name']);
-        return SingleChildScrollView(
-       
+        return SingleChildScrollView(    
         child: Column(
           children: [
             Column(
@@ -129,51 +106,6 @@ class _HomePageState extends State<HomePage> {
       );
         }
       ),
-      // SafeArea( 
-        // minimum: const EdgeInsets.only(top:50),  
-        // //only giving styling in top 
-        // child:Column(
-        //   children: <Widget>[
-        //     const CircleAvatar(
-        //         radius: 50,
-        //         backgroundImage: AssetImage('assets/images/ashish.jpg'),
-        //     ),
-        //     // const Text(name,
-        //     // // get from db
-        //     // style: TextStyle(
-        //     //   fontSize: 40.0,
-        //     //   color: Colors.white,
-        //     //   fontWeight: FontWeight.bold,
-        //     // ),
-        //     // ),
-        //     // const Text(
-        //     //   position, //get data from db
-        //     //   style: TextStyle(
-        //     //     fontSize: 30,
-        //     //     color: Colors.amberAccent,
-        //     //     letterSpacing: 2.5,
-        //     //     fontWeight: FontWeight.bold,
-
-        //     //   ),
-        //     // ),
-
-        //     const SizedBox(
-        //       height: 50,
-        //       width: 250,
-        //       child: Divider(
-        //         color: Colors.white,
-        //         thickness: 3,
-        //         ),
-        //     ),
-
-        //     // InfoCard(text: faculty, icon: Icons.book, onPressed: () {}),
-        //     // InfoCard(text: position, icon: Icons.admin_panel_settings_rounded, onPressed: () {}),
-        //     InfoCard(text: userdata, icon: Icons.phone, onPressed: () {}),
-        //     InfoCard(text: widget.email, icon: Icons.email, onPressed: () {}),
-            
-        //   ],
-        // ), 
-        // ),
     );
   }
 }

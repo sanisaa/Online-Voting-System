@@ -57,9 +57,12 @@ void confirm (uid,name){
     // ignore: prefer_interpolation_to_compose_strings
     content: new Text("Are You sure want to vote " +name),
     actions: <Widget>[
-      new RaisedButton(
+      new ElevatedButton(
         child: new Text("Yes! vote",style: new TextStyle(color: Colors.black),),
-        color: Colors.green,
+        style: ElevatedButton.styleFrom(
+          primary: Colors.green,
+        ),
+
         onPressed: (){
             AlertDialog alertDialog = new AlertDialog(
             content: new Text("voted successfully")

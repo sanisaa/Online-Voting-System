@@ -17,7 +17,7 @@
     $filehandler = fopen($imagefile, 'wb' );
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);
-    $sql = "insert into user values('','3','$name','$email','$phone_no','$gender','$faculty','$imagePath','$agenda')";
+    $sql = "insert into user values('','3','$name','$email','$phone_no','$gender','$faculty','$imagePath','$agenda','0')";
 
     if (mysqli_query($connection, $sql))
 {

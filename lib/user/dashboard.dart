@@ -3,9 +3,6 @@ import 'dart:convert';
 import 'package:election/user/home.dart';
 import 'package:flutter/material.dart';
 import '../widget/navbar.dart';
-import 'package:election/widget/info_card.dart';
-import 'package:flutter/material.dart';
-import '../widget/info_card.dart';
 
 import 'package:http/http.dart' as http;
 class AdminDashboard extends StatefulWidget {

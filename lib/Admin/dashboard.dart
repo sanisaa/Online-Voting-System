@@ -1,13 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import './home.dart';
-import '../widget/navbar.dart';
-import 'package:election/widget/info_card.dart';
-import 'package:flutter/material.dart';
-import '../widget/info_card.dart';
+import '../widget/adminnavbar.dart';
 
-import 'package:http/http.dart' as http;
 class AdminDashboard extends StatefulWidget {
     
     var email;
