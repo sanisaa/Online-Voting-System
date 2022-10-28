@@ -1,6 +1,6 @@
 import 'package:election/Admin/dashboard.dart';
 import 'package:flutter/material.dart';
-import '../Admin/lists/ballot.dart';
+import '../user/lists/ballot.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
 
@@ -34,7 +34,7 @@ void selectedItem(BuildContext context, int index){
         break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> Ballot(),
+        builder: (context)=> Ballot(email),
         ),);
         break;
     case 4:

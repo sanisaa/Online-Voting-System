@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 class Ballot extends StatefulWidget {
   // Ballot({Key? key}) : super(key: key);
 
+    var email;
+  Ballot(@required this.email);
  @override
  State<Ballot> createState() => _BallotState();
 }
@@ -31,8 +33,20 @@ class _BallotState extends State<Ballot>{
     super.initState();
   }
   Future castVote(uid,name) async {
+        String uri = "http://192.168.1.67/voting/php/votingcondition.php/";
+    //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     try{
-
+      var userresponse= await http.post(Uri.parse(uri),
+      body: {
+        'email':widget.email,
+      }
+      );
+        var data=json.decode(json.encode(userresponse.body));
+        print(data);
+  if(data.compareTo('0')!=0){
+    print("you have already voted");
+  }else{
+    try{
         String url = "http://192.168.1.67/voting/php/vote.php/";
     //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/";
           var response= await http.post(Uri.parse(url), body: {
@@ -49,7 +63,11 @@ class _BallotState extends State<Ballot>{
             
     }catch(e){
       print(e);
-    }    
+    }   
+  }
+    }catch(e){
+      print(e);
+    } 
         
   }
 void confirm (uid,name){
