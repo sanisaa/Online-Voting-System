@@ -17,6 +17,7 @@ InfoCard({
     return GestureDetector(
       onTap: onPressed,
       child: Card(
+        elevation: 8,
         color: Colors.white,
         margin:const EdgeInsets.symmetric(vertical:10, horizontal: 25), // styling of box
         child: ListTile(

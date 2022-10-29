@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             new ElevatedButton(
                 child: new Text("User"),
-                style: ElevatedButton.styleFrom(primary: Colors.blue),
+                style: ElevatedButton.styleFrom(primary: Colors.purple),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                         builder: (BuildContext context) => Login(),
@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
         Text(
           " User Login",
           style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Color.fromARGB(255, 6, 92, 161),
+                color: Colors.purple,
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -122,8 +122,10 @@ class _LoginState extends State<Login> {
               Container(
                 margin: const EdgeInsets.all(10),
                 child: TextFormField(
+                  cursorColor: Colors.purple,
                   controller: email,
                   decoration: InputDecoration(
+                    fillColor: Colors.purple,
                       border: OutlineInputBorder(),
                       label: Text('Enter the email'),
                       suffixIcon: IconButton(
@@ -145,6 +147,9 @@ class _LoginState extends State<Login> {
               Container(
                 margin: const EdgeInsets.all(10),
                 child: ElevatedButton(
+                   style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
                   onPressed: () {
                     verify();
                   },

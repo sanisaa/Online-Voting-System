@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.indigo, width: 5),
+                            border: Border.all(color: Colors.purple, width: 5),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(100),
                             ),

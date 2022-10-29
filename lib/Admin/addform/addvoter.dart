@@ -151,7 +151,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.indigo, width: 5),
+                            border: Border.all(color: Colors.purple, width: 5),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(100),
                             ),
@@ -168,7 +168,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                             )
                           
                            :Image.network(
-                                'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ZChrtBZL4xbqg8OXqPpFlVFFDTKQuBJ6vg&usqp=CAU',
                                 width: 170,
                                 height: 170,
                                 fit: BoxFit.cover,
@@ -182,7 +182,7 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                       onPressed: imagePickerOption,
                       icon: const Icon(
                         Icons.add_a_photo_outlined,
-                        color: Colors.blue,
+                        color: Colors.purple,
                         size: 30,
                       ),
                     ),
@@ -196,6 +196,9 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton.icon(
+                 style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
                   onPressed: imagePickerOption,
                   icon: const Icon(Icons.add_a_photo_sharp),
                   label: const Text('UPLOAD IMAGE')),
@@ -248,7 +251,11 @@ List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
                     ), 
                     Container(
                       margin:const  EdgeInsets.all(10),
-                      child: ElevatedButton(onPressed: (){
+                      child: ElevatedButton(
+                         style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
+                onPressed: (){
                         insertrecord();
                          Navigator.of(context).push(
             new MaterialPageRoute(
