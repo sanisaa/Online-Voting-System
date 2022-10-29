@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'Admin/dashboard.dart';
 import 'package:get/get.dart';
-
 import 'user/userlogin.dart';
 
 void main() => runApp(MyApp());
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (ctx) =>Login(),
-        // '/': (context) => AdminDashboard(),
+        //  '/': (context) => AdminDashboard(),
       },
     );
   }

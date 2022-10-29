@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_new
+import 'package:election/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,8 +16,8 @@ class DetailView extends StatefulWidget {
 class _DetailViewState extends State<DetailView> {
 
  void deleteData(){
-  var url="http://192.168.1.67/voting/php/delete.php";
-  // var url="http://192.168.1.67/voting/php/delete.php";
+  var url="$uri/voting/php/delete.php";
+  // var url="$uri/voting/php/delete.php";
   http.post(Uri.parse(url), body: {
     'uid': widget.list[widget.index]['uid']
   });
@@ -25,7 +26,9 @@ class _DetailViewState extends State<DetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}")),
+        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}"),
+        backgroundColor: Colors.purple,
+        ),
                 
         body: Container(
             child: Column( 
@@ -50,7 +53,7 @@ class _DetailViewState extends State<DetailView> {
                             child: ClipOval(
                             child :Image.network(
                              
-                             'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                             '$uri/voting/${widget.list[widget.index]['image']}',
                             //  'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
                                //  'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                   width: 170,
@@ -73,7 +76,8 @@ class _DetailViewState extends State<DetailView> {
               children: <Widget>[
 
                 new Padding(padding: const EdgeInsets.only(top: 30.0),),
-                new Text(widget.list[widget.index]['name'], style: new TextStyle(fontSize: 20.0),),
+                new Text(widget.list[widget.index]['name'], style: TextStyle(fontSize: 20.0,fontWeight:FontWeight.bold,)),
+                new Text("Agenda : ${widget.list[widget.index]['agenda']}", style: new TextStyle(fontSize: 18.0,fontWeight:FontWeight.bold,),),
                 new Text("Email : ${widget.list[widget.index]['email']}", style: new TextStyle(fontSize: 18.0),),
                 new Text("Phone : ${widget.list[widget.index]['phone']}", style: new TextStyle(fontSize: 18.0),),
                 new Text("Gender : ${widget.list[widget.index]['gender']}", style: new TextStyle(fontSize: 18.0),),

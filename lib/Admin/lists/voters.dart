@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_new
 import 'dart:convert';
+import 'package:election/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,10 +17,10 @@ class VotersList extends StatefulWidget {
 class _VotersListState extends State<VotersList>{
   List userdata=[];
   Future<List> getrecord() async{
-    String uri = "http://192.168.1.67/voting/php/voterlist.php/"; 
+    String url = "$uri/voting/php/voterlist.php/"; 
     // String uri = "http://192.168.1.69/voting/php/voterlist.php/"; 
     try{
-      var response= await http.get(Uri.parse(uri));
+      var response= await http.get(Uri.parse(url));
       setState((){
       userdata = jsonDecode(response.body);
       });
@@ -58,7 +59,7 @@ class _VotersListState extends State<VotersList>{
                 // radius: 20,
                 child: ClipOval(
                   child: Image.network(
-                   'http://192.168.1.67/voting/$image',
+                   '$uri/voting/$image',
                   //  'http://192.168.1.69/voting/$image',
                    width: 60,
                    height: 55,

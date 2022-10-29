@@ -1,11 +1,8 @@
 import 'package:election/Admin/dashboard.dart';
 import 'package:flutter/material.dart';
-import '../user/lists/ballot.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
 
-// import '../startend (2).dart';
-// import '../startend.dart';
 
 class NavBar extends StatelessWidget {
       var email;
@@ -52,26 +49,6 @@ void selectedItem(BuildContext context, int index){
       //remove padding
       padding: EdgeInsets.zero,
       children: <Widget>[
-        // UserAccountsDrawerHeader(
-        //   accountName:  const Text('Ashish Sapkota'),
-        //  accountEmail:   Text(email),
-        //  currentAccountPicture: CircleAvatar(
-        //   child: ClipOval(
-        //     child: Image.asset('assets/images/ashish.jpg',
-        //     fit: BoxFit.cover,
-        //     width: 90,
-        //     height: 90,
-        //     ),
-        //   ), 
-        //   ),
-        //   decoration: const BoxDecoration(
-        //     color:Colors.blue,
-        //     image: DecorationImage(
-        //       fit: BoxFit.fill,
-        //       image: AssetImage('assets/images/background.JPG'),
-        //       ),
-        //   ),
-        //  ),
         ListTile(
           leading:const Icon(Icons.account_box),
           title: const Text('profile'),
@@ -88,20 +65,16 @@ void selectedItem(BuildContext context, int index){
           onTap: ()=> selectedItem(context ,2),
         ),
         ListTile(
-          leading:const Icon(Icons.pages),
-          title: const Text('Votes'),
-          onTap: ()=> selectedItem(context ,3),
+          leading:const Icon(Icons.description),
+          title: const Text('conduct Election'),
+          onTap: ()=> selectedItem(context ,4),
         ),
         ListTile(
           leading:const Icon(Icons.exit_to_app),
           title: const Text('Exit'),
           onTap: ()=> selectedItem(context ,3),
         ),
-                ListTile(
-          leading:const Icon(Icons.description),
-          title: const Text('start'),
-          onTap: ()=> selectedItem(context ,4),
-        ),
+
       ],
     ),
    );

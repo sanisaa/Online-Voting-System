@@ -1,8 +1,8 @@
-import 'package:election/Admin/dashboard.dart';
+import 'package:election/user/dashboard.dart';
 import 'package:flutter/material.dart';
 import '../user/lists/ballot.dart';
-import '../Admin/lists/candiates.dart';
-import '../Admin/lists/voters.dart';
+import '../user/lists/candiates.dart';
+import '../user/lists/votes.dart';
 
 // import '../startend (2).dart';
 // import '../startend.dart';
@@ -27,11 +27,6 @@ void selectedItem(BuildContext context, int index){
         builder: (context)=> CandidateList(),
         ),);
         break;
-    case 2:
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> VotersList(),
-        ),);
-        break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context)=> Ballot(email),
@@ -39,14 +34,9 @@ void selectedItem(BuildContext context, int index){
         break;
     case 4:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(email),
+        builder: (context)=> Votes(),
         ),);
         break;
-      //       case 5:
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context)=> StartEnd(),
-      //   ),);
-      //   break;
   }
 }
 
@@ -57,26 +47,6 @@ void selectedItem(BuildContext context, int index){
       //remove padding
       padding: EdgeInsets.zero,
       children: <Widget>[
-        // UserAccountsDrawerHeader(
-        //   accountName:  const Text('Ashish Sapkota'),
-        //  accountEmail:   Text(email),
-        //  currentAccountPicture: CircleAvatar(
-        //   child: ClipOval(
-        //     child: Image.asset('assets/images/ashish.jpg',
-        //     fit: BoxFit.cover,
-        //     width: 90,
-        //     height: 90,
-        //     ),
-        //   ), 
-        //   ),
-        //   decoration: const BoxDecoration(
-        //     color:Colors.blue,
-        //     image: DecorationImage(
-        //       fit: BoxFit.fill,
-        //       image: AssetImage('assets/images/background.JPG'),
-        //       ),
-        //   ),
-        //  ),
         ListTile(
           leading:const Icon(Icons.account_box),
           title: const Text('profile'),
@@ -87,15 +57,10 @@ void selectedItem(BuildContext context, int index){
           title: const Text('Candidates'),
           onTap: ()=> selectedItem(context ,1),
         ),
-                ListTile(
-          leading:const Icon(Icons.person_add),
-          title: const Text('Voters'),
-          onTap: ()=> selectedItem(context ,2),
-        ),
         ListTile(
           leading:const Icon(Icons.pages),
           title: const Text('Votes'),
-          onTap: ()=> selectedItem(context ,3),
+          onTap: ()=> selectedItem(context ,4),
         ),
         ListTile(
           leading:const Icon(Icons.description),
@@ -107,11 +72,11 @@ void selectedItem(BuildContext context, int index){
           title: const Text('Exit'),
           onTap: ()=> selectedItem(context ,4),
         ),
-                ListTile(
-          leading:const Icon(Icons.description),
-          title: const Text('start'),
-          onTap: ()=> selectedItem(context ,5),
-        ),
+          //       ListTile(
+          // leading:const Icon(Icons.description),
+          // title: const Text('start'),
+          // onTap: ()=> selectedItem(context ,5),
+        // ),
       ],
     ),
    );

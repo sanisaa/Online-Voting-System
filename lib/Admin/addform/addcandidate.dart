@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:election/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -102,7 +103,7 @@ String imagePath="";
 List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
       String baseimage = base64Encode(imageBytes);
 
-        var url="http://192.168.1.67/voting/php/registerCandidate.php/"; 
+        var url="$uri/voting/php/registerCandidate.php/"; 
         // var url="http://192.168.1.69/voting/php/registerCandidate.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  

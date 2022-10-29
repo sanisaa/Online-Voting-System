@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:election/Admin/adminlogin.dart';
+import 'package:election/api.dart';
 import 'package:election/user/dashboard.dart';
 import 'package:election/Admin/home.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class _LoginState extends State<Login> {
 
   Future<void>sendOTP() async{
 
-        var url="http://192.168.1.67/smtpmail/user_mail.php/"; 
+        var url="$uri/smtpmail/user_mail.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
           'email': email.text,
@@ -46,7 +47,7 @@ class _LoginState extends State<Login> {
   }
   Future<void>verify() async{
 
-        var url="http://192.168.1.67/smtpmail/verification.php/"; 
+        var url="$uri/smtpmail/verification.php/"; 
          final response=await http.post(Uri.parse(url),
           body: {  
             

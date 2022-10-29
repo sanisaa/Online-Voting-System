@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:election/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -104,7 +105,7 @@ String imagePath="";
   Future<void> editData() async {
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
      String baseimage = base64Encode(imageBytes);
-    var url="http://192.168.1.67/voting/php/editcandidate.php/";
+    var url="$uri/voting/php/editcandidate.php/";
     // var url="http://192.168.1.69/voting/php/edit.php/";
    final response = await http.post(Uri.parse(url),
    body: {
@@ -178,8 +179,8 @@ String imagePath="";
                             )
                           
                            :Image.network(
-                             'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
-                            //  'http://192.168.1.67/voting/${widget.list[widget.index]['image']}',
+                             '$uri/voting/${widget.list[widget.index]['image']}',
+                            //  '$uri/voting/${widget.list[widget.index]['image']}',
                              
                                 //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                 width: 170,

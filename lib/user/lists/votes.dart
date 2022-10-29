@@ -1,20 +1,19 @@
-import 'dart:convert';
 import 'package:election/api.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../detail/candidate_detail.dart';
 
-
-class CandidateList extends StatefulWidget {
-  CandidateList({Key? key}) : super(key: key);
-
- @override
- State<CandidateList> createState() => _CandidateListState(userdata: []);
+class Votes extends StatefulWidget {
+  @override
+  State<Votes> createState() => _VotesState();
 }
-class _CandidateListState extends State<CandidateList>{
-  List userdata=[];
+
+class _VotesState extends State<Votes> {
+  // const Votes({Key? key}) : super(key: key);
+    List userdata=[];
+
   Future<List> getrecord() async{
-    String url = "$uri/voting/php/candidatelist.php/";
+    String url = "$uri/voting/php/result.php/";
     //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     try{
       var response= await http.get(Uri.parse(url));
@@ -30,14 +29,12 @@ class _CandidateListState extends State<CandidateList>{
     getrecord();
     super.initState();
   }
-  //late final List list;
-  _CandidateListState({required this.userdata});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      return Scaffold(
        appBar: AppBar(
-        title: Text('Candidates'),
+        title: Text('Vote Count'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -46,6 +43,7 @@ class _CandidateListState extends State<CandidateList>{
         itemCount: userdata == null ? 0 : userdata.length,
         itemBuilder: (context,index){
           String image= userdata[index]['image'];
+          // print(image);
           return Card(
             elevation: 10,
             margin: EdgeInsets.all(10),
@@ -64,13 +62,9 @@ class _CandidateListState extends State<CandidateList>{
                   ),
                 ),
               ),
-              title: Text(userdata[index]["name"],style: TextStyle(fontWeight: FontWeight.bold),),
-              subtitle: Text(userdata[index]["agenda"],style: TextStyle(fontWeight: FontWeight.w200),),
-          onTap: ()=>Navigator.of(context).push(
-            new MaterialPageRoute(
-              builder: (BuildContext context)=> new DetailView(
-                list:userdata, index: index)
-                )),
+              title: Text(userdata[index]["name"]),
+              subtitle: Text(userdata[index]["agenda"]),
+              trailing: Text(userdata[index]['vote_count'], style: TextStyle(fontWeight: FontWeight.bold),),
             ), 
             );
         }

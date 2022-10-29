@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widget/info_card.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:election/api.dart';
 
 class HomePage extends StatefulWidget {
     var email;
@@ -16,10 +17,10 @@ class _HomePageState extends State<HomePage> {
   // const HomePage({Key? key}) : super(key: key);
   var userdata;
  Future<void>  getrecord() async{
-    String uri = "http://192.168.1.67/voting/php/admindata.php/";
+    String url = "$uri/voting/php/admindata.php/";
     //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     try{
-      var response= await http.post(Uri.parse(uri),body: {
+      var response= await http.post(Uri.parse(url),body: {
         'email':widget.email,
       });
       setState((){
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       });
     }catch(e){print(e);}
 
-    // String url = "http://192.168.1.67/voting/php/admindata.php/";
+    // String url = "$uri/voting/php/admindata.php/";
     // //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
     // try{
     //   var res= await http.get(Uri.parse(url));
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                           ),
             child: ClipOval(
                   child: Image.network(
-                   'http://192.168.1.67/voting/$image',
+                   '$uri/voting/$image',
                   //  'http://192.168.1.69/voting/$image',
                    width: 200,
                    height: 200,
