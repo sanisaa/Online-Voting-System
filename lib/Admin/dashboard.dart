@@ -1,5 +1,5 @@
+import 'package:election/Admin/home.dart';
 import 'package:flutter/material.dart';
-import './home.dart';
 import '../widget/adminnavbar.dart';
 
 class AdminDashboard extends StatefulWidget {

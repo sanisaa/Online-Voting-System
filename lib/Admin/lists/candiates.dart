@@ -80,6 +80,7 @@ class _CandidateListState extends State<CandidateList>{
         }
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.push(context,

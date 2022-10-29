@@ -22,12 +22,12 @@ InfoCard({
         child: ListTile(
           leading: Icon(
             icon,
-            color: Colors.teal,
+            color: Colors.purple,
             ),
             title: Text(
               text,
               style: const TextStyle(
-                color: Colors.teal,
+                color: Colors.purple,
               fontSize: 20,
               ),
             ),

@@ -27,13 +27,10 @@ class _NavBarState extends State<NavBar> {
     String url = "$uri/voting/php/checkStatus.php/";
 
     var response = await http.get(Uri.parse(url));
-    print(response.body);
     status = await json.decode(json.encode(response.body));
     return status;
   }
     void enableBallot() {
-    print(status.runtimeType);
-    print(status);
     if (status.compareTo("NotRegistered") == 1) {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => Ballot(widget.email),

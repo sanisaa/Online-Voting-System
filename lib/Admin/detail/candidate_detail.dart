@@ -1,13 +1,8 @@
 // ignore_for_file: unnecessary_new
 import 'package:election/api.dart';
+import 'package:election/widget/info_card.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:async';
 import '../editdata/editcandidatedata.dart';
 import '../lists/voters.dart';
 
@@ -62,90 +57,103 @@ void confirm (){
   Widget build(BuildContext context) {
     return Scaffold(
       
-        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}")),
+        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}"),
+        backgroundColor: Colors.purple,
+        ),
                 
-        body: Container(
-            child: Column( 
+        body: SingleChildScrollView(
+       
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                  Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.indigo, width: 5),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(100),
-                              ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                   Align(
+                    alignment: Alignment.center,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.indigo, width: 5),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(100),
                             ),
-                            child: ClipOval(
-                            child :Image.network(
-                             
-                             '$uri/voting/${widget.list[widget.index]['image']}',
-                            //  'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
-                               //  'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
-                                  width: 170,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                ),
+                          ),
+            child: ClipOval(
+                  child: Image.network(
+                   '$uri/voting/${widget.list[widget.index]['image']}',
+                  //  'http://192.168.1.69/voting/$image',
+                   width: 200,
+                   height: 200,
+                   fit: BoxFit.cover,
+                  ),
+                ),
+            ),
+            ]
+            ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Column(
+              children: <Widget>[
+                  Container(
+                         child:InfoCard(text: "Name: ${widget.list[widget.index]["name"]}", icon: Icons.account_circle, onPressed: () {}),
+                        ),
+                         Container(
+                          child:InfoCard(text: "Agenda: ${widget.list[widget.index]["agenda"]}", icon: Icons.pageview, onPressed: () {}),
+                        ),
+                         Container(
+                          
+                         child:InfoCard(text: "Email: ${widget.list[widget.index]["email"]}", icon: Icons.email, onPressed: () {}),
+                        ),
+                         Container(
+                          child:InfoCard(text: "Phone: ${widget.list[widget.index]["phone"]}", icon: Icons.phone, onPressed: () {}),
+                        ),
+                         Container(
+                         child:InfoCard(text: "Gender: ${widget.list[widget.index]["gender"]}", icon: Icons.boy, onPressed: () {}),
+                        ),
+                        Container(
+                          child:InfoCard(text: "Faculty: ${widget.list[widget.index]["faculty"]}", icon: Icons.home, onPressed: () {}),
+                        ),
+                    new Padding(padding: const EdgeInsets.only(top: 30.0),),
+                   new Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      new ElevatedButton(
+                        child: new Text("EDIT"),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,),
+                        
+                        onPressed: ()=>Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (BuildContext context)=>new EditData(list: widget.list, index: widget.index,),
+                          )
                         ),
                       ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(
-          height: 270.0, 
-          padding: const EdgeInsets.all(20.0),
-        child: new Card(
-          child: new Center(
-            child: new Column(
-              children: <Widget>[
-
-                new Padding(padding: const EdgeInsets.only(top: 30.0),),
-                new Text(widget.list[widget.index]['name'], style: new TextStyle(fontSize: 20.0),),
-                new Text("Email : ${widget.list[widget.index]['email']}", style: new TextStyle(fontSize: 18.0),),
-                new Text("Phone : ${widget.list[widget.index]['phone']}", style: new TextStyle(fontSize: 18.0),),
-                new Text("Gender : ${widget.list[widget.index]['gender']}", style: new TextStyle(fontSize: 18.0),),
-                new Text("Faculty : ${widget.list[widget.index]['faculty']}", style: new TextStyle(fontSize: 18.0),),
-                new Padding(padding: const EdgeInsets.only(top: 30.0),),
-                 new Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    new ElevatedButton(
-                      child: new Text("EDIT"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,),
-                      
-                      onPressed: ()=>Navigator.of(context).push(
-                        new MaterialPageRoute(
-                          builder: (BuildContext context)=>new EditData(list: widget.list, index: widget.index,),
-                        )
+                      new ElevatedButton(
+                        child: new Text("DELETE"),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        
+                        onPressed: ()=>confirm(),
                       ),
-                    ),
-                    new ElevatedButton(
-                      child: new Text("DELETE"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                      
-                      onPressed: ()=>confirm(),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+                  new Padding(padding: const EdgeInsets.only(top: 30.0),),
               ],
+              
             ),
-          ),
+          ],
         ),
-      ),
-    ])));
+          ],
+        
+        )
+      ));
                       
   }
 }

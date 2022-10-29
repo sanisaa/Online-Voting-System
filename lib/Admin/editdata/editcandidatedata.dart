@@ -134,9 +134,11 @@ String imagePath="";
       
       controllerName= new TextEditingController(text: widget.list[widget.index]['name'] );
       controllerEmail= new TextEditingController(text: widget.list[widget.index]['email'] );
+      controllerAgenda= new TextEditingController(text: widget.list[widget.index]['agenda'] );
       controllerPhone= new TextEditingController(text: widget.list[widget.index]['phone'] );
       controllerGender= new TextEditingController(text: widget.list[widget.index]['gender'] );
       controllerFaculty= new TextEditingController(text: widget.list[widget.index]['faculty'] );
+
       super.initState();
     }
 
@@ -145,6 +147,7 @@ String imagePath="";
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("EDIT DATA"),
+        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
        
@@ -196,7 +199,7 @@ String imagePath="";
                       onPressed: imagePickerOption,
                       icon: const Icon(
                         Icons.add_a_photo_outlined,
-                        color: Colors.blue,
+                        color: Colors.purple,
                         size: 30,
                       ),
                     ),
@@ -208,6 +211,9 @@ String imagePath="";
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
                   onPressed: imagePickerOption,
                   icon: const Icon(Icons.add_a_photo_sharp),
                   label: const Text('UPLOAD IMAGE')),
@@ -217,34 +223,39 @@ String imagePath="";
                 new TextField(
                   controller: controllerName,
                   decoration: new InputDecoration(
-                  hintText: "Name", labelText: "Name"),
+                   contentPadding: EdgeInsets.only(left: 20), labelText: "Name"),
+                ),
+                new TextField(
+                  controller: controllerAgenda,
+                  decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20), labelText: "Agenda"),
                 ),
                 new TextField(
                   controller: controllerEmail,
                   decoration: new InputDecoration(
-                  hintText: "Email", labelText: "Email"),
+                  contentPadding: EdgeInsets.only(left: 20), labelText: "Email"),
                 ),
                 new TextField(
                   controller: controllerPhone,
                   decoration: new InputDecoration(
-                      hintText: "Phone_number", labelText: "Phone_number"),
+                      contentPadding: EdgeInsets.only(left: 20), labelText: "Phone_number"),
                 ),
                 new TextField(
                   controller: controllerGender,
                   decoration: new InputDecoration(
-                      hintText: "Gender", labelText: "Gender"),
+                      contentPadding: EdgeInsets.only(left: 20), labelText: "Gender"),
                 ),
                  new TextField(
                   controller: controllerFaculty,
                   decoration: new InputDecoration(
-                      hintText: "Faculty", labelText: "Faculty"),
+                      contentPadding: EdgeInsets.only(left: 20), labelText: "Faculty"),
                 ),
                 new Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
                 new ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary:Colors.blueAccent),
+                      primary:Colors.purple),
                   child: new Text("EDIT DATA"),
                   onPressed: () {
                     editData();

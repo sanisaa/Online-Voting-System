@@ -95,6 +95,9 @@ class _HomePageState extends State<HomePage> {
                           child:InfoCard(text: userdata[index]["gender"], icon: Icons.boy, onPressed: () {}),
                         ),
                          Container(
+                          child:InfoCard(text: userdata[index]["faculty"], icon: Icons.home, onPressed: () {}),
+                        ),
+                         Container(
                           child:InfoCard(text: userdata[index]["uid"], icon: Icons.add_outlined, onPressed: () {}),
                         ),
               ],

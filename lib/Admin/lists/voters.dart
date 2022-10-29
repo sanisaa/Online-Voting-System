@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../addform/addvoter.dart';
-import '../detail/candidate_detail.dart';
+import '../detail/voter_detail.dart';
 
 
 class VotersList extends StatefulWidget {
@@ -80,6 +80,7 @@ class _VotersListState extends State<VotersList>{
         }
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.push(context,
