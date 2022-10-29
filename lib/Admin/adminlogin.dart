@@ -86,7 +86,7 @@ class _LoginState extends State<ALogin> {
           children: <Widget>[
             new ElevatedButton(
                 child: new Text("User"),
-                // style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                style: ElevatedButton.styleFrom(primary: Colors.purple),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                         builder: (BuildContext context) => Login(),
@@ -111,7 +111,7 @@ class _LoginState extends State<ALogin> {
         Text(
           " Admin Login",
           style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Color.fromARGB(255, 6, 92, 161),
+                color: Colors.purple,
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -121,11 +121,16 @@ class _LoginState extends State<ALogin> {
               Container(
                 margin: const EdgeInsets.all(10),
                 child: TextFormField(
+                  cursorColor: Colors.purple,
                   controller: email,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.purple),
+                      ),
                       label: Text('Enter the email'),
                       suffixIcon: IconButton(
+                        color: Colors.purple,
                         icon: Icon(Icons.send),
                         tooltip: "Send OTP",
                         onPressed: sendOTP,
@@ -135,6 +140,7 @@ class _LoginState extends State<ALogin> {
               Container(
                   margin: EdgeInsets.all(10),
                   child: TextFormField(
+                    cursorColor: Colors.purple,
                     controller: otp,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -143,7 +149,9 @@ class _LoginState extends State<ALogin> {
                   )),
               Container(
                 margin: const EdgeInsets.all(10),
-                child: ElevatedButton(
+                child: ElevatedButton( style: ElevatedButton.styleFrom(
+                  primary: Colors.purple
+                ),
                   onPressed: () {
                     verify();
                   },
