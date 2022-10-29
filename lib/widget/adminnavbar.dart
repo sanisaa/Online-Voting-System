@@ -1,12 +1,22 @@
 import 'package:election/Admin/dashboard.dart';
+import 'package:election/Admin/startend.dart';
+import 'package:election/api.dart';
 import 'package:flutter/material.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
       var email;
  NavBar(this.email, {Key? key}) : super(key: key);
+
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
 
 void selectedItem(BuildContext context, int index){
@@ -16,7 +26,7 @@ void selectedItem(BuildContext context, int index){
   switch(index){
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(email),
+        builder: (context)=> AdminDashboard(widget.email),
         ),);
         break;
     case 1:
@@ -31,14 +41,14 @@ void selectedItem(BuildContext context, int index){
         break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(email),
+        builder: (context)=> AdminDashboard(widget.email),
         ),);
         break;
-      //       case 4:
-      // Navigator.of(context).push(MaterialPageRoute(
-      //   builder: (context)=> StartEnd(),
-      //   ),);
-      //   break;
+    case 4:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> StartEnd(widget.email),
+        ),);
+        break;
   }
 }
 
