@@ -19,58 +19,65 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController email= TextEditingController();
-  TextEditingController otp= TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController otp = TextEditingController();
 
-  Future<void>sendOTP() async{
+  Future<void> sendOTP() async {
+    var url = "$uri/smtpmail/user_mail.php/";
+    final response = await http.post(Uri.parse(url), body: {
+      'email': email.text,
+    });
 
-        var url="$uri/smtpmail/user_mail.php/"; 
-         final response=await http.post(Uri.parse(url),
-          body: {  
-          'email': email.text,
-        }
-        );
+    var data = json.decode(json.encode(response.body));
 
-       var data=json.decode(json.encode(response.body));
-       
-       print(data);
-         if(data.compareTo("NotRegistered")==-1){
-           print("you are not registered");
-         // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
-         }else if((data.compareTo("Success")==1)){
-          print("OTP sent");
-           //Navigator.push(context, MaterialPageRoute(builder:(context) => VerifyOTPScreen()));
-      }else{
-        print("invalid email");
-      }
-     
+    print(data);
+    if (data.compareTo("NotRegistered") == -1) {
+      print("you are not registered");
+      showSuccessSnackBar(Text('You Are Not Registered'));
+      // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
+    } else if ((data.compareTo("Success") == 1)) {
+      print("OTP sent");
+      showSuccessSnackBar(Text('OTP Sent'));
+      //Navigator.push(context, MaterialPageRoute(builder:(context) => VerifyOTPScreen()));
+    } else {
+      print("invalid email");
+      showSuccessSnackBar(Text('Invalid Email'));
+    }
   }
-  Future<void>verify() async{
 
-        var url="$uri/smtpmail/verification.php/"; 
-         final response=await http.post(Uri.parse(url),
-          body: {  
-            
-          'otp_code': otp.text,
-                   
-        }
-        );
+  Future<void> verify() async {
+    var url = "$uri/smtpmail/verification.php/";
+    final response = await http.post(Uri.parse(url), body: {
+      'otp_code': otp.text,
+    });
 
-        
 //         print(response.statusCode);
 //         if (response.statusCode == 200) {
- 
-   var data=jsonDecode(json.encode(response.body));
-   print(data);
-   String message="Success";
-   if(data.compareTo("Success")==1){
-          Navigator.push(context, MaterialPageRoute(builder:(context) => AdminDashboard(email.text)));
-        }else{
-         print("Invalid OTP");
-         }
 
- }
+    var data = jsonDecode(json.encode(response.body));
+    print(data);
+    String message = "Success";
+    if (data.compareTo("Success") == 1) {
+      showSuccessSnackBar(Text('Login Success'));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AdminDashboard(email.text)));
+    } else {
+      showSuccessSnackBar(Text('Invalid OTP'));
+      print("Invalid OTP");
+    }
+  }
 
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      // margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
