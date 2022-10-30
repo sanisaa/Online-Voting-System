@@ -21,7 +21,7 @@
 
     if (mysqli_query($connection, $sql))
 {
-echo "feedback sucessufully submitted";
+echo "Success";
 $selectquery = "select * from user where phone=".$phone_no;
 $query = mysqli_query($connection, $selectquery);
 $result = mysqli_fetch_assoc($query);

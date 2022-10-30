@@ -1,6 +1,7 @@
 import 'package:election/api.dart';
 import 'package:election/user/dashboard.dart';
 import 'package:election/user/diablepage.dart';
+import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
 import '../user/lists/ballot.dart';
 import '../user/lists/candiates.dart';
@@ -70,7 +71,7 @@ class _NavBarState extends State<NavBar> {
       case 4:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => Votes(),
+            builder: (context) => Login(),
           ),
         );
         break;

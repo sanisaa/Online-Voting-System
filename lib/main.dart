@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'Admin/dashboard.dart';
 import 'package:get/get.dart';
@@ -15,10 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'OnlineVoting',
       initialRoute: '/',
       routes: {
-        '/': (ctx) =>Login(),
+        '/': (ctx) => Login(),
         //  '/': (context) => AdminDashboard(),
       },
     );
   }
 }
-
