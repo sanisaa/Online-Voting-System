@@ -136,16 +136,29 @@ class _addNewCandidateState extends State<addNewCandidate> {
       insertrecord();
     } else if ((data.compareTo("failed") == 0)) {
       print("Email has already been registered");
+      showSuccessSnackBar(Text("This email has already been registered"));
     } else {
       print("Enter valid email");
     }
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Insert Voter'),
+          title: const Text('Insert Candidate'),
           centerTitle: true,
           backgroundColor: Colors.purple,
         ),
@@ -210,6 +223,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(primary: Colors.purple),
                         onPressed: imagePickerOption,
                         icon: const Icon(Icons.add_a_photo_sharp),
                         label: const Text('UPLOAD IMAGE')),
@@ -310,6 +324,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
               Container(
                 margin: const EdgeInsets.all(10),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.purple),
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       verifyEmail();
