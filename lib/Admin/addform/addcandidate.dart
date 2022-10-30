@@ -136,9 +136,22 @@ class _addNewCandidateState extends State<addNewCandidate> {
       insertrecord();
     } else if ((data.compareTo("failed") == 0)) {
       print("Email has already been registered");
+      showSuccessSnackBar(Text("This email has already been registered"));
     } else {
       print("Enter valid email");
     }
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
   }
 
   @override

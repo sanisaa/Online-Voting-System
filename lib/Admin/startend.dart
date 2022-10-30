@@ -7,8 +7,7 @@ import '../widget/adminnavbar.dart';
 class StartEnd extends StatefulWidget {
   // const StartEnd({Key? key}) : super(key: key);
   var email;
- StartEnd(this.email, {Key? key}) : super(key: key);
-
+  StartEnd(this.email, {Key? key}) : super(key: key);
 
   @override
   State<StartEnd> createState() => _StartEndState();
@@ -23,10 +22,24 @@ class _StartEndState extends State<StartEnd> {
         await http.post(Uri.parse(url), body: {'status': status.toString()});
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
+      showSuccessSnackBar(Text(""));
       print(data);
     } else {
       print("Success");
+      showSuccessSnackBar(Text(""));
     }
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
   }
 
   @override
@@ -37,36 +50,44 @@ class _StartEndState extends State<StartEnd> {
       drawer: NavBar(widget.email),
       body: Material(
           child: Container(
-            margin: EdgeInsets.only(top: 200),
-            alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 200),
+              alignment: Alignment.center,
               padding: EdgeInsets.all(20),
               child: Column(children: [
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(10),
-                    primary: Colors.green,
-                     minimumSize: Size.fromHeight(40),
-                  ),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(10),
+                      primary: Colors.green,
+                      minimumSize: Size.fromHeight(40),
+                    ),
                     onPressed: () {
                       status = 1;
                       // print(status);
                       insertstatus();
                     },
-                    child: Text('StartElection',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+                    child: Text(
+                      'StartElection',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    )),
                 SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(10),
-                    primary: Colors.red,
-                     minimumSize: Size.fromHeight(40),
-                  ),
+                      primary: Colors.red,
+                      minimumSize: Size.fromHeight(40),
+                    ),
                     onPressed: () {
                       status = 0;
                       insertstatus();
                     },
-                    child: Text('End Election',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+                    child: Text(
+                      'End Election',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    )),
               ]))),
     );
   }

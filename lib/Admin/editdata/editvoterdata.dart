@@ -114,8 +114,10 @@ class _EditDataState extends State<EditData> {
     var data = json.decode(json.encode(response.body));
     if (data != "Edit Success") {
       print(data);
+      showSuccessSnackBar(Text("..."));
     } else {
       print("Success");
+      showSuccessSnackBar(Text("..."));
     }
   }
 
@@ -132,6 +134,18 @@ class _EditDataState extends State<EditData> {
     controllerFaculty =
         new TextEditingController(text: widget.list[widget.index]['faculty']);
     super.initState();
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
   }
 
   @override
