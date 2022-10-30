@@ -1,14 +1,7 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:election/api.dart';
+import 'package:election/widget/info_card.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:async';
 import '../editdata/editvoterdata.dart';
 import '../lists/voters.dart';
 
@@ -37,9 +30,7 @@ class _DetailViewState extends State<DetailView> {
             "OK DELETE!",
             style: new TextStyle(color: Colors.black),
           ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.red,
-          ),
+          style: ElevatedButton.styleFrom(primary: Colors.red),
           onPressed: () {
             deleteData();
             Navigator.of(context).push(new MaterialPageRoute(
@@ -64,22 +55,25 @@ class _DetailViewState extends State<DetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: new Text("${widget.list[widget.index]['name']}")),
-        body: Container(
-            child: Column(children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Stack(
-                  children: [
+        appBar: AppBar(
+          title: new Text("${widget.list[widget.index]['name']}"),
+          backgroundColor: Colors.purple,
+        ),
+        body: SingleChildScrollView(
+            child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Stack(children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.indigo, width: 5),
+                        border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -87,48 +81,49 @@ class _DetailViewState extends State<DetailView> {
                       child: ClipOval(
                         child: Image.network(
                           '$uri/voting/${widget.list[widget.index]['image']}',
-                          //  'http://192.168.1.69/voting/${widget.list[widget.index]['image']}',
-                          //  'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
-                          width: 170,
-                          height: 170,
+                          //  'http://192.168.1.66/voting/$image',
+                          width: 200,
+                          height: 200,
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                  ],
+                  ]),
                 ),
-              ),
-            ],
-          ),
-          Container(
-            height: 270.0,
-            padding: const EdgeInsets.all(20.0),
-            child: new Card(
-              child: new Center(
-                child: new Column(
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
                   children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
+                    Container(
+                      child: InfoCard(
+                          text: "Name: ${widget.list[widget.index]["name"]}",
+                          icon: Icons.account_circle,
+                          onPressed: () {}),
                     ),
-                    new Text(
-                      widget.list[widget.index]['name'],
-                      style: new TextStyle(fontSize: 20.0),
+                    Container(
+                      child: InfoCard(
+                          text: "Email: ${widget.list[widget.index]["email"]}",
+                          icon: Icons.account_circle,
+                          onPressed: () {}),
                     ),
-                    new Text(
-                      "Email : ${widget.list[widget.index]['email']}",
-                      style: new TextStyle(fontSize: 18.0),
+                    Container(
+                      child: InfoCard(
+                          text: "Name: ${widget.list[widget.index]["phone"]}",
+                          icon: Icons.account_circle,
+                          onPressed: () {}),
                     ),
-                    new Text(
-                      "Phone : ${widget.list[widget.index]['phone']}",
-                      style: new TextStyle(fontSize: 18.0),
+                    Container(
+                      child: InfoCard(
+                          text: "Name: ${widget.list[widget.index]["gender"]}",
+                          icon: Icons.account_circle,
+                          onPressed: () {}),
                     ),
-                    new Text(
-                      "Gender : ${widget.list[widget.index]['gender']}",
-                      style: new TextStyle(fontSize: 18.0),
-                    ),
-                    new Text(
-                      "Faculty : ${widget.list[widget.index]['faculty']}",
-                      style: new TextStyle(fontSize: 18.0),
+                    Container(
+                      child: InfoCard(
+                          text: "Name: ${widget.list[widget.index]["faculty"]}",
+                          icon: Icons.account_circle,
+                          onPressed: () {}),
                     ),
                     new Padding(
                       padding: const EdgeInsets.only(top: 30.0),
@@ -157,12 +152,15 @@ class _DetailViewState extends State<DetailView> {
                           onPressed: () => confirm(),
                         ),
                       ],
-                    )
+                    ),
+                    new Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ),
-        ])));
+          ],
+        )));
   }
 }

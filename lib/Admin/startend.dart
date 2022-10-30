@@ -45,13 +45,14 @@ class _StartEndState extends State<StartEnd> {
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(10),
                     primary: Colors.green,
+                     minimumSize: Size.fromHeight(40),
                   ),
                     onPressed: () {
                       status = 1;
                       // print(status);
                       insertstatus();
                     },
-                    child: Text('StartElection')),
+                    child: Text('StartElection',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
                 SizedBox(
                   height: 20,
                 ),
@@ -59,12 +60,13 @@ class _StartEndState extends State<StartEnd> {
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(10),
                     primary: Colors.red,
+                     minimumSize: Size.fromHeight(40),
                   ),
                     onPressed: () {
                       status = 0;
                       insertstatus();
                     },
-                    child: Text('End Election')),
+                    child: Text('End Election',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
               ]))),
     );
   }

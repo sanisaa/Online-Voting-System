@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_new
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
@@ -104,7 +102,7 @@ class _EditDataState extends State<EditData> {
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
     String baseimage = base64Encode(imageBytes);
     var url = "$uri/voting/php/editcandidate.php/";
-    // var url="http://192.168.1.69/voting/php/edit.php/";
+    // var url="http://192.168.1.66/voting/php/edit.php/";
     final response = await http.post(Uri.parse(url), body: {
       "rid": widget.list[widget.index]['rid'],
       "uid": widget.list[widget.index]['uid'],
@@ -119,10 +117,8 @@ class _EditDataState extends State<EditData> {
     var data = json.decode(json.encode(response.body));
     if (data != "Edit Success") {
       print(data);
-      showSuccessSnackBar(Text('There was an error. Try Again!'));
     } else {
       print("Success");
-      showSuccessSnackBar(Text('Data Edited Successfully'));
     }
   }
 
@@ -132,25 +128,16 @@ class _EditDataState extends State<EditData> {
         new TextEditingController(text: widget.list[widget.index]['name']);
     controllerEmail =
         new TextEditingController(text: widget.list[widget.index]['email']);
+    controllerAgenda =
+        new TextEditingController(text: widget.list[widget.index]['agenda']);
     controllerPhone =
         new TextEditingController(text: widget.list[widget.index]['phone']);
     controllerGender =
         new TextEditingController(text: widget.list[widget.index]['gender']);
     controllerFaculty =
         new TextEditingController(text: widget.list[widget.index]['faculty']);
-    super.initState();
-  }
 
-  showSuccessSnackBar(message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: message,
-      backgroundColor: Colors.purple,
-      //margin: EdgeInsets.all(20),
-      duration: Duration(seconds: 3),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-    ));
+    super.initState();
   }
 
   @override
@@ -158,6 +145,7 @@ class _EditDataState extends State<EditData> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("EDIT DATA"),
+        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -173,7 +161,7 @@ class _EditDataState extends State<EditData> {
                   child: Stack(children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.indigo, width: 5),
+                        border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -206,7 +194,7 @@ class _EditDataState extends State<EditData> {
                         onPressed: imagePickerOption,
                         icon: const Icon(
                           Icons.add_a_photo_outlined,
-                          color: Colors.blue,
+                          color: Colors.purple,
                           size: 30,
                         ),
                       ),
@@ -219,6 +207,7 @@ class _EditDataState extends State<EditData> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(primary: Colors.purple),
                       onPressed: imagePickerOption,
                       icon: const Icon(Icons.add_a_photo_sharp),
                       label: const Text('UPLOAD IMAGE')),
@@ -229,34 +218,45 @@ class _EditDataState extends State<EditData> {
               children: <Widget>[
                 new TextField(
                   controller: controllerName,
-                  decoration:
-                      new InputDecoration(hintText: "Name", labelText: "Name"),
+                  decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Name"),
+                ),
+                new TextField(
+                  controller: controllerAgenda,
+                  decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Agenda"),
                 ),
                 new TextField(
                   controller: controllerEmail,
                   decoration: new InputDecoration(
-                      hintText: "Email", labelText: "Email"),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Email"),
                 ),
                 new TextField(
                   controller: controllerPhone,
                   decoration: new InputDecoration(
-                      hintText: "Phone_number", labelText: "Phone_number"),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Phone_number"),
                 ),
                 new TextField(
                   controller: controllerGender,
                   decoration: new InputDecoration(
-                      hintText: "Gender", labelText: "Gender"),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Gender"),
                 ),
                 new TextField(
                   controller: controllerFaculty,
                   decoration: new InputDecoration(
-                      hintText: "Faculty", labelText: "Faculty"),
+                      contentPadding: EdgeInsets.only(left: 20),
+                      labelText: "Faculty"),
                 ),
                 new Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
                 new ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.blueAccent),
+                  style: ElevatedButton.styleFrom(primary: Colors.purple),
                   child: new Text("EDIT DATA"),
                   onPressed: () {
                     editData();

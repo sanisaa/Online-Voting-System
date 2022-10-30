@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Admin/dashboard.dart';
+import '../user/dashboard.dart';
 
 class DisablePage extends StatelessWidget {
   // const DisablePage({Key? key}) : super(key: key);
@@ -30,6 +30,9 @@ class DisablePage extends StatelessWidget {
                 height: 20,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                ),
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(

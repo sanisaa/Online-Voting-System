@@ -25,9 +25,6 @@ class _addNewCandidateState extends State<addNewCandidate> {
   TextEditingController agenda = TextEditingController();
 
   var data;
-
-  //var data;
-  //formkey declared
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   File? pickedImage;
@@ -169,7 +166,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.indigo, width: 5),
+                            border: Border.all(color: Colors.purple, width: 5),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(100),
                             ),
@@ -185,7 +182,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                                     fit: BoxFit.cover,
                                   )
                                 : Image.network(
-                                    'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ZChrtBZL4xbqg8OXqPpFlVFFDTKQuBJ6vg&usqp=CAU',
                                     width: 170,
                                     height: 170,
                                     fit: BoxFit.cover,
@@ -199,7 +196,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                             onPressed: imagePickerOption,
                             icon: const Icon(
                               Icons.add_a_photo_outlined,
-                              color: Colors.blue,
+                              color: Colors.purple,
                               size: 30,
                             ),
                           ),
@@ -315,12 +312,6 @@ class _addNewCandidateState extends State<addNewCandidate> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => AdminDashboard(),
-                      //   ),
-
                       verifyEmail();
                     }
                   },

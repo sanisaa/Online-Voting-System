@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../addform/addvoter.dart';
-import '../detail/candidate_detail.dart';
+import '../detail/voter_detail.dart';
 
 
 class VotersList extends StatefulWidget {
@@ -18,7 +18,7 @@ class _VotersListState extends State<VotersList>{
   List userdata=[];
   Future<List> getrecord() async{
     String url = "$uri/voting/php/voterlist.php/"; 
-    // String uri = "http://192.168.1.69/voting/php/voterlist.php/"; 
+    // String uri = "http://192.168.1.66/voting/php/voterlist.php/"; 
     try{
       var response= await http.get(Uri.parse(url));
       setState((){
@@ -60,7 +60,7 @@ class _VotersListState extends State<VotersList>{
                 child: ClipOval(
                   child: Image.network(
                    '$uri/voting/$image',
-                  //  'http://192.168.1.69/voting/$image',
+                  //  'http://192.168.1.66/voting/$image',
                    width: 60,
                    height: 55,
                    fit: BoxFit.cover,
@@ -80,6 +80,7 @@ class _VotersListState extends State<VotersList>{
         }
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.push(context,

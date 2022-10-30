@@ -113,23 +113,9 @@ class _addNewVoterState extends State<addNewVoter> {
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
       print(data);
-      showSuccessSnackBar(Text('There was an error. Try Again!'));
     } else {
       print("Success");
-      showSuccessSnackBar(Text('Voter Added Successfully'));
     }
-  }
-
-  showSuccessSnackBar(message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: message,
-      backgroundColor: Colors.purple,
-      //margin: EdgeInsets.all(20),
-      duration: Duration(seconds: 3),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8))),
-    ));
   }
 
   @override
@@ -154,7 +140,7 @@ class _addNewVoterState extends State<addNewVoter> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.indigo, width: 5),
+                        border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -170,7 +156,7 @@ class _addNewVoterState extends State<addNewVoter> {
                                 fit: BoxFit.cover,
                               )
                             : Image.network(
-                                'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ZChrtBZL4xbqg8OXqPpFlVFFDTKQuBJ6vg&usqp=CAU',
                                 width: 170,
                                 height: 170,
                                 fit: BoxFit.cover,
@@ -184,7 +170,7 @@ class _addNewVoterState extends State<addNewVoter> {
                         onPressed: imagePickerOption,
                         icon: const Icon(
                           Icons.add_a_photo_outlined,
-                          color: Colors.blue,
+                          color: Colors.purple,
                           size: 30,
                         ),
                       ),
@@ -198,6 +184,7 @@ class _addNewVoterState extends State<addNewVoter> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(primary: Colors.purple),
                     onPressed: imagePickerOption,
                     icon: const Icon(Icons.add_a_photo_sharp),
                     label: const Text('UPLOAD IMAGE')),
@@ -252,6 +239,7 @@ class _addNewVoterState extends State<addNewVoter> {
           Container(
             margin: const EdgeInsets.all(10),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.purple),
               onPressed: () {
                 insertrecord();
                 Navigator.of(context).push(new MaterialPageRoute(
