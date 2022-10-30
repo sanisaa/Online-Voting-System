@@ -62,6 +62,13 @@ class _NavBarState extends State<NavBar> {
           ),
         );
         break;
+      case 2:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Votes(),
+          ),
+        );
+        break;
       case 3:
         enableBallot();
         break;
@@ -102,7 +109,7 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: const Icon(Icons.pages),
             title: const Text('Votes'),
-            onTap: () => selectedItem(context, 4),
+            onTap: () => selectedItem(context, 2),
           ),
           ListTile(
             leading: const Icon(Icons.description),
