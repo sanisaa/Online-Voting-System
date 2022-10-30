@@ -8,6 +8,8 @@ import '../user/lists/votes.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../user/userlogin.dart';
+
 // import '../startend (2).dart';
 // import '../startend.dart';
 
@@ -61,7 +63,7 @@ void selectedItem(BuildContext context, int index){
         break;
     case 4:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> Votes(),
+        builder: (context)=> Login(),
         ),);
         break;
   }
@@ -102,7 +104,7 @@ void selectedItem(BuildContext context, int index){
         ),
         ListTile(
           leading:const Icon(Icons.exit_to_app),
-          title: const Text('Exit'),
+          title: const Text('Logout'),
           onTap: ()=> selectedItem(context ,4),
         ),
           //       ListTile(
