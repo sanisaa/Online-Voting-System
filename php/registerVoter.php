@@ -19,22 +19,11 @@
 
     $sql = "insert into user values('','2','$name','$email','$phone_no','$gender','$faculty','$imagePath','','0')";
     if (mysqli_query($connection, $sql)){
-    echo "feedback sucessufully submitted";
+    echo "Success";
     }
     else
     {
     echo "Error: " . $sql . "<br>" . mysqli_error($connection);
     }
-    // $result = mysqli_query($connection, "insert into user set rid='$sid', name='$name', email='$email', phone_no='$phone_no', gender='$gender', faculty='$faculty', image='$imagePath'");
-   
-    // if($result){
-    //     echo json_encode([
-    //         'message' => 'Data input successfully'
-    //     ]);
-    // }else{
-    //     echo json_encode([
-    //         'message' => 'Data Failed to input'
-            
-    //     ]);
-    // }
+ 
 ?>

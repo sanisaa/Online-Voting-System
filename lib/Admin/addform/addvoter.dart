@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
-
 import '../lists/voters.dart';
 
 class addNewVoter extends StatefulWidget {
@@ -22,6 +21,9 @@ class _addNewVoterState extends State<addNewVoter> {
   TextEditingController phone = TextEditingController();
   TextEditingController faculty = TextEditingController();
   TextEditingController gender = TextEditingController();
+
+  var data;
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   File? pickedImage;
   String imagePath = "";
@@ -100,7 +102,6 @@ class _addNewVoterState extends State<addNewVoter> {
     String baseimage = base64Encode(imageBytes);
 
     var url = "$uri/voting/php/registerVoter.php/";
-    // var url="http://192.168.1.69/voting/php/registerVoter.php/";
     final response = await http.post(Uri.parse(url), body: {
       'name': name.text,
       'email': email.text,
@@ -111,149 +112,219 @@ class _addNewVoterState extends State<addNewVoter> {
     });
 
     var data = json.decode(json.encode(response.body));
-    if (data != "data insertion Success") {
-      print(data);
+    print(data);
+    print(data.compareTo("Success"));
+    if (data.compareTo("Success") == 0) {
+      print("Successfully inserted data");
     } else {
-      print("Success");
+      print("Error");
     }
+  }
+
+  Future<void> verifyEmail() async {
+    String url = "$uri/voting/php/emailvalidation.php/";
+    var response = await http.post(Uri.parse(url), body: {
+      'email': email.text,
+    });
+
+    data = json.decode(json.encode(response.body));
+    if (data.compareTo("Success") == 0) {
+      print("Email validation success");
+      insertrecord();
+    } else if ((data.compareTo("failed") == 0)) {
+      print("Email has already been registered");
+      showSuccessSnackBar(Text("This email has already been registered"));
+    } else {
+      print("Enter valid email");
+    }
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Insert Voter'),
-        centerTitle: true,
-        backgroundColor: Colors.purple,
-      ),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.purple, width: 5),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100),
+        appBar: AppBar(
+          title: const Text('Insert Voter'),
+          centerTitle: true,
+          backgroundColor: Colors.purple,
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            //formkey sends the data of the of the form for validation
+            key: _formkey,
+            child: Column(children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.purple, width: 5),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+                          child: ClipOval(
+                            child: pickedImage != null
+                                ? Image.file(
+                                    pickedImage!,
+                                    //if pickked image is null then the default image is shown whose link is given,
+                                    //otherwise picked image is shown
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ZChrtBZL4xbqg8OXqPpFlVFFDTKQuBJ6vg&usqp=CAU',
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
                         ),
-                      ),
-                      child: ClipOval(
-                        child: pickedImage != null
-                            ? Image.file(
-                                pickedImage!,
-                                //if pickked image is null then the default image is shown whose link is given,
-                                //otherwise picked image is shown
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ZChrtBZL4xbqg8OXqPpFlVFFDTKQuBJ6vg&usqp=CAU',
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              ),
-                      ),
+                        Positioned(
+                          bottom: 0,
+                          right: 5,
+                          child: IconButton(
+                            onPressed: imagePickerOption,
+                            icon: const Icon(
+                              Icons.add_a_photo_outlined,
+                              color: Colors.purple,
+                              size: 30,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 5,
-                      child: IconButton(
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(primary: Colors.purple),
                         onPressed: imagePickerOption,
-                        icon: const Icon(
-                          Icons.add_a_photo_outlined,
-                          color: Colors.purple,
-                          size: 30,
-                        ),
-                      ),
-                    )
-                  ],
+                        icon: const Icon(Icons.add_a_photo_sharp),
+                        label: const Text('UPLOAD IMAGE')),
+                  )
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: name,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('Enter the Name'),
+                  ),
+
+                  //Validating whether the name field is empty or not
+                  validator: (name) {
+                    if (name!.isEmpty) {
+                      return 'Please Enter Name';
+                    }
+                    return null;
+                  },
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: email,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the Email')),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (email) {
+                    if (email!.isEmpty) {
+                      return 'Please Enter Email';
+                    }
+                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                        .hasMatch(email)) {
+                      return 'Please enter a valid Email';
+                    }
+                  },
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(primary: Colors.purple),
-                    onPressed: imagePickerOption,
-                    icon: const Icon(Icons.add_a_photo_sharp),
-                    label: const Text('UPLOAD IMAGE')),
-              )
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: TextFormField(
-              controller: name,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text('Enter the Name'),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: phone,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the Phone number')),
+
+                  //Phone field and phone number format validation
+                  validator: (phone) {
+                    String regexPattern = r'^[9][6-9]\d{8}';
+                    var regExp = new RegExp(regexPattern);
+                    if (phone!.isEmpty) {
+                      return 'Please Enter Phone Number';
+                    }
+                    if (!regExp.hasMatch(phone)) {
+                      return 'Please a valid phone number';
+                    }
+                    if (phone.length != 10) {
+                      return 'Mobile Number must be of 10 digit';
+                    }
+                    return null;
+                  },
+                ),
               ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-              controller: email,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), label: Text('Enter the Email')),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-              controller: phone,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text('Enter the Phone number')),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-              controller: gender,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text('Enter the Gender')),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: TextFormField(
-              controller: faculty,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  label: Text('Enter the faculty')),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.purple),
-              onPressed: () {
-                insertrecord();
-                Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new VotersList(),
-                ));
-                //   Navigator.pop(context);
-              },
-              child: const Text(
-                'Insert',
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: gender,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the Gender')),
+                ),
               ),
-            ),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: TextFormField(
+                  controller: faculty,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text('Enter the faculty')),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.purple),
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      verifyEmail();
+                    }
+                  },
+                  child: const Text(
+                    'Insert',
+                  ),
+                ),
+              ),
+            ]),
           ),
-        ]),
-      ),
-    );
+        ));
   }
 }
