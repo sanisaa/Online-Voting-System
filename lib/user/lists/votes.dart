@@ -14,7 +14,7 @@ class _VotesState extends State<Votes> {
 
   Future<List> getrecord() async{
     String url = "$uri/voting/php/result.php/";
-    //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
+    //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/"; 
     try{
       var response= await http.get(Uri.parse(url));
       setState((){

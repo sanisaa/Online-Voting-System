@@ -85,7 +85,7 @@ void confirm (){
             child: ClipOval(
                   child: Image.network(
                    '$uri/voting/${widget.list[widget.index]['image']}',
-                  //  'http://192.168.1.69/voting/$image',
+                  //  'http://192.168.1.66/voting/$image',
                    width: 200,
                    height: 200,
                    fit: BoxFit.cover,

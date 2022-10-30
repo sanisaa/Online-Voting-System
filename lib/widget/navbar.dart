@@ -1,6 +1,7 @@
 import 'package:election/api.dart';
 import 'package:election/user/dashboard.dart';
 import 'package:election/user/diablepage.dart';
+import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
 import '../user/lists/ballot.dart';
 import '../user/lists/candiates.dart';
@@ -8,14 +9,12 @@ import '../user/lists/votes.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../user/userlogin.dart';
-
 // import '../startend (2).dart';
 // import '../startend.dart';
 
 class NavBar extends StatefulWidget {
-  var email;
-  NavBar(this.email, {Key? key}) : super(key: key);
+      var email;
+ NavBar(this.email, {Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -23,7 +22,7 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
-  var status;
+    var status;
 
   Future<String> verify() async {
     String url = "$uri/voting/php/checkStatus.php/";
@@ -38,40 +37,37 @@ class _NavBarState extends State<NavBar> {
         builder: (context) => Ballot(widget.email),
       ));
     } else {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
     }
   }
 
-  void selectedItem(BuildContext context, int index) {
-    Navigator.of(context).pop();
-    //doesnot show side bar when pressed back button from pages
+void selectedItem(BuildContext context, int index){
+  Navigator.of(context).pop(); 
+  //doesnot show side bar when pressed back button from pages
 
-    switch (index) {
-      case 0:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AdminDashboard(widget.email),
-          ),
-        );
+  switch(index){
+    case 0:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> AdminDashboard(widget.email),
+        ),);
         break;
-      case 1:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => CandidateList(),
-          ),
-        );
+    case 1:
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context)=> CandidateList(),
+        ),);
         break;
-      case 3:
-        enableBallot();
+    case 3:
+      enableBallot();
         break;
     case 4:
       Navigator.of(context).push(MaterialPageRoute(
+        // builder: (context)=> Votes(),
         builder: (context)=> Login(),
         ),);
         break;
-    }
   }
+}
 
   @override
   void initState() {
@@ -108,16 +104,16 @@ class _NavBarState extends State<NavBar> {
         ),
         ListTile(
           leading:const Icon(Icons.exit_to_app),
-          title: const Text('Logout'),
+          title: const Text('Exit'),
           onTap: ()=> selectedItem(context ,4),
         ),
           //       ListTile(
           // leading:const Icon(Icons.description),
           // title: const Text('start'),
           // onTap: ()=> selectedItem(context ,5),
-          // ),
-        ],
-      ),
-    );
+        // ),
+      ],
+    ),
+   );
   }
 }

@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   var userdata;
  Future<void>  getrecord() async{
     String url = "$uri/voting/php/admindata.php/";
-    //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
+    //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/"; 
     try{
       var response= await http.post(Uri.parse(url),body: {
         'email':widget.email,
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     }catch(e){print(e);}
 
     // String url = "$uri/voting/php/admindata.php/";
-    // //  String uri = "http://192.168.1.69/voting/php/candidatelist.php/"; 
+    // //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/"; 
     // try{
     //   var res= await http.get(Uri.parse(url));
     //   setState((){
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             child: ClipOval(
                   child: Image.network(
                    '$uri/voting/$image',
-                  //  'http://192.168.1.69/voting/$image',
+                  //  'http://192.168.1.66/voting/$image',
                    width: 200,
                    height: 200,
                    fit: BoxFit.cover,
