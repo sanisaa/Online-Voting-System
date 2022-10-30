@@ -14,8 +14,8 @@ import '../user/userlogin.dart';
 // import '../startend.dart';
 
 class NavBar extends StatefulWidget {
-      var email;
- NavBar(this.email, {Key? key}) : super(key: key);
+  var email;
+  NavBar(this.email, {Key? key}) : super(key: key);
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -23,7 +23,7 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
-    var status;
+  var status;
 
   Future<String> verify() async {
     String url = "$uri/voting/php/checkStatus.php/";
@@ -38,36 +38,40 @@ class _NavBarState extends State<NavBar> {
         builder: (context) => Ballot(widget.email),
       ));
     } else {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
     }
   }
 
-void selectedItem(BuildContext context, int index){
-  Navigator.of(context).pop(); 
-  //doesnot show side bar when pressed back button from pages
+  void selectedItem(BuildContext context, int index) {
+    Navigator.of(context).pop();
+    //doesnot show side bar when pressed back button from pages
 
-  switch(index){
-    case 0:
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> AdminDashboard(widget.email),
-        ),);
+    switch (index) {
+      case 0:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AdminDashboard(widget.email),
+          ),
+        );
         break;
-    case 1:
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context)=> CandidateList(),
-        ),);
+      case 1:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CandidateList(),
+          ),
+        );
         break;
-    case 3:
-      enableBallot();
+      case 3:
+        enableBallot();
         break;
     case 4:
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context)=> Login(),
         ),);
         break;
+    }
   }
-}
 
   @override
   void initState() {
@@ -111,9 +115,9 @@ void selectedItem(BuildContext context, int index){
           // leading:const Icon(Icons.description),
           // title: const Text('start'),
           // onTap: ()=> selectedItem(context ,5),
-        // ),
-      ],
-    ),
-   );
+          // ),
+        ],
+      ),
+    );
   }
 }

@@ -30,8 +30,12 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-  image_picker: ^0.8.5+3
   get: ^4.3.8
+  fluttertoast: ^8.0.7
+  flutter_session_manager: ^1.0.2
+  #flutter_session: ^0.1.1
+  image_picker: ^0.8.6
+ 
   
 
 

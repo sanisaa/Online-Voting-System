@@ -1,1 +1,1 @@
-const uri="http://172.16.2.119";
+const uri="http://192.168.1.67";

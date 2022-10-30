@@ -21,75 +21,73 @@ class EditData extends StatefulWidget {
 }
 
 class _EditDataState extends State<EditData> {
-
-  
   TextEditingController controllerName = new TextEditingController();
   TextEditingController controllerEmail = new TextEditingController();
   TextEditingController controllerPhone = new TextEditingController();
   TextEditingController controllerGender = new TextEditingController();
   TextEditingController controllerFaculty = new TextEditingController();
   //TextEditingController controlleragenda = new TextEditingController();
-File? pickedImage;
-String imagePath="";
-    void imagePickerOption() {
-        Get.bottomSheet(
-          SingleChildScrollView(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
-              ),
-              child: Container(
-                color: Colors.white,
-                height: 250,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        
-                        "Pic Image From",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                        pickImage(ImageSource.camera);
-                        },
-                        icon: const Icon(Icons.camera),
-                        label: const Text("CAMERA"),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        },
-                        icon: const Icon(Icons.image),
-                        label: const Text("GALLERY"),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: const Icon(Icons.close),
-                        label: const Text("CANCEL"),
-                      ),
-                    ],
+  File? pickedImage;
+  String imagePath = "";
+  void imagePickerOption() {
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+          child: Container(
+            color: Colors.white,
+            height: 250,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    "Pic Image From",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      pickImage(ImageSource.camera);
+                    },
+                    icon: const Icon(Icons.camera),
+                    label: const Text("CAMERA"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      pickImage(ImageSource.gallery);
+                    },
+                    icon: const Icon(Icons.image),
+                    label: const Text("GALLERY"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: const Icon(Icons.close),
+                    label: const Text("CANCEL"),
+                  ),
+                ],
               ),
             ),
           ),
-        );
-      }
-      Future<void> pickImage(ImageSource gallery) async {
-  try{
+        ),
+      ),
+    );
+  }
+
+  Future<void> pickImage(ImageSource gallery) async {
+    try {
       var photo = await ImagePicker().pickImage(source: gallery);
       setState(() {
         pickedImage = File(photo!.path);
@@ -99,155 +97,164 @@ String imagePath="";
     } catch (error) {
       debugPrint(error.toString());
     }
-   }
+  }
 
   Future<void> editData() async {
     List<int> imageBytes = pickedImage?.readAsBytesSync() as List<int>;
-     String baseimage = base64Encode(imageBytes);
-    var url="$uri/voting/php/editvoter.php/";
+    String baseimage = base64Encode(imageBytes);
+    var url = "$uri/voting/php/editvoter.php/";
     // var url="http://192.168.1.69/voting/php/edit.php/";
-   final response = await http.post(Uri.parse(url),
-   body: {
+    final response = await http.post(Uri.parse(url), body: {
       "uid": widget.list[widget.index]['uid'],
       "name": controllerName.text,
       "email": controllerEmail.text,
       "phone": controllerPhone.text,
       "gender": controllerGender.text,
       "faculty": controllerFaculty.text,
-       'image':baseimage 
+      'image': baseimage
     });
-     var data=json.decode(json.encode(response.body));
-        if(data!= "Edit Success"){
-          print(data);
-    
-        }else{
-          print("Success");
-        }
+    var data = json.decode(json.encode(response.body));
+    if (data != "Edit Success") {
+      print(data);
+      showSuccessSnackBar(Text('There was an error. Try Again!'));
+    } else {
+      print("Success");
+      showSuccessSnackBar(Text('Data Edited Successfully'));
+    }
   }
 
-
   @override
-    void initState() {
-      
-      controllerName= new TextEditingController(text: widget.list[widget.index]['name'] );
-      controllerEmail= new TextEditingController(text: widget.list[widget.index]['email'] );
-      controllerPhone= new TextEditingController(text: widget.list[widget.index]['phone'] );
-      controllerGender= new TextEditingController(text: widget.list[widget.index]['gender'] );
-      controllerFaculty= new TextEditingController(text: widget.list[widget.index]['faculty'] );
-      super.initState();
-    }
+  void initState() {
+    controllerName =
+        new TextEditingController(text: widget.list[widget.index]['name']);
+    controllerEmail =
+        new TextEditingController(text: widget.list[widget.index]['email']);
+    controllerPhone =
+        new TextEditingController(text: widget.list[widget.index]['phone']);
+    controllerGender =
+        new TextEditingController(text: widget.list[widget.index]['gender']);
+    controllerFaculty =
+        new TextEditingController(text: widget.list[widget.index]['faculty']);
+    super.initState();
+  }
+
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("EDIT DATA"),
-        backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
-       
         child: Column(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                   Align(
-                    alignment: Alignment.center,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.purple, width: 5),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-            child: ClipOval(
-                          child: pickedImage!= null 
-                          ?Image.file(
-                            pickedImage!,               
-                            //if pickked image is null then the default image is shown whose link is given, 
-                            //otherwise picked image is shown
-                            width: 170,
-                            height: 170,
-                            fit:BoxFit.cover,
-                            )
-                          
-                           :Image.network(
-                             '$uri/voting/${widget.list[widget.index]['image']}',
-                            //  '$uri/voting/${widget.list[widget.index]['image']}',
-                             
+                const SizedBox(
+                  height: 50,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Stack(children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.indigo, width: 5),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: pickedImage != null
+                            ? Image.file(
+                                pickedImage!,
+                                //if pickked image is null then the default image is shown whose link is given,
+                                //otherwise picked image is shown
+                                width: 170,
+                                height: 170,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                '$uri/voting/${widget.list[widget.index]['image']}',
+                                //  '$uri/voting/${widget.list[widget.index]['image']}',
+
                                 //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
                                 width: 170,
                                 height: 170,
                                 fit: BoxFit.cover,
                               ),
                       ),
-            ),
-            Positioned(
+                    ),
+                    Positioned(
                       bottom: 0,
                       right: 5,
                       child: IconButton(
-                      onPressed: imagePickerOption,
-                      icon: const Icon(
-                        Icons.add_a_photo_outlined,
-                        color: Colors.purple,
-                        size: 30,
+                        onPressed: imagePickerOption,
+                        icon: const Icon(
+                          Icons.add_a_photo_outlined,
+                          color: Colors.blue,
+                          size: 30,
+                        ),
                       ),
-                    ),
-                  )
-                      ]),),
-                      const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.purple
+                    )
+                  ]),
                 ),
-                  onPressed: imagePickerOption,
-                  icon: const Icon(Icons.add_a_photo_sharp),
-                  label: const Text('UPLOAD IMAGE')),
-            )],),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton.icon(
+                      onPressed: imagePickerOption,
+                      icon: const Icon(Icons.add_a_photo_sharp),
+                      label: const Text('UPLOAD IMAGE')),
+                )
+              ],
+            ),
             new Column(
               children: <Widget>[
                 new TextField(
                   controller: controllerName,
-                  decoration: new InputDecoration(
-                  contentPadding: EdgeInsets.only(left: 10), labelText: "Name"),
+                  decoration:
+                      new InputDecoration(hintText: "Name", labelText: "Name"),
                 ),
                 new TextField(
                   controller: controllerEmail,
                   decoration: new InputDecoration(
-                 contentPadding: EdgeInsets.only(left: 10), labelText: "Email"),
+                      hintText: "Email", labelText: "Email"),
                 ),
                 new TextField(
                   controller: controllerPhone,
                   decoration: new InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10), labelText: "Phone_number"),
+                      hintText: "Phone_number", labelText: "Phone_number"),
                 ),
                 new TextField(
                   controller: controllerGender,
                   decoration: new InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10), labelText: "Gender"),
+                      hintText: "Gender", labelText: "Gender"),
                 ),
-                 new TextField(
+                new TextField(
                   controller: controllerFaculty,
                   decoration: new InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 10), labelText: "Faculty"),
+                      hintText: "Faculty", labelText: "Faculty"),
                 ),
                 new Padding(
                   padding: const EdgeInsets.all(10.0),
                 ),
                 new ElevatedButton(
                   child: new Text("EDIT DATA"),
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.purple
-                      ),
+                  style: ElevatedButton.styleFrom(primary: Colors.blueAccent),
                   onPressed: () {
                     editData();
                     Navigator.of(context).push(new MaterialPageRoute(

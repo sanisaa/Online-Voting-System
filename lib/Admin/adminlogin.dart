@@ -7,68 +7,79 @@ import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-//import 'verify_otp.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
+//import '../widget/snackbar.dart';
 
+//import 'verify_otp.dart';
 class ALogin extends StatefulWidget {
   const ALogin({Key? key}) : super(key: key);
- 
+
   @override
   State<ALogin> createState() => _LoginState();
 }
 
 class _LoginState extends State<ALogin> {
-  TextEditingController email= TextEditingController();
-  TextEditingController otp= TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController otp = TextEditingController();
 
-  Future<void>sendOTP() async{
+  Future<void> sendOTP() async {
+    var url = "$uri/smtpmail/mail.php/";
+    final response = await http.post(Uri.parse(url), body: {
+      'email': email.text,
+    });
 
-        var url="$uri/smtpmail/mail.php/"; 
-         final response=await http.post(Uri.parse(url),
-          body: {  
-          'email': email.text,
-        }
-        );
+    var data = json.decode(json.encode(response.body));
 
-       var data=json.decode(json.encode(response.body));
-       
-       print(data);
-         if(data.compareTo("NotRegistered")==-1){
-           print("you are not registered");
-         // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
-         }else if((data.compareTo("Success")==1)){
-          print("OTP sent");
-           //Navigator.push(context, MaterialPageRoute(builder:(context) => VerifyOTPScreen()));
-      }else{
-        print("invalid email");
-      }
-     
+    print(data);
+    if (data.compareTo("NotRegistered") == -1) {
+      print("you are not registered");
+      // showSuccessSnackBar(Text('You Are Not Registered'));
+      showSuccessSnackBar(Text('You are not Registered'));
+
+      // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
+    } else if ((data.compareTo("Success") == 1)) {
+      print("OTP sent");
+      showSuccessSnackBar(Text('OTP Sent'));
+      //Navigator.push(context, MaterialPageRoute(builder:(context) => VerifyOTPScreen()));
+    } else {
+      print("invalid email");
+      showSuccessSnackBar(Text('Invalid Email'));
+    }
   }
-  Future<void>verify() async{
 
-        var url="$uri/smtpmail/verification.php/"; 
-         final response=await http.post(Uri.parse(url),
-          body: {  
-            
-          'otp_code': otp.text,
-                   
-        }
-        );
+  Future<void> verify() async {
+    var url = "$uri/smtpmail/verification.php/";
+    final response = await http.post(Uri.parse(url), body: {
+      'otp_code': otp.text,
+    });
 
-        
 //         print(response.statusCode);
 //         if (response.statusCode == 200) {
- 
-   var data=jsonDecode(json.encode(response.body));
-   print(data);
-   String message="Success";
-   if(data.compareTo("Success")==1){
-          Navigator.push(context, MaterialPageRoute(builder:(context) => AdminDashboard(email.text)));
-        }else{
-         print("Invalid OTP");
-         }
 
- }
+    var data = jsonDecode(json.encode(response.body));
+    print(data);
+    String message = "Success";
+    if (data.compareTo("Success") == 1) {
+      showSuccessSnackBar(Text('Login Success'));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AdminDashboard(email.text)));
+    } else {
+      print("Invalid OTP");
+      showSuccessSnackBar(Text('Invalid OTP'));
+    }
+  }
 
+  showSuccessSnackBar(message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: message,
+      backgroundColor: Colors.purple,
+      //margin: EdgeInsets.all(20),
+      duration: Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +108,7 @@ class _LoginState extends State<ALogin> {
             ),
             new ElevatedButton(
                 child: new Text("Admin"),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.red),
+                style: ElevatedButton.styleFrom(primary: Colors.red),
                 onPressed: () => Navigator.of(context).push(
                       new MaterialPageRoute(
                           builder: (BuildContext context) => ALogin()),
