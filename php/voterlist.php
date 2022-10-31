@@ -14,17 +14,4 @@ while($fetchData=$queryResult->fetch_assoc()){
 }
 
 echo json_encode($result);
-
-
-//     $result = mysqli_query($connection,$sql);
-//     $arr = [];
-
-//         while($row = mysqli_fetch_array($result)){
-//            $arr[]=$row;
-//         }
-    
-//    // $conn->close();
-//    print(json_encode($arr));
-//     //echo json_encode($response);
- 
 ?>

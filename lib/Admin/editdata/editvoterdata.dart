@@ -104,6 +104,7 @@ class _EditDataState extends State<EditData> {
     // var url="http://192.168.1.66/voting/php/edit.php/";
     final response = await http.post(Uri.parse(url), body: {
       "uid": widget.list[widget.index]['uid'],
+      "rid": widget.list[widget.index]['rid'],
       "name": controllerName.text,
       "email": controllerEmail.text,
       "phone": controllerPhone.text,
@@ -112,12 +113,13 @@ class _EditDataState extends State<EditData> {
       'image': baseimage
     });
     var data = json.decode(json.encode(response.body));
-    if (data != "Edit Success") {
+    print(data.compareTo("Successful"));
+    if (data.compareTo("Successful")==-1) {
       print(data);
-      showSuccessSnackBar(Text("..."));
+      showSuccessSnackBar(Text("Detail updated Sucessfully"));
     } else {
       print("Success");
-      showSuccessSnackBar(Text("..."));
+      showSuccessSnackBar(Text("Failed to update"));
     }
   }
 

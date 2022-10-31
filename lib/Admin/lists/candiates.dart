@@ -69,7 +69,7 @@ class _CandidateListState extends State<CandidateList>{
                 ),
               ),
               title: Text(userdata[index]["name"]),
-              subtitle: Text(userdata[index]["email"]),
+              subtitle: Text(userdata[index]["agenda"]),
           onTap: ()=>Navigator.of(context).push(
             new MaterialPageRoute(
               builder: (BuildContext context)=> new DetailView(

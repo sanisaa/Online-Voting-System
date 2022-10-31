@@ -24,6 +24,13 @@ class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
   var status;
 
+  Future<void> deleteotp() async {
+    String url = "$uri/voting/php/otpdelete.php/";
+    var response = await http.post(Uri.parse(url), body: {
+      'email': widget.email,
+    });
+  }
+
   Future<String> verify() async {
     String url = "$uri/voting/php/checkStatus.php/";
 
@@ -73,12 +80,10 @@ class _NavBarState extends State<NavBar> {
         enableBallot();
         break;
       case 4:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            // builder: (context)=> Votes(),
-            builder: (context) => Login(),
-          ),
-        );
+      deleteotp();
+            Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()),
+            (Route<dynamic> route) => false);
         break;
     }
   }

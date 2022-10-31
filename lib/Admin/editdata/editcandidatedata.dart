@@ -115,12 +115,12 @@ class _EditDataState extends State<EditData> {
       'image': baseimage
     });
     var data = json.decode(json.encode(response.body));
-    if (data != "Edit Success") {
+    if (data.compareTo("Successful")==0) {
       print(data);
-      showSuccessSnackBar(Text("..."));
+      showSuccessSnackBar(Text("Detail Edited successfully"));
     } else {
       print("Success");
-      showSuccessSnackBar(Text("..."));
+      showSuccessSnackBar(Text("Failed to update detail"));
     }
   }
 

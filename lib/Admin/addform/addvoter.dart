@@ -112,8 +112,6 @@ class _addNewVoterState extends State<addNewVoter> {
     });
 
     var data = json.decode(json.encode(response.body));
-    print(data);
-    print(data.compareTo("Success"));
     if (data.compareTo("Success") == 0) {
       print("Successfully inserted data");
     } else {

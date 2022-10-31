@@ -20,12 +20,12 @@ $connection = new mysqli("localhost","root","","election");
 	
 	$sql="UPDATE user SET name='".$name."', email='".$email."', phone='".$phone."', gender='".$gender."',faculty='".$faculty."', image='".$imagePath."', agenda='$agenda' WHERE uid=". $uid;
     if (mysqli_query($connection, $sql)){
-        echo "Edit Successful";
+        echo "Successful";
         $selectquery = "select * from user where phone=".$phone;
         $query = mysqli_query($connection, $selectquery);
         $result = mysqli_fetch_assoc($query);
         $uid = $result['uid']; 
-        $table=mysqli_query($connection,"UPDATE vote SET name='.$name' WHERE uid=".$uid);
+        $table=mysqli_query($connection,"UPDATE  vote SET name='.$name' WHERE uid=".$uid);
         }
         else
         {
