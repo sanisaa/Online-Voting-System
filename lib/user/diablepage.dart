@@ -12,7 +12,7 @@ class DisablePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Candidates'),
+        title: Text('Wait.....'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -23,7 +23,7 @@ class DisablePage extends StatelessWidget {
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                "Election not started",
+                "Not Available at the moment",
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
