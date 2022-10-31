@@ -4,7 +4,7 @@
 $connection = new mysqli("localhost","root","","election");
    
 
-$sql = "SELECT status FROM updat WHERE sid=1";
+$sql = "SELECT status FROM poll WHERE sid=1";
 
 
 $result = mysqli_query($connection,$sql);

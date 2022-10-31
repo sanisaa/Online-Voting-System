@@ -2,6 +2,8 @@ import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/startend.dart';
 import 'package:election/admin/adminlogin.dart';
 import 'package:election/admin/lists/ballot.dart';
+import 'package:election/api.dart';
+import 'package:election/user/lists/votes.dart';
 import 'package:flutter/material.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
@@ -18,6 +20,14 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
+
+    Future<void> deleteotp() async {
+    String url = "$uri/voting/php/otpdelete.php/";
+    var response = await http.post(Uri.parse(url), body: {
+      'email': widget.email,
+    });
+
+  }
 
   void selectedItem(BuildContext context, int index) {
     Navigator.of(context).pop();
@@ -60,10 +70,18 @@ class _NavBarState extends State<NavBar> {
           ),
         );
         break;
-      case 5:
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => ALogin()),
-            (Route<dynamic> route) => false);
+        case 5:
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => Votes(),
+          ),
+        );
+        break;
+      case 6:
+        deleteotp();
+      Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(builder: (context) => ALogin()),
+    (Route<dynamic> route) => false);
         break;
     }
   }
@@ -101,9 +119,14 @@ class _NavBarState extends State<NavBar> {
             onTap: () => selectedItem(context, 4),
           ),
           ListTile(
+            leading: const Icon(Icons.pages_outlined),
+            title: const Text('Votes'),
+            onTap: () => selectedItem(context, 5),
+          ),
+          ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('logout'),
-            onTap: () => selectedItem(context, 5),
+            onTap: () => selectedItem(context, 6),
           ),
         ],
       ),

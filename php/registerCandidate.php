@@ -26,7 +26,7 @@ $selectquery = "select * from user where phone=".$phone_no;
 $query = mysqli_query($connection, $selectquery);
 $result = mysqli_fetch_assoc($query);
   $uid = $result['uid']; 
-  $table=mysqli_query($connection,"insert into result values('','$uid','$name','0')");
+  $table=mysqli_query($connection,"insert into vote values('','$uid','$name','0')");
 }
 else
 {
