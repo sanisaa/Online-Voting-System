@@ -3,7 +3,7 @@
     //candidate=3
     //admin=1
     $connection = new mysqli("localhost","root","","election");
-    $sql = "SELECT * FROM user INNER JOIN result ON user.uid=result.uid";
+    $sql = "SELECT * FROM user INNER JOIN vote ON user.uid=vote.uid";
 
     $result = mysqli_query($connection,$sql);
     $arr = [];

@@ -17,7 +17,7 @@
    
     
     $sql = 
-    "UPDATE updat SET status='$status'";
+    "UPDATE poll SET status='$status'";
     //"insert into updat values($status)";
     if (mysqli_query($connection, $sql))
 {

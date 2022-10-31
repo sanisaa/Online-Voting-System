@@ -2,6 +2,7 @@ import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/startend.dart';
 import 'package:election/api.dart';
 import 'package:flutter/material.dart';
+import '../Admin/detail/report.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
 import 'dart:convert';
@@ -58,6 +59,13 @@ class _NavBarState extends State<NavBar> {
           ),
         );
         break;
+      // case 5:
+      //   Navigator.of(context).push(
+      //     MaterialPageRoute(
+      //       builder: (context) => Report(),
+      //     ),
+      //   );
+      //   break;
     }
   }
 
@@ -88,6 +96,11 @@ class _NavBarState extends State<NavBar> {
             title: const Text('conduct Election'),
             onTap: () => selectedItem(context, 4),
           ),
+          // ListTile(
+          //   leading: const Icon(Icons.description),
+          //   title: const Text('View Report'),
+          //   onTap: () => selectedItem(context, 5),
+          // ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Exit'),
