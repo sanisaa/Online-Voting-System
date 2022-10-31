@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:election/Admin/dashboard.dart';
+import 'package:election/admin/lists/candiates.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -54,6 +55,9 @@ class _addNewCandidateState extends State<addNewCandidate> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.camera);
                     },
@@ -61,6 +65,9 @@ class _addNewCandidateState extends State<addNewCandidate> {
                     label: const Text("CAMERA"),
                   ),
                   ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.gallery);
                     },
@@ -71,6 +78,9 @@ class _addNewCandidateState extends State<addNewCandidate> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       Get.back();
                     },
@@ -119,6 +129,11 @@ class _addNewCandidateState extends State<addNewCandidate> {
     print(data.compareTo("Success"));
     if (data.compareTo("Success") == 0) {
       print("Successfully inserted data");
+          Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CandidateList(),
+          ),
+        );
     } else {
       print("Error");
     }

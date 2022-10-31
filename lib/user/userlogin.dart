@@ -22,6 +22,32 @@ class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController otp = TextEditingController();
 
+      Future<bool> showExitPopup() async {
+    return await showDialog(
+          //show confirm dialogue
+          //the return value will be from "Yes" or "No" options
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Exit App'),
+            content: Text('Do you want to exit an App?'),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                //return true when click on "Yes"
+                child: Text('Yes',),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                //return false when click on "NO"
+                child: Text('No'),
+              ),
+
+            ],
+          ),
+        ) ??
+        false;
+    }
+
   Future<void> sendOTP() async {
     var url = "$uri/smtpmail/user_mail.php/";
     final response = await http.post(Uri.parse(url), body: {
@@ -33,7 +59,7 @@ class _LoginState extends State<Login> {
     print(data);
     if (data.compareTo("NotRegistered") == -1) {
       print("you are not registered");
-      showSuccessSnackBar(Text("This email has already been registered"));
+      showSuccessSnackBar(Text("This email has not been registered"));
       // Navigator.push(context, MaterialPageRoute(builder:(context) => Login()));
     } else if ((data.compareTo("Success") == 1)) {
       print("OTP sent");
@@ -81,128 +107,131 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        width: double.infinity,
-        height: size.height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
+    return WillPopScope(
+      onWillPop: showExitPopup,
+      child: Scaffold(
+          body: SingleChildScrollView(
         child: Container(
+          width: double.infinity,
+          height: size.height,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
           child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.purple,
-                width: 50,
-              ),
-            ),
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.purple,
-                  width: 12,
+                  width: 50,
                 ),
-                color: Colors.purple,
               ),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.white,
+                    color: Colors.purple,
                     width: 12,
                   ),
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: Colors.purple,
                 ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      new Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          new ElevatedButton(
-                              child: new Text("User"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.purple),
-                              onPressed: () => Navigator.of(context).push(
-                                    new MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          Login(),
-                                    ),
-                                  )),
-                          Padding(
-                            padding: EdgeInsets.all(5.0),
-                          ),
-                          new ElevatedButton(
-                              child: new Text("Admin"),
-                              style:
-                                  ElevatedButton.styleFrom(primary: Colors.red),
-                              onPressed: () => Navigator.of(context).push(
-                                    new MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            ALogin()),
-                                  )),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(15.0),
-                      ),
-                      Text(
-                        " User Login",
-                        style: Theme.of(context).textTheme.headline5!.copyWith(
-                              color: Colors.purple,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(10),
-                              child: TextFormField(
-                                cursorColor: Colors.purple,
-                                controller: email,
-                                decoration: InputDecoration(
-                                    fillColor: Colors.purple,
-                                    border: OutlineInputBorder(),
-                                    label: Text('Enter the email'),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(Icons.send),
-                                      tooltip: "Send OTP",
-                                      onPressed: sendOTP,
-                                      color: Colors.purple.shade400,
-                                    )),
-                              ),
-                            ),
-                            Container(
-                                margin: EdgeInsets.all(10),
-                                child: TextFormField(
-                                  controller: otp,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    label: Text('Enter the otp'),
-                                  ),
-                                )),
-                            Container(
-                              margin: const EdgeInsets.all(10),
-                              child: ElevatedButton(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 12,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        new Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            new ElevatedButton(
+                                child: new Text("User"),
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.purple),
-                                onPressed: () {
-                                  verify();
-                                },
-                                child: const Text('Verify'),
-                              ),
+                                onPressed: () => Navigator.of(context).push(
+                                      new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Login(),
+                                      ),
+                                    )),
+                            Padding(
+                              padding: EdgeInsets.all(5.0),
                             ),
+                            new ElevatedButton(
+                                child: new Text("Admin"),
+                                style:
+                                    ElevatedButton.styleFrom(primary: Colors.red),
+                                onPressed: () => Navigator.of(context).push(
+                                      new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              ALogin()),
+                                    )),
                           ],
                         ),
-                      ),
-                    ]),
+                        Padding(
+                          padding: EdgeInsets.all(15.0),
+                        ),
+                        Text(
+                          " User Login",
+                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.all(10),
+                                child: TextFormField(
+                                  cursorColor: Colors.purple,
+                                  controller: email,
+                                  decoration: InputDecoration(
+                                      fillColor: Colors.purple,
+                                      border: OutlineInputBorder(),
+                                      label: Text('Enter the email'),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(Icons.send),
+                                        tooltip: "Send OTP",
+                                        onPressed: sendOTP,
+                                        color: Colors.purple.shade400,
+                                      )),
+                                ),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.all(10),
+                                  child: TextFormField(
+                                    controller: otp,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      label: Text('Enter the otp'),
+                                    ),
+                                  )),
+                              Container(
+                                margin: const EdgeInsets.all(10),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.purple),
+                                  onPressed: () {
+                                    verify();
+                                  },
+                                  child: const Text('Verify'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]),
+                ),
               ),
             ),
           ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }

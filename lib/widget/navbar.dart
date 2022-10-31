@@ -73,12 +73,9 @@ class _NavBarState extends State<NavBar> {
         enableBallot();
         break;
       case 4:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            // builder: (context)=> Votes(),
-            builder: (context) => Login(),
-          ),
-        );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()),
+            (Route<dynamic> route) => false);
         break;
     }
   }

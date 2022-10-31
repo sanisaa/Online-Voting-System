@@ -5,7 +5,7 @@
  $sql = "UPDATE result SET vote_count=vote_count+1 WHERE uid=".$uid;
  if (mysqli_query($connect, $sql))
     {
-    echo("voted successfully");
+    echo("success");
     }else{
         echo("failed");
     }

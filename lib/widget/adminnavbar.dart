@@ -1,6 +1,7 @@
 import 'package:election/Admin/dashboard.dart';
 import 'package:election/Admin/startend.dart';
-import 'package:election/api.dart';
+import 'package:election/admin/adminlogin.dart';
+import 'package:election/admin/lists/ballot.dart';
 import 'package:flutter/material.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
@@ -45,18 +46,24 @@ class _NavBarState extends State<NavBar> {
         );
         break;
       case 3:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AdminDashboard(widget.email),
-          ),
-        );
-        break;
-      case 4:
-        Navigator.of(context).push(
+              Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => StartEnd(widget.email),
           ),
         );
+
+        break;
+        case 4:
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => Ballot(widget.email),
+          ),
+        );
+        break;
+      case 5:
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => ALogin()),
+            (Route<dynamic> route) => false);
         break;
     }
   }
@@ -74,7 +81,7 @@ class _NavBarState extends State<NavBar> {
             onTap: () => selectedItem(context, 0),
           ),
           ListTile(
-            leading: const Icon(Icons.person_add_alt_1_rounded),
+            leading: const Icon(Icons.person_add),
             title: const Text('Candidates'),
             onTap: () => selectedItem(context, 1),
           ),
@@ -84,14 +91,19 @@ class _NavBarState extends State<NavBar> {
             onTap: () => selectedItem(context, 2),
           ),
           ListTile(
-            leading: const Icon(Icons.description),
+            leading: const Icon(Icons.start),
             title: const Text('conduct Election'),
+            onTap: () => selectedItem(context, 3),
+          ),
+          ListTile(
+            leading: const Icon(Icons.description),
+            title: const Text('Ballot'),
             onTap: () => selectedItem(context, 4),
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Exit'),
-            onTap: () => selectedItem(context, 3),
+            title: const Text('logout'),
+            onTap: () => selectedItem(context, 5),
           ),
         ],
       ),

@@ -36,68 +36,6 @@ class _BallotState extends State<Ballot> {
     super.initState();
   }
 
-  Future castVote(uid, name) async {
-    String url = "$uri/voting/php/votingcondition.php/";
-    //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/";
-    try {
-      var userresponse = await http.post(Uri.parse(url), body: {
-        'email': widget.email,
-      });
-      var data = json.decode(json.encode(userresponse.body));
-      if (data.compareTo('0') != 0) {
-        print("you have already voted");
-        showSuccessSnackBar(Text("You have already voted"));
-      } else {
-        try {
-          String url = "$uri/voting/php/vote.php/";
-          //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/";
-          var response = await http.post(Uri.parse(url), body: {
-            'uid': uid,
-            'name': name,
-          });
-          var data = json.decode(json.encode(response.body));
-          print(data.compareTo("Success"));
-          if (data.compareTo("Success")==1) {
-            showSuccessSnackBar(Text("Voted Successfully"));
-            print(data);
-          } else {
-            showSuccessSnackBar(Text("Failed to register your vote"));
-            print("Success");
-          }
-        } catch (e) {
-          print(e);
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void confirm(uid, name) {
-    AlertDialog alertDialog = new AlertDialog(
-      // ignore: prefer_interpolation_to_compose_strings
-      content: new Text("Are You sure want to vote " + name),
-      actions: <Widget>[
-        new ElevatedButton(
-          child: new Text(
-            "Yes! vote",
-            style: new TextStyle(color: Colors.black),
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.green,
-          ),
-          onPressed: () {
-            AlertDialog alertDialog =
-                new AlertDialog(content: new Text("voted successfully"));
-            castVote(uid, name);
-          },
-        ),
-      ],
-    );
-
-    //showDialog(context: context, child: alertDialog);
-    showDialog(builder: (context) => alertDialog, context: context);
-  }
 
   showSuccessSnackBar(message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -150,10 +88,10 @@ class _BallotState extends State<Ballot> {
                       primary: Colors.green,
                     ),
                     onPressed: () {
-                      confirm(uid, name);
+                              showSuccessSnackBar(Text("You are Admin, You cannot vote!"));
                     }),
                 title: Text(userdata[index]["name"]),
-                subtitle: Text(userdata[index]["email"]),
+                subtitle: Text(userdata[index]["agenda"]),
               ),
             );
           }),
