@@ -49,6 +49,16 @@ class _NavBarState extends State<NavBar> {
           MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
     }
   }
+    void enableVOtes() {
+    if (status.compareTo("NotRegistered") == 0) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Votes(),
+      ));
+    } else {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
+    }
+  }
 
   void selectedItem(BuildContext context, int index) {
     Navigator.of(context).pop();
@@ -70,11 +80,7 @@ class _NavBarState extends State<NavBar> {
         );
         break;
       case 2:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => Votes(),
-          ),
-        );
+        enableVOtes();
         break;
       case 3:
         enableBallot();

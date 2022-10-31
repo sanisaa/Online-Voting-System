@@ -5,7 +5,8 @@
 $email=$_POST['email'];
 $connection = new mysqli("localhost","root","","election");
 
-$sql = "select * from user";
+$sql = "SELECT COUNT(*) FROM user WHERE rid='2'OR rid='3';";
+print($sql);
 
 $result = mysqli_query($connection,$sql);
 $arr = [];
@@ -13,6 +14,6 @@ $arr = [];
     while($row = mysqli_fetch_array($result)){
        $arr[]=$row;
     }
-print(json_encode($arr));
+// print(json_encode($arr));
 
      ?>

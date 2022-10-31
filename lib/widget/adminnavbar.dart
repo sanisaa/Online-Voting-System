@@ -71,26 +71,33 @@ class _NavBarState extends State<NavBar> {
           ),
         );
         break;
-        case 5:
+        // case 5:
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => Report(),
+        //   ),
+        // );
+        // break;
+        // case 6:
+        //   Navigator.of(context).push(
+        //     MaterialPageRoute(
+        //       builder: (context) => Publish(widget.email),
+        //   ),
+        // );
+        // break;
+        case 7:
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => Votes(),
           ),
         );
         break;
-      case 6:
+      case 8:
         deleteotp();
       Navigator.of(context).pushAndRemoveUntil(
     MaterialPageRoute(builder: (context) => ALogin()),
     (Route<dynamic> route) => false);
         break;
-      // case 5:
-      //   Navigator.of(context).push(
-      //     MaterialPageRoute(
-      //       builder: (context) => Report(),
-      //     ),
-      //   );
-      //   break;
     }
   }
 
@@ -131,15 +138,20 @@ class _NavBarState extends State<NavBar> {
           //   title: const Text('View Report'),
           //   onTap: () => selectedItem(context, 5),
           // ),
+          // ListTile(
+          //   leading: const Icon(Icons.share),
+          //   title: const Text('publish result'),
+          //   onTap: () => selectedItem(context, 6),
+          // ),
           ListTile(
             leading: const Icon(Icons.pages_outlined),
             title: const Text('Votes'),
-            onTap: () => selectedItem(context, 5),
+            onTap: () => selectedItem(context, 7),
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('logout'),
-            onTap: () => selectedItem(context, 6),
+            onTap: () => selectedItem(context, 8),
           ),
         ],
       ),
