@@ -109,11 +109,11 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-          accountName:  const Text('App name here..'),
+          accountName:  const Text('Electiva'),
          accountEmail:   Text(widget.email),
          currentAccountPicture: CircleAvatar(
           child: ClipOval(
-            child: Image.asset('assets/images/ashish.jpg',
+            child: Image.asset('assets/images/logo.png',
             fit: BoxFit.cover,
             width: 90,
             height: 90,
@@ -124,7 +124,7 @@ class _NavBarState extends State<NavBar> {
             color:Colors.purple,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/images/background.JPG'),
+              image: AssetImage('assets/images/banner.png'),
               ),
           ),
          ),
