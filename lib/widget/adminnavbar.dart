@@ -3,12 +3,12 @@ import 'package:election/Admin/startend.dart';
 import 'package:election/admin/adminlogin.dart';
 import 'package:election/admin/lists/ballot.dart';
 import 'package:election/api.dart';
-import 'package:election/user/lists/votes.dart';
+import 'package:election/admin/lists/votefor.dart';
+import 'package:election/admin/lists/votes.dart';
 import 'package:flutter/material.dart';
 import '../Admin/detail/report.dart';
 import '../Admin/lists/candiates.dart';
 import '../Admin/lists/voters.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class NavBar extends StatefulWidget {
@@ -67,7 +67,7 @@ class _NavBarState extends State<NavBar> {
         case 4:
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => Ballot(widget.email),
+              builder: (context) => VoteFor(widget.email),
           ),
         );
         break;
@@ -108,6 +108,26 @@ class _NavBarState extends State<NavBar> {
         //remove padding
         padding: EdgeInsets.zero,
         children: <Widget>[
+          UserAccountsDrawerHeader(
+          accountName:  const Text('Ashish Sapkota'),
+         accountEmail:   Text(widget.email),
+         currentAccountPicture: CircleAvatar(
+          child: ClipOval(
+            child: Image.asset('assets/images/ashish.jpg',
+            fit: BoxFit.cover,
+            width: 90,
+            height: 90,
+            ),
+          ), 
+          ),
+          decoration: const BoxDecoration(
+            color:Colors.blue,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/images/background.JPG'),
+              ),
+          ),
+         ),
           ListTile(
             leading: const Icon(Icons.account_box),
             title: const Text('profile'),

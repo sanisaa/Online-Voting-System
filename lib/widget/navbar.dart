@@ -1,6 +1,7 @@
 import 'package:election/api.dart';
 import 'package:election/user/dashboard.dart';
 import 'package:election/user/diablepage.dart';
+import 'package:election/user/lists/votefor.dart';
 import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
 import '../user/lists/ballot.dart';
@@ -42,7 +43,7 @@ class _NavBarState extends State<NavBar> {
   void enableBallot() {
     if (status.compareTo("NotRegistered") == 1) {
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Ballot(widget.email),
+        builder: (context) => VoteFor(widget.email),
       ));
     } else {
       Navigator.of(context).push(
@@ -107,6 +108,26 @@ class _NavBarState extends State<NavBar> {
         //remove padding
         padding: EdgeInsets.zero,
         children: <Widget>[
+          UserAccountsDrawerHeader(
+          accountName:  const Text('App name here..'),
+         accountEmail:   Text(widget.email),
+         currentAccountPicture: CircleAvatar(
+          child: ClipOval(
+            child: Image.asset('assets/images/ashish.jpg',
+            fit: BoxFit.cover,
+            width: 90,
+            height: 90,
+            ),
+          ), 
+          ),
+          decoration: const BoxDecoration(
+            color:Colors.purple,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/images/background.JPG'),
+              ),
+          ),
+         ),
           ListTile(
             leading: const Icon(Icons.account_box),
             title: const Text('profile'),
