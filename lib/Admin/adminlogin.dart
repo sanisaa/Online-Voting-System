@@ -142,6 +142,15 @@ class _LoginState extends State<ALogin> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Container(
+                          child: ClipOval(
+                          child: Image.asset('assets/images/logo.png',
+                            fit: BoxFit.cover,
+                            width: 300,
+                            height: 150,
+                          ),
+                          ),
+                        ),
                         new Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
