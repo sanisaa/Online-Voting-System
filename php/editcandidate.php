@@ -17,7 +17,6 @@ $connection = new mysqli("localhost","root","","election");
     fwrite($filehandler, base64_decode($image));
     fclose($filehandler);
 
-	
 	$sql="UPDATE user SET name='".$name."', email='".$email."', phone='".$phone."', gender='".$gender."',faculty='".$faculty."', image='".$imagePath."', agenda='$agenda' WHERE uid=". $uid;
     if (mysqli_query($connection, $sql)){
         echo "Successful";
