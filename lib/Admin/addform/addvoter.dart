@@ -119,6 +119,25 @@ class _addNewVoterState extends State<addNewVoter> {
     }
   }
 
+  Future<void> verifyPhone() async {
+    String url = "$uri/voting/php/phonevalidation.php/";
+    var response = await http.post(Uri.parse(url), body: {
+      'phone': phone.text,
+    });
+
+    data = json.decode(json.encode(response.body));
+    if (data.compareTo("Success") == 0) {
+      print("Phone Validation Success");
+      insertrecord();
+    } else if ((data.compareTo("failed") == 0)) {
+      print("Phone has already been registered");
+      showSuccessSnackBar(
+          Text("Account with this phone number already exist."));
+    } else {
+      print("Enter valid phone");
+    }
+  }
+
   Future<void> verifyEmail() async {
     String url = "$uri/voting/php/emailvalidation.php/";
     var response = await http.post(Uri.parse(url), body: {
@@ -128,7 +147,7 @@ class _addNewVoterState extends State<addNewVoter> {
     data = json.decode(json.encode(response.body));
     if (data.compareTo("Success") == 0) {
       print("Email validation success");
-      insertrecord();
+      verifyPhone();
     } else if ((data.compareTo("failed") == 0)) {
       print("Email has already been registered");
       showSuccessSnackBar(Text("This email has already been registered"));

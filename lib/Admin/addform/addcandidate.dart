@@ -65,7 +65,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                     label: const Text("CAMERA"),
                   ),
                   ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
+                    style: ElevatedButton.styleFrom(
                       primary: Colors.purple,
                     ),
                     onPressed: () {
@@ -129,11 +129,11 @@ class _addNewCandidateState extends State<addNewCandidate> {
     print(data.compareTo("Success"));
     if (data.compareTo("Success") == 0) {
       print("Successfully inserted data");
-          Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => CandidateList(),
-          ),
-        );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => CandidateList(),
+        ),
+      );
     } else {
       print("Error");
     }
@@ -148,12 +148,31 @@ class _addNewCandidateState extends State<addNewCandidate> {
     data = json.decode(json.encode(response.body));
     if (data.compareTo("Success") == 0) {
       print("Email validation success");
-      insertrecord();
+      verifyPhone();
     } else if ((data.compareTo("failed") == 0)) {
       print("Email has already been registered");
       showSuccessSnackBar(Text("This email has already been registered"));
     } else {
       print("Enter valid email");
+    }
+  }
+
+  Future<void> verifyPhone() async {
+    String url = "$uri/voting/php/phonevalidation.php/";
+    var response = await http.post(Uri.parse(url), body: {
+      'phone': phone.text,
+    });
+
+    data = json.decode(json.encode(response.body));
+    if (data.compareTo("Success") == 0) {
+      print("Phone Validation Success");
+      insertrecord();
+    } else if ((data.compareTo("failed") == 0)) {
+      print("Phone has already been registered");
+      showSuccessSnackBar(
+          Text("Account with this phone number already exist."));
+    } else {
+      print("Enter valid phone");
     }
   }
 
@@ -238,9 +257,9 @@ class _addNewCandidateState extends State<addNewCandidate> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.purple,
-                      ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.purple,
+                        ),
                         onPressed: imagePickerOption,
                         icon: const Icon(Icons.add_a_photo_sharp),
                         label: const Text('UPLOAD IMAGE')),
@@ -342,7 +361,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
                 margin: const EdgeInsets.all(10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                        primary: Colors.purple,
+                    primary: Colors.purple,
                   ),
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
