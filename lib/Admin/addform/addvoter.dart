@@ -112,10 +112,19 @@ class _addNewVoterState extends State<addNewVoter> {
     });
 
     var data = json.decode(json.encode(response.body));
+    print(data);
+    print(data.compareTo("Success"));
     if (data.compareTo("Success") == 0) {
       print("Successfully inserted data");
+      showSuccessSnackBar(Text("Voter added"));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => VotersList(),
+        ),
+      );
     } else {
       print("Error");
+      showSuccessSnackBar(Text("There was an error. Try again"));
     }
   }
 

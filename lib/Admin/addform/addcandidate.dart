@@ -129,6 +129,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
     print(data.compareTo("Success"));
     if (data.compareTo("Success") == 0) {
       print("Successfully inserted data");
+      showSuccessSnackBar(Text("Candidate added"));
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => CandidateList(),
@@ -136,6 +137,7 @@ class _addNewCandidateState extends State<addNewCandidate> {
       );
     } else {
       print("Error");
+      showSuccessSnackBar(Text("There was an error. Try again"));
     }
   }
 
