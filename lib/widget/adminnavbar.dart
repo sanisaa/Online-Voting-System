@@ -71,13 +71,13 @@ class _NavBarState extends State<NavBar> {
           ),
         );
         break;
-        // case 5:
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) => Report(),
-        //   ),
-        // );
-        // break;
+        case 5:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Report(widget.email),
+          ),
+        );
+        break;
         // case 6:
         //   Navigator.of(context).push(
         //     MaterialPageRoute(
@@ -153,11 +153,11 @@ class _NavBarState extends State<NavBar> {
             title: const Text('Ballot'),
             onTap: () => selectedItem(context, 4),
           ),
-          // ListTile(
-          //   leading: const Icon(Icons.description),
-          //   title: const Text('View Report'),
-          //   onTap: () => selectedItem(context, 5),
-          // ),
+          ListTile(
+            leading: const Icon(Icons.description),
+            title: const Text('View Report'),
+            onTap: () => selectedItem(context, 5),
+          ),
           // ListTile(
           //   leading: const Icon(Icons.share),
           //   title: const Text('publish result'),
