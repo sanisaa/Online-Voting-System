@@ -88,7 +88,7 @@ class _BallotState extends State<Ballot> {
                       primary: Colors.green,
                     ),
                     onPressed: () {
-                              showSuccessSnackBar(Text("You are Admin, You cannot vote!"));
+                    showSuccessSnackBar(Text("You are Admin, You cannot vote!"));
                     }),
                 title: Text(userdata[index]["name"]),
                 subtitle: Text(userdata[index]["agenda"]),
