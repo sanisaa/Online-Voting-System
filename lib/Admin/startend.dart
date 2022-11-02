@@ -35,7 +35,6 @@ class _StartEndState extends State<StartEnd> {
 //     String url = "$uri/voting/php/enddisable.php/";
 //       final response= await http.post(Uri.parse(url));
 //        button = json.encode(json.decode(response.body));
-      
 //       print(button);
 //        but=button.toString();
 //       return but;
