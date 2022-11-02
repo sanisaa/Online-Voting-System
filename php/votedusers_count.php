@@ -1,21 +1,10 @@
-<?php
-    //voter=2
-    //candidate=3
-    //admin=1
-    $connection = new mysqli("localhost","root","","election");
-   
+<?php 
+$connection = new mysqli("localhost","root","","election");
+$vote=0;
 
-    $sql = "select * from user where vote=1 and rid!=1";
-
-    $result = mysqli_query($connection,$sql);
-    $arr = [];
-
-        while($row = mysqli_fetch_array($result)){
-           $arr[]=$row;
-        }
-    
-   // $conn->close();
-   print(json_encode($arr));
-    //echo json_encode($response);
+ $sql="SELECT * FROM user WHERE vote=1 AND rid!=1";
  
-?>
+ $select = mysqli_query($connection, $sql);
+ $rowcount=mysqli_num_rows($select);
+ echo($rowcount);
+ ?>

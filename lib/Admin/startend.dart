@@ -134,7 +134,7 @@ class _StartEndState extends State<StartEnd> {
                     controller: start,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        label: Text('Start Time')),
+                        label: Text('Start Time and Date')),
                   ),
                 ),
                 Container(
@@ -142,7 +142,8 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: end,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('End Time')),
+                        border: OutlineInputBorder(),
+                        label: Text('End Time and Date')),
                   ),
                 ),
                 ElevatedButton(
