@@ -31,16 +31,16 @@ class _StartEndState extends State<StartEnd> {
       showSuccessSnackBar(Text(""));
     }
   }
- Future<String> verify() async{
-    String url = "$uri/voting/php/enddisable.php/";
-      final response= await http.post(Uri.parse(url));
-       button = json.encode(json.decode(response.body));
+//  Future<String> verify() async{
+//     String url = "$uri/voting/php/enddisable.php/";
+//       final response= await http.post(Uri.parse(url));
+//        button = json.encode(json.decode(response.body));
       
-      print(button);
-       but=button.toString();
-      return but;
+//       print(button);
+//        but=button.toString();
+//       return but;
 
-  }
+//   }
 
   showSuccessSnackBar(message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -53,11 +53,11 @@ class _StartEndState extends State<StartEnd> {
           borderRadius: BorderRadius.all(Radius.circular(8))),
     ));
   }
-   @override
-  void initState() {
-    verify();
-    super.initState();
-  }
+  //  @override
+  // void initState() {
+  //   verify();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +100,12 @@ class _StartEndState extends State<StartEnd> {
                     onPressed: () {
                       
                       status = 0;
-                      if(but.compareTo("0")==0){
+                      // if(but.compareTo("0")==0){
                           insertstatus();
-                      }else{
-                        print("cannot end right now");
-                        showSuccessSnackBar(const Text("Still everyone has not voted! Cannot end right now"));
-                      }
+                      // }else{
+                      //   print("cannot end right now");
+                      //   showSuccessSnackBar(const Text("Still everyone has not voted! Cannot end right now"));
+                      // }
                       
                     },
                     child: Text(
