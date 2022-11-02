@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import '../widget/adminnavbar.dart';
 
 class AdminDashboard extends StatefulWidget {
-    
-    var email;
+  var email;
   AdminDashboard(@required this.email);
-    @override
+  @override
   State<AdminDashboard> createState() => _AdminPageState();
 }
 
@@ -15,7 +14,7 @@ class _AdminPageState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Make Change'),
+        title: const Text('Profile'),
         backgroundColor: Colors.purple,
       ),
       drawer: NavBar(widget.email),
