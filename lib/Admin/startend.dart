@@ -15,15 +15,33 @@ class StartEnd extends StatefulWidget {
 }
 
 class _StartEndState extends State<StartEnd> {
+  TextEditingController start = TextEditingController();
+  TextEditingController end = TextEditingController();
   late int status;
   var button;
-    late String but;
+  late String but;
   Future<void> insertstatus() async {
     var url = "$uri/voting/php/updateStatus.php/";
     final response =
         await http.post(Uri.parse(url), body: {'status': status.toString()});
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
+      notify();
+      showSuccessSnackBar(Text("Success"));
+      print(data);
+    } else {
+      print("Success");
+      showSuccessSnackBar(Text(""));
+    }
+  }
+
+  Future<void> endstatus() async {
+    var url = "$uri/voting/php/updateStatus.php/";
+    final response =
+        await http.post(Uri.parse(url), body: {'status': status.toString()});
+    var data = json.decode(json.encode(response.body));
+    if (data != "data insertion Success") {
+      end_notify();
       showSuccessSnackBar(Text("Success"));
       print(data);
     } else {
@@ -35,12 +53,52 @@ class _StartEndState extends State<StartEnd> {
 //     String url = "$uri/voting/php/enddisable.php/";
 //       final response= await http.post(Uri.parse(url));
 //        button = json.encode(json.decode(response.body));
-      
+
 //       print(button);
 //        but=button.toString();
 //       return but;
 
 //   }
+  Future<void> notify() async {
+    var url = "$uri/smtpmail/notification.php/";
+    final response = await http.post(Uri.parse(url), body: {
+      'start': start.text,
+      'end': end.text,
+    });
+
+    var data = json.decode(json.encode(response.body));
+
+    print(data);
+    print(data.compareTo("Success"));
+    print(data.compareTo("Failed"));
+
+    if ((data.compareTo("Success") == 1)) {
+      print("Mail sent");
+      showSuccessSnackBar(Text("Mail Sent"));
+    } else {
+      print("failed");
+      showSuccessSnackBar(Text("There was an error"));
+    }
+  }
+
+  Future<void> end_notify() async {
+    var url = "$uri/smtpmail/endnotification.php/";
+    final response = await http.post(Uri.parse(url), body: {});
+
+    var data = json.decode(json.encode(response.body));
+
+    print(data);
+    print(data.compareTo("Success"));
+    print(data.compareTo("Failed"));
+
+    if ((data.compareTo("Success") == 1)) {
+      print("Mail sent");
+      showSuccessSnackBar(Text("Mail Sent"));
+    } else {
+      print("failed");
+      showSuccessSnackBar(Text("There was an error"));
+    }
+  }
 
   showSuccessSnackBar(message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -71,6 +129,23 @@ class _StartEndState extends State<StartEnd> {
               alignment: Alignment.center,
               padding: EdgeInsets.all(20),
               child: Column(children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        label: Text('Start Time')),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: TextFormField(
+                    controller: end,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), label: Text('End Time')),
+                  ),
+                ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(10),
@@ -98,15 +173,13 @@ class _StartEndState extends State<StartEnd> {
                       minimumSize: Size.fromHeight(40),
                     ),
                     onPressed: () {
-                      
                       status = 0;
                       // if(but.compareTo("0")==0){
-                          insertstatus();
+                      endstatus();
                       // }else{
                       //   print("cannot end right now");
                       //   showSuccessSnackBar(const Text("Still everyone has not voted! Cannot end right now"));
                       // }
-                      
                     },
                     child: Text(
                       'End Election',
