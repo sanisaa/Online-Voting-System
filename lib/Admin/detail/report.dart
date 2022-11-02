@@ -1,8 +1,12 @@
+import 'package:election/Admin/lists/totalusers.dart';
+import 'package:election/Admin/lists/unvoteduser.dart';
+import 'package:election/Admin/lists/voteduser.dart';
 import 'package:election/admin/lists/ballot.dart';
 import 'package:election/api.dart';
 import 'package:election/widget/adminnavbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+//import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -79,44 +83,39 @@ class _ReportState extends State<Report> {
               elevation: 10,
               margin: EdgeInsets.all(10),
               child: ListTile(
-                  // leading: CircleAvatar(
-                  //   minRadius: 10,
-                  //   maxRadius: 50,
-                  //   // radius: 20,
-                  //   child: ClipOval(
-                  //     child: Image.network(
-                  //      '$uri/voting/$image',
-                  //     //  'http://192.168.1.66/voting/$image',
-                  //      width: 60,
-                  //      height: 55,
-                  //      fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  // ),
-                  title: Text(
-                    "Total number of voters:  $totalvoter",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  // subtitle: Text(userdata[index]["agenda"],style: TextStyle(fontWeight: FontWeight.w200),),
-                  onTap: () {
-                    records();
-                  }),
+                title: Text(
+                  "Total number of voters: $totalvoter",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                trailing: Icon(Icons.arrow_forward),
+                // subtitle: Text(userdata[index]["agenda"],style: TextStyle(fontWeight: FontWeight.w200),),
+                onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context) => new TotalVoter())),
+              ),
             ),
             Card(
                 elevation: 10,
+                margin: EdgeInsets.all(10),
                 child: ListTile(
                   title: Text(
-                    "Number of users who already voted:  $voted",
+                    "Number of users who already voted: $voted",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new VotedUser())),
                 )),
             Card(
                 elevation: 10,
+                margin: EdgeInsets.all(10),
                 child: ListTile(
                   title: Text(
-                    "Number of Users left to vote:  $vleft",
+                    "Number of Users left to vote: $vleft",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new UnvotedUser())),
                 )),
           ],
         ));
