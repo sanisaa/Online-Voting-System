@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         print(response.body);
       userdata = json.decode(response.body);
       });
-    }catch(e){print(e);}
+    }catch(e){print(e);}     
 
     // String url = "$uri/voting/php/admindata.php/";
     // //  String uri = "http://192.168.1.66/voting/php/candidatelist.php/"; 

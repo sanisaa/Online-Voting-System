@@ -12,12 +12,11 @@
   
     // check the status 
     $status=$_POST['status'];
-  
+    $vote=0;
     print("status during conn $status");
-   
-    
-    $sql = 
-    "UPDATE poll SET status='$status'";
+   $candidates=$connection->query("UPDATE vote SET vote_count='$vote'");
+    $voters=$connection->query("UPDATE user SET vote='$vote'");
+    $sql = "UPDATE poll SET status='$status'";
     //"insert into updat values($status)";
     if (mysqli_query($connection, $sql))
 {
