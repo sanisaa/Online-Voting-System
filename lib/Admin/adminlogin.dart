@@ -145,11 +145,12 @@ class _LoginState extends State<ALogin> {
                       children: [
                         Container(
                           child: ClipOval(
-                          child: Image.asset('assets/images/logo.png',
-                            fit: BoxFit.cover,
-                            width: 300,
-                            height: 150,
-                          ),
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              fit: BoxFit.cover,
+                              width: 300,
+                              height: 150,
+                            ),
                           ),
                         ),
                         new Row(
