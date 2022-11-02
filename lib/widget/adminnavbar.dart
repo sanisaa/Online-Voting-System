@@ -154,7 +154,7 @@ class _NavBarState extends State<NavBar> {
             onTap: () => selectedItem(context, 4),
           ),
           ListTile(
-            leading: const Icon(Icons.description),
+            leading: const Icon(Icons.auto_graph),
             title: const Text('View Report'),
             onTap: () => selectedItem(context, 5),
           ),
