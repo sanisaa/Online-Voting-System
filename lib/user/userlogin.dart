@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController otp = TextEditingController();
 
-      Future<bool> showExitPopup() async {
+  Future<bool> showExitPopup() async {
     return await showDialog(
           //show confirm dialogue
           //the return value will be from "Yes" or "No" options
@@ -33,19 +33,20 @@ class _LoginState extends State<Login> {
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 //return true when click on "Yes"
-                child: Text('Yes',),
+                child: Text(
+                  'Yes',
+                ),
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 //return false when click on "NO"
                 child: Text('No'),
               ),
-
             ],
           ),
         ) ??
         false;
-    }
+  }
 
   Future<void> sendOTP() async {
     var url = "$uri/smtpmail/user_mail.php/";
@@ -146,11 +147,12 @@ class _LoginState extends State<Login> {
                       children: [
                         Container(
                           child: ClipOval(
-                          child: Image.asset('assets/images/logo.png',
-                            fit: BoxFit.cover,
-                            width: 300,
-                            height: 150,
-                          ),
+                            child: Image.asset(
+                              'assets/images/logo.png',
+                              fit: BoxFit.cover,
+                              width: 300,
+                              height: 150,
+                            ),
                           ),
                         ),
                         new Row(
@@ -171,8 +173,8 @@ class _LoginState extends State<Login> {
                             ),
                             new ElevatedButton(
                                 child: new Text("Admin"),
-                                style:
-                                    ElevatedButton.styleFrom(primary: Colors.red),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.red),
                                 onPressed: () => Navigator.of(context).push(
                                       new MaterialPageRoute(
                                           builder: (BuildContext context) =>
@@ -185,10 +187,11 @@ class _LoginState extends State<Login> {
                         ),
                         Text(
                           " User Login",
-                          style: Theme.of(context).textTheme.headline5!.copyWith(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline5!.copyWith(
+                                    color: Colors.purple,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                         SingleChildScrollView(
                           child: Column(
