@@ -36,7 +36,7 @@ class _VotedUserState extends State<VotedUser>{
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: Text('Users'),
+        title: Text('Already voted'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
@@ -65,6 +65,9 @@ class _VotedUserState extends State<VotedUser>{
               ),
               title: Text(userdata[index]["name"],style: TextStyle(fontWeight: FontWeight.bold),),
               subtitle: Text(userdata[index]["faculty"],style: TextStyle(fontWeight: FontWeight.w200),),
+              trailing: Text("Voted", style: TextStyle(
+                color: Colors.grey,
+              ),),
           onTap: (){}
             ), 
             );

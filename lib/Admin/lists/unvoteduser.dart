@@ -36,7 +36,7 @@ class _UnvotedUserState extends State<UnvotedUser>{
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: Text('Users'),
+        title: Text('Users left to vote'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
