@@ -2,7 +2,7 @@
 $connection = new mysqli("localhost","root","","election");
 $vote=0;
 
- $sql="SELECT * FROM user WHERE rid!=1";
+ $sql="SELECT * FROM user WHERE vote=0 AND rid!=1";
  
  $select = mysqli_query($connection, $sql);
  $rowcount=mysqli_num_rows($select);
