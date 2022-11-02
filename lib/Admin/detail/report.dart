@@ -20,34 +20,42 @@ class _ReportState extends State<Report> {
         backgroundColor: Colors.purple,
       ),
       drawer: NavBar(widget.email),
-      body: Container(
-        height: double.infinity,
-        child: Card(
-          elevation: 8.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Row(
-            children: <Widget>[
-              Container(
-                height: 30,
-                padding: EdgeInsets.all(1),
-                child: ListTile(
-                  title: Text('US Daily Retail Delieveries by Brand', style: TextStyle(fontSize: 13),),
-                  trailing: Icon(Icons.favorite, size: 20,),
+      body: GridView.count(  
+                crossAxisCount: 3,  
+                crossAxisSpacing: 4.0,  
+                mainAxisSpacing: 8.0, 
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    height: 30,
+                    width: 20,
+                    color: Color.fromARGB(255, 227, 181, 235),
+                    child: const ListTile(
+                  title: Text('Voted Users', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),),
+                  trailing: Icon(Icons.arrow_forward, size: 20,color: Colors.green,),
+                  
                 ),
-              ),
-              Divider(color: Colors.black,),
-              Container(
-                height: 30,
-                child: new ListTile(
-                  title: Text("Price")
-                ),
-              )
-            ]
-          ),
-        ),
-      ),
-    );
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    height: 30,
+                    width: 20,
+                    color: Colors.purple,
+                  ),
+                                    Container(
+                    margin: EdgeInsets.all(10),
+                    height: 30,
+                    width: 20,
+                    color: Colors.purple,
+                  ),
+                                    Container(
+                    margin: EdgeInsets.all(10),
+                    height: 30,
+                    width: 20,
+                    color: Colors.purple,
+                  ),
+                ],
+      )
+      );
   }
 }

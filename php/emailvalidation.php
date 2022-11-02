@@ -4,9 +4,6 @@
 //admin=1
 
 $connection = new mysqli("localhost","root","","election");
-
-$email=$_POST['email'];
-
  $sql="select * from user where email='$email'";
  
  $select = mysqli_query($connection, $sql);

@@ -7,6 +7,7 @@ import '../widget/adminnavbar.dart';
 class StartEnd extends StatefulWidget {
   // const StartEnd({Key? key}) : super(key: key);
   var email;
+
   StartEnd(this.email, {Key? key}) : super(key: key);
 
   @override
@@ -15,19 +16,30 @@ class StartEnd extends StatefulWidget {
 
 class _StartEndState extends State<StartEnd> {
   late int status;
-
+  var button;
+    late String but;
   Future<void> insertstatus() async {
     var url = "$uri/voting/php/updateStatus.php/";
     final response =
         await http.post(Uri.parse(url), body: {'status': status.toString()});
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
-      showSuccessSnackBar(Text(""));
+      showSuccessSnackBar(Text("Success"));
       print(data);
     } else {
       print("Success");
       showSuccessSnackBar(Text(""));
     }
+  }
+ Future<String> verify() async{
+    String url = "$uri/voting/php/enddisable.php/";
+      final response= await http.post(Uri.parse(url));
+       button = json.encode(json.decode(response.body));
+      
+      print(button);
+       but=button.toString();
+      return but;
+
   }
 
   showSuccessSnackBar(message) {
@@ -40,6 +52,11 @@ class _StartEndState extends State<StartEnd> {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8))),
     ));
+  }
+   @override
+  void initState() {
+    verify();
+    super.initState();
   }
 
   @override
@@ -62,7 +79,8 @@ class _StartEndState extends State<StartEnd> {
                     ),
                     onPressed: () {
                       status = 1;
-                      // print(status);
+                      print(status);
+                      // enableBallot();
                       insertstatus();
                     },
                     child: Text(
@@ -80,8 +98,15 @@ class _StartEndState extends State<StartEnd> {
                       minimumSize: Size.fromHeight(40),
                     ),
                     onPressed: () {
+                      
                       status = 0;
-                      insertstatus();
+                      if(but.compareTo("0")==0){
+                          insertstatus();
+                      }else{
+                        print("cannot end right now");
+                        showSuccessSnackBar(const Text("Still everyone has not voted! Cannot end right now"));
+                      }
+                      
                     },
                     child: Text(
                       'End Election',
