@@ -3,6 +3,7 @@ import 'package:election/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../widget/adminnavbar.dart';
+import 'package:intl/intl.dart';
 
 class StartEnd extends StatefulWidget {
   // const StartEnd({Key? key}) : super(key: key);
@@ -133,10 +134,30 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: start,
                     decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_today),
                         border: OutlineInputBorder(),
                         label: Text('Start Date and Time'),
-                       
                         ),
+                        readOnly: true,
+                        onTap: () async{
+                          DateTime? pickedDate= await showDatePicker(
+                            context: context,
+                             initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                               lastDate: DateTime(2100)
+                               );
+                        
+                        if(pickedDate!=null){
+                          print(pickedDate);
+                          String formattedDate= DateFormat('yyyy-MM-dd').format(pickedDate);
+                          print(formattedDate);
+                          setState(() {
+                            start.text=formattedDate;
+                          });
+                        }else{
+                          print('Date is not selected');
+                        }
+                        },
                         
                   ),
                 ),
@@ -145,8 +166,32 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: end,
                     decoration: InputDecoration(
+                      icon: Icon(Icons.calendar_today),
                         border: OutlineInputBorder(),
-                        label: Text('End Time and Date')),
+                        label: Text('End Time and Date')
+                        ),
+                         readOnly: true,
+                        onTap: () async{
+                          DateTime? pickedDate= await showDatePicker(
+                            context: context,
+                             initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                               lastDate: DateTime(2100)
+                               );
+                        
+                        if(pickedDate!=null){
+                          print(pickedDate);
+                          String formattedDate= DateFormat('yyyy-MM-dd').format(pickedDate);
+                          print(formattedDate);
+                          setState(() {
+                            end.text=formattedDate;
+                          });
+                        }else{
+                          setState(() {
+                            end.text="please select date";
+                          });
+                        }
+                        },
                   ),
                 ),
                 ElevatedButton(
