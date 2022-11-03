@@ -7,11 +7,4 @@ $vote=0;
  $select = mysqli_query($connection, $sql);
  $rowcount=mysqli_num_rows($select);
  echo($rowcount);
-//  if($rowcount){
-// 		echo "Success";
-//     }
-// 	else{
-// 		echo "failed";
-// 	}
-
  ?>

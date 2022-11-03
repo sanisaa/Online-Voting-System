@@ -27,7 +27,7 @@ class _StartEndState extends State<StartEnd> {
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
       notify();
-      showSuccessSnackBar(Text("Success"));
+      showSuccessSnackBar(Text("Election Started Successfully"));
       print(data);
     } else {
       print("Success");
@@ -42,7 +42,7 @@ class _StartEndState extends State<StartEnd> {
     var data = json.decode(json.encode(response.body));
     if (data != "data insertion Success") {
       end_notify();
-      showSuccessSnackBar(Text("Success"));
+      showSuccessSnackBar(Text("Election Ended Successfully"));
       print(data);
     } else {
       print("Success");
@@ -145,7 +145,8 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: end,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('End Date and Time')),
+                        border: OutlineInputBorder(),
+                        label: Text('End Time and Date')),
                   ),
                 ),
                 ElevatedButton(
