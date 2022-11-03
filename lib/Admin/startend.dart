@@ -36,7 +36,7 @@ class _StartEndState extends State<StartEnd> {
   }
 
   Future<void> endstatus() async {
-    var url = "$uri/voting/php/updateStatus.php/";
+    var url = "$uri/voting/php/endelection.php/";
     final response =
         await http.post(Uri.parse(url), body: {'status': status.toString()});
     var data = json.decode(json.encode(response.body));
@@ -49,7 +49,7 @@ class _StartEndState extends State<StartEnd> {
       showSuccessSnackBar(Text(""));
     }
   }
-//  Future<String> verify() async{
+//Future<String> verify() async{
 //     String url = "$uri/voting/php/enddisable.php/";
 //       final response= await http.post(Uri.parse(url));
 //        button = json.encode(json.decode(response.body));
@@ -134,7 +134,10 @@ class _StartEndState extends State<StartEnd> {
                     controller: start,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        label: Text('Start Time')),
+                        label: Text('Start Date and Time'),
+                       
+                        ),
+                        
                   ),
                 ),
                 Container(
@@ -142,7 +145,7 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: end,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), label: Text('End Time')),
+                        border: OutlineInputBorder(), label: Text('End Date and Time')),
                   ),
                 ),
                 ElevatedButton(

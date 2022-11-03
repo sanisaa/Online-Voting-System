@@ -206,6 +206,7 @@ class _LoginState extends State<ALogin> {
                                       ),
                                       label: Text('Enter the email'),
                                       suffixIcon: IconButton(
+                                        
                                         color: Colors.purple,
                                         icon: Icon(Icons.send),
                                         tooltip: "Send OTP",
