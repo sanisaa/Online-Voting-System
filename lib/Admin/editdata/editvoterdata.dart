@@ -52,6 +52,9 @@ class _EditDataState extends State<EditData> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.camera);
                     },
@@ -59,6 +62,9 @@ class _EditDataState extends State<EditData> {
                     label: const Text("CAMERA"),
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.gallery);
                     },
@@ -69,6 +75,9 @@ class _EditDataState extends State<EditData> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       Get.back();
                     },
