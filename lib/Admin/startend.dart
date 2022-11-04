@@ -18,6 +18,7 @@ class StartEnd extends StatefulWidget {
 class _StartEndState extends State<StartEnd> {
   TextEditingController start = TextEditingController();
   TextEditingController end = TextEditingController();
+  TextEditingController time = TextEditingController();
   late int status;
   var button;
   late String but;
@@ -135,30 +136,19 @@ class _StartEndState extends State<StartEnd> {
                     controller: start,
                     decoration: InputDecoration(
                       icon: Icon(Icons.calendar_today),
-                        border: OutlineInputBorder(),
-                        label: Text('Start Date and Time'),
-                        ),
-                        readOnly: true,
-                        onTap: () async{
-                          DateTime? pickedDate= await showDatePicker(
-                            context: context,
-                             initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                               lastDate: DateTime(2100)
-                               );
-                        
-                        if(pickedDate!=null){
-                          print(pickedDate);
-                          String formattedDate= DateFormat('yyyy-MM-dd').format(pickedDate);
-                          print(formattedDate);
-                          setState(() {
-                            start.text=formattedDate;
-                          });
-                        }else{
-                          print('Date is not selected');
-                        }
-                        },
-                        
+                      border: OutlineInputBorder(),
+                      label: Text('Start Date and Time'),
+                    ),
+                    readOnly: true,
+                    onTap: () async {
+                      String formattedDate = DateFormat('yyyy-MM-dd')
+                          .add_jm()
+                          .format(DateTime.now());
+                      print(formattedDate);
+                      setState(() {
+                        start.text = formattedDate;
+                      });
+                    },
                   ),
                 ),
                 Container(
@@ -166,32 +156,31 @@ class _StartEndState extends State<StartEnd> {
                   child: TextFormField(
                     controller: end,
                     decoration: InputDecoration(
-                      icon: Icon(Icons.calendar_today),
+                        icon: Icon(Icons.calendar_today),
                         border: OutlineInputBorder(),
-                        label: Text('End Time and Date')
-                        ),
-                         readOnly: true,
-                        onTap: () async{
-                          DateTime? pickedDate= await showDatePicker(
-                            context: context,
-                             initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                               lastDate: DateTime(2100)
-                               );
-                        
-                        if(pickedDate!=null){
-                          print(pickedDate);
-                          String formattedDate= DateFormat('yyyy-MM-dd').format(pickedDate);
-                          print(formattedDate);
-                          setState(() {
-                            end.text=formattedDate;
-                          });
-                        }else{
-                          setState(() {
-                            end.text="please select date";
-                          });
-                        }
-                        },
+                        label: Text('End Time and Date')),
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2100));
+
+                      if (pickedDate != null) {
+                        print(pickedDate);
+                        String formattedDate =
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                        print(formattedDate);
+                        setState(() {
+                          end.text = formattedDate;
+                        });
+                      } else {
+                        setState(() {
+                          end.text = "please select date";
+                        });
+                      }
+                    },
                   ),
                 ),
                 ElevatedButton(
