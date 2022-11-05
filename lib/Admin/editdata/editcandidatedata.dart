@@ -126,9 +126,13 @@ class _EditDataState extends State<EditData> {
       'image': baseimage
     });
     var data = json.decode(json.encode(response.body));
+    print(data);
     if (data.compareTo("Successful")==0) {
       print(data);
       showSuccessSnackBar(Text("Detail Edited successfully"));
+                    Navigator.of(context).push(new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new CandidateList()));
     } else {
       print("Success");
       showSuccessSnackBar(Text("Failed to update detail"));
@@ -287,9 +291,9 @@ class _EditDataState extends State<EditData> {
                   onPressed: () {
                     editData();
 
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            new CandidateList()));
+                    // Navigator.of(context).push(new MaterialPageRoute(
+                    //     builder: (BuildContext context) =>
+                    //         new CandidateList()));
                   },
                 )
               ],

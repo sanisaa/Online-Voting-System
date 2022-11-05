@@ -24,7 +24,7 @@ $connection = new mysqli("localhost","root","","election");
         $query = mysqli_query($connection, $selectquery);
         $result = mysqli_fetch_assoc($query);
         $uid = $result['uid']; 
-        $table=mysqli_query($connection,"UPDATE  vote SET name='.$name' WHERE uid=".$uid);
+        $table=mysqli_query($connection,"UPDATE  vote SET name='$name' WHERE uid=".$uid);
         }
         else
         {
