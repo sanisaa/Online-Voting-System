@@ -36,7 +36,7 @@ class _AdminsState extends State<Admins>{
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: Text('Users left to vote'),
+        title: Text('Admins'),
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
