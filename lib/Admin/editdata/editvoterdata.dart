@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
@@ -19,9 +21,10 @@ class EditData extends StatefulWidget {
 }
 
 class _EditDataState extends State<EditData> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   TextEditingController controllerName = new TextEditingController();
-  TextEditingController controllerEmail = new TextEditingController();
-  TextEditingController controllerPhone = new TextEditingController();
+  TextEditingController email = new TextEditingController();
+  TextEditingController phone = new TextEditingController();
   TextEditingController controllerGender = new TextEditingController();
   TextEditingController controllerFaculty = new TextEditingController();
   //TextEditingController controlleragenda = new TextEditingController();
@@ -115,8 +118,8 @@ class _EditDataState extends State<EditData> {
       "uid": widget.list[widget.index]['uid'],
       "rid": widget.list[widget.index]['rid'],
       "name": controllerName.text,
-      "email": controllerEmail.text,
-      "phone": controllerPhone.text,
+      "email": email.text,
+      "phone": phone.text,
       "gender": controllerGender.text,
       "faculty": controllerFaculty.text,
       'image': baseimage
@@ -125,9 +128,13 @@ class _EditDataState extends State<EditData> {
     if (data.compareTo("Successful") == 0) {
       print(data);
       showSuccessSnackBar(Text("Detail updated Sucessfully"));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => VotersList()));
     } else {
       print("Success");
       showSuccessSnackBar(Text("Failed to update"));
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new VotersList()));
     }
   }
 
@@ -135,10 +142,8 @@ class _EditDataState extends State<EditData> {
   void initState() {
     controllerName =
         new TextEditingController(text: widget.list[widget.index]['name']);
-    controllerEmail =
-        new TextEditingController(text: widget.list[widget.index]['email']);
-    controllerPhone =
-        new TextEditingController(text: widget.list[widget.index]['phone']);
+    email = new TextEditingController(text: widget.list[widget.index]['email']);
+    phone = new TextEditingController(text: widget.list[widget.index]['phone']);
     controllerGender =
         new TextEditingController(text: widget.list[widget.index]['gender']);
     controllerFaculty =
@@ -166,8 +171,9 @@ class _EditDataState extends State<EditData> {
         backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
+        child: Form(
+          key: _formkey,
+          child: Column(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -234,31 +240,55 @@ class _EditDataState extends State<EditData> {
             ),
             new Column(
               children: <Widget>[
-                new TextField(
+                new TextFormField(
                   controller: controllerName,
                   decoration: new InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       labelText: "Name"),
                 ),
-                new TextField(
-                  controller: controllerEmail,
+                new TextFormField(
+                  controller: email,
                   decoration: new InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       labelText: "Email"),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (email) {
+                    if (email!.isEmpty) {
+                      return 'Please Enter Email';
+                    }
+                    if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                        .hasMatch(email)) {
+                      return 'Please enter a valid Email';
+                    }
+                  },
                 ),
-                new TextField(
-                  controller: controllerPhone,
+                new TextFormField(
+                  controller: phone,
                   decoration: new InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       labelText: "Phone_number"),
+                  validator: (phone) {
+                    String regexPattern = r'^[9][6-9]\d{8}';
+                    var regExp = new RegExp(regexPattern);
+                    if (phone!.isEmpty) {
+                      return 'Please Enter Phone Number';
+                    }
+                    if (!regExp.hasMatch(phone)) {
+                      return 'Please a valid phone number';
+                    }
+                    if (phone.length != 10) {
+                      return 'Mobile Number must be of 10 digit';
+                    }
+                    return null;
+                  },
                 ),
-                new TextField(
+                new TextFormField(
                   controller: controllerGender,
                   decoration: new InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
                       labelText: "Gender"),
                 ),
-                new TextField(
+                new TextFormField(
                   controller: controllerFaculty,
                   decoration: new InputDecoration(
                       contentPadding: EdgeInsets.only(left: 10),
@@ -271,14 +301,14 @@ class _EditDataState extends State<EditData> {
                   child: new Text("EDIT DATA"),
                   style: ElevatedButton.styleFrom(primary: Colors.purple),
                   onPressed: () {
-                    editData();
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => new VotersList()));
+                    if (_formkey.currentState!.validate()) {
+                      editData();
+                    }
                   },
                 )
               ],
             ),
-          ],
+          ]),
         ),
       ),
     );

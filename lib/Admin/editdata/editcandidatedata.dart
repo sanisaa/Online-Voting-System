@@ -21,9 +21,10 @@ class EditData extends StatefulWidget {
 }
 
 class _EditDataState extends State<EditData> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   TextEditingController controllerName = new TextEditingController();
-  TextEditingController controllerEmail = new TextEditingController();
-  TextEditingController controllerPhone = new TextEditingController();
+  TextEditingController email = new TextEditingController();
+  TextEditingController phone = new TextEditingController();
   TextEditingController controllerGender = new TextEditingController();
   TextEditingController controllerFaculty = new TextEditingController();
   TextEditingController controllerAgenda = new TextEditingController();
@@ -118,8 +119,8 @@ class _EditDataState extends State<EditData> {
       "rid": widget.list[widget.index]['rid'],
       "uid": widget.list[widget.index]['uid'],
       "name": controllerName.text,
-      "email": controllerEmail.text,
-      "phone": controllerPhone.text,
+      "email": email.text,
+      "phone": phone.text,
       "gender": controllerGender.text,
       "faculty": controllerFaculty.text,
       "agenda": controllerAgenda.text,
@@ -129,9 +130,13 @@ class _EditDataState extends State<EditData> {
     if (data.compareTo("Successful") == 0) {
       print(data);
       showSuccessSnackBar(Text("Detail Edited successfully"));
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new CandidateList()));
     } else {
       print("Success");
       showSuccessSnackBar(Text("Failed to update detail"));
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new CandidateList()));
     }
   }
 
@@ -139,12 +144,10 @@ class _EditDataState extends State<EditData> {
   void initState() {
     controllerName =
         new TextEditingController(text: widget.list[widget.index]['name']);
-    controllerEmail =
-        new TextEditingController(text: widget.list[widget.index]['email']);
+    email = new TextEditingController(text: widget.list[widget.index]['email']);
     controllerAgenda =
         new TextEditingController(text: widget.list[widget.index]['agenda']);
-    controllerPhone =
-        new TextEditingController(text: widget.list[widget.index]['phone']);
+    phone = new TextEditingController(text: widget.list[widget.index]['phone']);
     controllerGender =
         new TextEditingController(text: widget.list[widget.index]['gender']);
     controllerFaculty =
@@ -174,127 +177,151 @@ class _EditDataState extends State<EditData> {
         backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Stack(children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.purple, width: 5),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100),
+        child: Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Stack(children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple, width: 5),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100),
+                          ),
+                        ),
+                        child: ClipOval(
+                          child: pickedImage != null
+                              ? Image.file(
+                                  pickedImage!,
+                                  //if pickked image is null then the default image is shown whose link is given,
+                                  //otherwise picked image is shown
+                                  width: 170,
+                                  height: 170,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  '$uri/voting/${widget.list[widget.index]['image']}',
+                                  //  '$uri/voting/${widget.list[widget.index]['image']}',
+
+                                  //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
+                                  width: 170,
+                                  height: 170,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
-                      child: ClipOval(
-                        child: pickedImage != null
-                            ? Image.file(
-                                pickedImage!,
-                                //if pickked image is null then the default image is shown whose link is given,
-                                //otherwise picked image is shown
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                '$uri/voting/${widget.list[widget.index]['image']}',
-                                //  '$uri/voting/${widget.list[widget.index]['image']}',
-
-                                //'https://upload.wikimedia.org/wikipedia/commons/5/5f/Alberto_conversi_profile_pic.jpg',
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 5,
-                      child: IconButton(
+                      Positioned(
+                        bottom: 0,
+                        right: 5,
+                        child: IconButton(
+                          onPressed: imagePickerOption,
+                          icon: const Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Colors.purple,
+                            size: 30,
+                          ),
+                        ),
+                      )
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(primary: Colors.purple),
                         onPressed: imagePickerOption,
-                        icon: const Icon(
-                          Icons.add_a_photo_outlined,
-                          color: Colors.purple,
-                          size: 30,
-                        ),
-                      ),
-                    )
-                  ]),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(primary: Colors.purple),
-                      onPressed: imagePickerOption,
-                      icon: const Icon(Icons.add_a_photo_sharp),
-                      label: const Text('UPLOAD IMAGE')),
-                )
-              ],
-            ),
-             Column(
-              children: <Widget>[
-                 TextField(
-                  controller: controllerName,
-                  decoration:  const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Name"),
-                ),
-                 TextField(
-                  controller: controllerAgenda,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Agenda"),
-                ),
-                 TextField(
-                  controller: controllerEmail,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Email"),
-                ),
-                 TextField(
-                  controller: controllerPhone,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Phone_number"),
-                ),
-                 TextField(
-                  controller: controllerGender,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Gender"),
-                ),
-                 TextField(
-                  controller: controllerFaculty,
-                  decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 20),
-                      labelText: "Faculty"),
-                ),
-                 const Padding(
-                  padding: EdgeInsets.all(10.0),
-                ),
-                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.purple),
-                  child: const Text("EDIT DATA"),
-                  onPressed: () {
-                    editData();
-
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            new CandidateList()));
-                  },
-                )
-              ],
-            ),
-          ],
+                        icon: const Icon(Icons.add_a_photo_sharp),
+                        label: const Text('UPLOAD IMAGE')),
+                  )
+                ],
+              ),
+              Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: controllerName,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        labelText: "Name"),
+                  ),
+                  TextFormField(
+                    controller: controllerAgenda,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        labelText: "Agenda"),
+                  ),
+                  TextFormField(
+                      controller: email,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 20),
+                          labelText: "Email"),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (email) {
+                        if (email!.isEmpty) {
+                          return 'Please Enter Email';
+                        }
+                        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                            .hasMatch(email)) {
+                          return 'Please enter a valid Email';
+                        }
+                      }),
+                  TextFormField(
+                    controller: phone,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        labelText: "Phone_number"),
+                    validator: (phone) {
+                      String regexPattern = r'^[9][6-9]\d{8}';
+                      var regExp = new RegExp(regexPattern);
+                      if (phone!.isEmpty) {
+                        return 'Please Enter Phone Number';
+                      }
+                      if (!regExp.hasMatch(phone)) {
+                        return 'Please a valid phone number';
+                      }
+                      if (phone.length != 10) {
+                        return 'Mobile Number must be of 10 digit';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: controllerGender,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        labelText: "Gender"),
+                  ),
+                  TextFormField(
+                    controller: controllerFaculty,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        labelText: "Faculty"),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(10.0),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.purple),
+                    child: const Text("EDIT DATA"),
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        editData();
+                      }
+                    },
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
