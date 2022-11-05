@@ -136,13 +136,15 @@ class _DetailViewState extends State<DetailView> {
                           style: ElevatedButton.styleFrom(
                             primary: Colors.green,
                           ),
-                          onPressed: () =>
-                              Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => new EditData(
-                              list: widget.list,
-                              index: widget.index,
-                            ),
-                          )),
+                          onPressed: () async {
+                            Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (BuildContext context) => new EditData(
+                                list: widget.list,
+                                index: widget.index,
+                              ),
+                            ));
+                            setState(() {});
+                          },
                         ),
                         new ElevatedButton(
                           child: new Text("DELETE"),
