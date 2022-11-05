@@ -12,6 +12,7 @@ import '../../api.dart';
 
 class addNewCandidate extends StatefulWidget {
   // const addNewVoter({Key? key}) : super(key: key);
+  
 
   @override
   State<addNewCandidate> createState() => _addNewCandidateState();

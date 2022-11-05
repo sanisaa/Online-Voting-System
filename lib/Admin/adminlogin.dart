@@ -31,6 +31,9 @@ class _LoginState extends State<ALogin> {
             content: Text('Do you want to exit an App?'),
             actions: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                 onPressed: () => Navigator.of(context).pop(true),
                 //return true when click on "Yes"
                 child: Text(
@@ -38,6 +41,9 @@ class _LoginState extends State<ALogin> {
                 ),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                    ),
                 onPressed: () => Navigator.of(context).pop(false),
                 //return false when click on "NO"
                 child: Text('No'),

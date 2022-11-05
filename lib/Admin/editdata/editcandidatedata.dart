@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:election/Admin/home.dart';
 import 'package:election/api.dart';
+import 'package:election/widget/adminnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -53,6 +55,9 @@ class _EditDataState extends State<EditData> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.camera);
                     },
@@ -60,6 +65,9 @@ class _EditDataState extends State<EditData> {
                     label: const Text("CAMERA"),
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       pickImage(ImageSource.gallery);
                     },
@@ -70,6 +78,9 @@ class _EditDataState extends State<EditData> {
                     height: 10,
                   ),
                   ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.purple,
+                    ),
                     onPressed: () {
                       Get.back();
                     },
@@ -156,9 +167,10 @@ class _EditDataState extends State<EditData> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_new
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("EDIT DATA"),
+        title: const Text("EDIT DATA"),
         backgroundColor: Colors.purple,
       ),
       body: SingleChildScrollView(
@@ -228,52 +240,53 @@ class _EditDataState extends State<EditData> {
                 )
               ],
             ),
-            new Column(
+             Column(
               children: <Widget>[
-                new TextField(
+                 TextField(
                   controller: controllerName,
-                  decoration: new InputDecoration(
+                  decoration:  const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Name"),
                 ),
-                new TextField(
+                 TextField(
                   controller: controllerAgenda,
-                  decoration: new InputDecoration(
+                  decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Agenda"),
                 ),
-                new TextField(
+                 TextField(
                   controller: controllerEmail,
-                  decoration: new InputDecoration(
+                  decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Email"),
                 ),
-                new TextField(
+                 TextField(
                   controller: controllerPhone,
-                  decoration: new InputDecoration(
+                  decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Phone_number"),
                 ),
-                new TextField(
+                 TextField(
                   controller: controllerGender,
-                  decoration: new InputDecoration(
+                  decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Gender"),
                 ),
-                new TextField(
+                 TextField(
                   controller: controllerFaculty,
-                  decoration: new InputDecoration(
+                  decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(left: 20),
                       labelText: "Faculty"),
                 ),
-                new Padding(
-                  padding: const EdgeInsets.all(10.0),
+                 const Padding(
+                  padding: EdgeInsets.all(10.0),
                 ),
-                new ElevatedButton(
+                 ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.purple),
-                  child: new Text("EDIT DATA"),
+                  child: const Text("EDIT DATA"),
                   onPressed: () {
                     editData();
+
                     Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext context) =>
                             new CandidateList()));
