@@ -150,7 +150,7 @@ class _NavBarState extends State<NavBar> {
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text('Exit'),
+            title: const Text('logout'),
             onTap: () => selectedItem(context, 4),
           ),
           //       ListTile(
