@@ -22,12 +22,11 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   // const NavBar({Key? key}) : super(key: key);
 
-    Future<void> deleteotp() async {
+  Future<void> deleteotp() async {
     String url = "$uri/voting/php/otpdelete.php/";
     var response = await http.post(Uri.parse(url), body: {
       'email': widget.email,
     });
-
   }
 
   void selectedItem(BuildContext context, int index) {
@@ -57,46 +56,46 @@ class _NavBarState extends State<NavBar> {
         );
         break;
       case 3:
-              Navigator.of(context).push(
+        Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => StartEnd(widget.email),
           ),
         );
 
         break;
-        case 4:
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => VoteFor(widget.email),
+      case 4:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => VoteFor(widget.email),
           ),
         );
         break;
-        case 5:
+      case 5:
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Report(widget.email),
           ),
         );
         break;
-        // case 6:
-        //   Navigator.of(context).push(
-        //     MaterialPageRoute(
-        //       builder: (context) => Publish(widget.email),
-        //   ),
-        // );
-        // break;
-        case 7:
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => Votes(),
+      // case 6:
+      //   Navigator.of(context).push(
+      //     MaterialPageRoute(
+      //       builder: (context) => Publish(widget.email),
+      //   ),
+      // );
+      // break;
+      case 7:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Votes(),
           ),
         );
         break;
       case 8:
         deleteotp();
-      Navigator.of(context).pushAndRemoveUntil(
-    MaterialPageRoute(builder: (context) => ALogin()),
-    (Route<dynamic> route) => false);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => ALogin()),
+            (Route<dynamic> route) => false);
         break;
     }
   }
@@ -109,25 +108,26 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-          accountName:  const Text('Electiva'),
-         accountEmail:   Text(widget.email),
-         currentAccountPicture: CircleAvatar(
-          child: ClipOval(
-            child: Image.asset('assets/images/logo.png',
-            fit: BoxFit.cover,
-            width: 90,
-            height: 90,
-            ),
-          ), 
-          ),
-          decoration: const BoxDecoration(
-            color:Colors.blue,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/images/banner.png'),
+            accountName: const Text('Electiva'),
+            accountEmail: Text(widget.email),
+            currentAccountPicture: CircleAvatar(
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                  width: 90,
+                  height: 90,
+                ),
               ),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage('assets/images/banner.png'),
+              ),
+            ),
           ),
-         ),
           ListTile(
             leading: const Icon(Icons.account_box),
             title: const Text('profile'),

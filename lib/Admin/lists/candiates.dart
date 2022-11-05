@@ -49,6 +49,7 @@ class _CandidateListState extends State<CandidateList> {
           borderRadius: BorderRadius.all(Radius.circular(8))),
     ));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,21 +58,15 @@ class _CandidateListState extends State<CandidateList> {
         centerTitle: true,
         backgroundColor: Colors.purple,
       ),
-      
       body: RefreshIndicator(
         onRefresh: () {
-          return Future.delayed(
-            Duration(seconds: 1),
-            (){
-              setState(() {
-                userdata.addAll;
-              });
-              showSuccessSnackBar(Text("page refrfeshed"));
-            } 
-            
-          );
-          },
-          
+          return Future.delayed(Duration(seconds: 1), () {
+            setState(() {
+              userdata.addAll;
+            });
+            showSuccessSnackBar(Text("page refreshed"));
+          });
+        },
         child: ListView.builder(
             // itemCount: userdata.length,
             itemCount: userdata == null ? 0 : userdata.length,
