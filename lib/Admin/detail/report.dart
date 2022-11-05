@@ -1,12 +1,12 @@
+import 'package:election/Admin/lists/totalcandidates.dart';
 import 'package:election/Admin/lists/totalusers.dart';
 import 'package:election/Admin/lists/unvoteduser.dart';
 import 'package:election/Admin/lists/voteduser.dart';
-import 'package:election/admin/lists/ballot.dart';
 import 'package:election/api.dart';
+import 'package:election/Admin/lists/totaladmins.dart';
 import 'package:election/widget/adminnavbar.dart';
 import 'package:flutter/material.dart';
 //import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +21,21 @@ class _ReportState extends State<Report> {
   var voted;
   var totalvoter;
   var vleft;
+  var candidates;
+  var totaladmin;
 
-  Future<void> getrecord() async {
+ Future<void> getadmin() async {
+    String url = "$uri/voting/php/admin_count.php/";
+    //String url = "$uri/voting/php/totalvoters.php/";
+    final response = await http.get(Uri.parse(url));
+    totaladmin = json.encode(json.decode(response.body));
+    print(totaladmin);
+    setState(() {
+      return totaladmin;
+    });
+  }
+
+  Future<void> getvoted() async {
     String url = "$uri/voting/php/votedusers_count.php/";
     //String url = "$uri/voting/php/totalvoters.php/";
     final response = await http.get(Uri.parse(url));
@@ -32,8 +45,19 @@ class _ReportState extends State<Report> {
       return voted;
     });
   }
+  
+    Future<void> getcandidate() async {
+    String url = "$uri/voting/php/candidates_count.php/";
+    //String url = "$uri/voting/php/totalvoters.php/";
+    final response = await http.get(Uri.parse(url));
+    candidates = json.encode(json.decode(response.body));
+    print(candidates);
+    setState(() {
+      return candidates;
+    });
+  }
 
-  Future<void> getrecordd() async {
+  Future<void> getunvoted() async {
     String url = "$uri/voting/php/unvotedusers_count.php/";
     //String url = "$uri/voting/php/totalvoters.php/";
     final response = await http.get(Uri.parse(url));
@@ -44,7 +68,7 @@ class _ReportState extends State<Report> {
     });
   }
 
-  Future<void> records() async {
+  Future<void> getvoters() async {
     String url = "$uri/voting/php/totalvoters_count.php/";
     final response = await http.get(Uri.parse(url));
     totalvoter = json.encode(json.decode(response.body));
@@ -53,8 +77,10 @@ class _ReportState extends State<Report> {
     if (totalvoter != null) {
       print(totalvoter);
       setState(() {
-        getrecordd();
-        getrecord();
+        getadmin();
+        getunvoted();
+        getvoted();
+        getcandidate();
         return totalvoter;
       });
     } else {
@@ -64,7 +90,7 @@ class _ReportState extends State<Report> {
 
   @override
   void initState() {
-    records();
+    getvoters();
     //getrecord();
     super.initState();
   }
@@ -84,6 +110,20 @@ class _ReportState extends State<Report> {
               margin: EdgeInsets.all(10),
               child: ListTile(
                 title: Text(
+                  "Total Admins: $totaladmin",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                trailing: Icon(Icons.arrow_forward),
+                // subtitle: Text(userdata[index]["agenda"],style: TextStyle(fontWeight: FontWeight.w200),),
+                onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                    builder: (BuildContext context) => new Admins())),
+              ),
+            ),
+            Card(
+              elevation: 10,
+              margin: EdgeInsets.all(10),
+              child: ListTile(
+                title: Text(
                   "Total number of voters: $totalvoter",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -93,6 +133,18 @@ class _ReportState extends State<Report> {
                     builder: (BuildContext context) => new TotalVoter())),
               ),
             ),
+            Card(
+                elevation: 10,
+                margin: EdgeInsets.all(10),
+                child: ListTile(
+                  title: Text(
+                    "Number of candidates: $candidates",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new Candidate())),
+                )),
             Card(
                 elevation: 10,
                 margin: EdgeInsets.all(10),
@@ -117,6 +169,7 @@ class _ReportState extends State<Report> {
                   onTap: () => Navigator.of(context).push(new MaterialPageRoute(
                       builder: (BuildContext context) => new UnvotedUser())),
                 )),
+
           ],
         ));
   }
