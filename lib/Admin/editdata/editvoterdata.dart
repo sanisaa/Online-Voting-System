@@ -128,8 +128,8 @@ class _EditDataState extends State<EditData> {
     if (data.compareTo("Successful") == 0) {
       print(data);
       showSuccessSnackBar(Text("Detail updated Sucessfully"));
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => VotersList()));
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new VotersList()));
     } else {
       print("Success");
       showSuccessSnackBar(Text("Failed to update"));
