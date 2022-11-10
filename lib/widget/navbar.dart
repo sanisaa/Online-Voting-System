@@ -4,7 +4,7 @@ import 'package:election/user/diablepage.dart';
 import 'package:election/user/lists/votefor.dart';
 import 'package:election/user/userlogin.dart';
 import 'package:flutter/material.dart';
-import '../user/lists/ballot.dart';
+import 'package:election/user/feedback.dart';
 import '../user/lists/candiates.dart';
 import '../user/lists/votes.dart';
 import 'dart:convert';
@@ -50,7 +50,8 @@ class _NavBarState extends State<NavBar> {
           MaterialPageRoute(builder: (context) => DisablePage(widget.email)));
     }
   }
-    void enableVOtes() {
+
+  void enableVOtes() {
     if (status.compareTo("NotRegistered") == 0) {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => Votes(),
@@ -87,8 +88,15 @@ class _NavBarState extends State<NavBar> {
         enableBallot();
         break;
       case 4:
-      deleteotp();
-            Navigator.of(context).pushAndRemoveUntil(
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Feed(),
+          ),
+        );
+        break;
+      case 5:
+        deleteotp();
+        Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => Login()),
             (Route<dynamic> route) => false);
         break;
@@ -109,25 +117,26 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-          accountName:  const Text('Electiva'),
-         accountEmail:   Text(widget.email),
-         currentAccountPicture: CircleAvatar(
-          child: ClipOval(
-            child: Image.asset('assets/images/logo.png',
-            fit: BoxFit.cover,
-            width: 90,
-            height: 90,
-            ),
-          ), 
-          ),
-          decoration: const BoxDecoration(
-            color:Colors.purple,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/images/banner.png'),
+            accountName: const Text('Electiva'),
+            accountEmail: Text(widget.email),
+            currentAccountPicture: CircleAvatar(
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                  width: 90,
+                  height: 90,
+                ),
               ),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.purple,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage('assets/images/banner.png'),
+              ),
+            ),
           ),
-         ),
           ListTile(
             leading: const Icon(Icons.account_box),
             title: const Text('profile'),
@@ -149,15 +158,15 @@ class _NavBarState extends State<NavBar> {
             onTap: () => selectedItem(context, 3),
           ),
           ListTile(
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('logout'),
+            leading: const Icon(Icons.phone),
+            title: const Text('Contact us'),
             onTap: () => selectedItem(context, 4),
           ),
-          //       ListTile(
-          // leading:const Icon(Icons.description),
-          // title: const Text('start'),
-          // onTap: ()=> selectedItem(context ,5),
-          // ),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('logout'),
+            onTap: () => selectedItem(context, 5),
+          ),
         ],
       ),
     );
