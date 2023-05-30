@@ -7,9 +7,7 @@ A new Flutter project.
 
 Online Voting Mobile App, developed using Flutter and Localhost.
 
-![1](https://github.com/sanisaa/Online-Voting-System/assets/71261641/f79de24f-9342-4633-aa52-618971fa741c)
-
-![2](https://github.com/sanisaa/Online-Voting-System/assets/71261641/7f972b69-d99e-4d65-9c27-8fad8959c002)
+![1](https://github.com/sanisaa/Online-Voting-System/assets/71261641/f79de24f-9342-4633-aa52-618971fa741c)  ![2](https://github.com/sanisaa/Online-Voting-System/assets/71261641/7f972b69-d99e-4d65-9c27-8fad8959c002)
 
 ![3](https://github.com/sanisaa/Online-Voting-System/assets/71261641/90538714-7999-4904-ab97-f8d2de9e7818)
 
